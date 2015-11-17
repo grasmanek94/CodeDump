@@ -1,0 +1,15 @@
+﻿Build started 9-6-2015 19:13:46.
+     1>Project "D:\Development\Projects\BoxedAppTest\BoxedAppTest.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /I.\BoxedAppSDK\include /ZI /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cxx
+         main.cxx
+     1>d:\development\projects\boxedapptest\main.cxx(6): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+     1>d:\development\projects\boxedapptest\main.cxx(18): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Development\Projects\BoxedAppTest\x64\Debug\BoxedAppTest.exe" /INCREMENTAL /NOLOGO /LIBPATH:.\BoxedAppSDK\lib /LIBPATH:.\BoxedAppSDK\lib\x64 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\Development\Projects\BoxedAppTest\x64\Debug\BoxedAppTest.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Development\Projects\BoxedAppTest\x64\Debug\BoxedAppTest.lib" /MACHINE:X64 x64\Debug\main.obj
+         BoxedAppTest.vcxproj -> D:\Development\Projects\BoxedAppTest\x64\Debug\BoxedAppTest.exe
+     1>Done Building Project "D:\Development\Projects\BoxedAppTest\BoxedAppTest.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.21

@@ -1,0 +1,110 @@
+﻿  ------------------- clean -------------------
+  
+  -------- begin --------
+  
+  Cleaning project:
+  rm -f control.cof
+  rm -f control.elf
+  rm -f control.map
+  rm -f control.sym
+  rm -f control.lss
+  rm -f control.hex
+  rm -f ProcessMessages.o ProcessLeds.o ProcessLCD.o LPA.o ProcessKeys.o Config.o ProcessPresurarization.o Message.o ./RP6Lib/RP6control/RP6ControlLib.o ./RP6Lib/RP6common/RP6uart.o 
+  rm -f ProcessMessages.lst ProcessLeds.lst ProcessLCD.lst LPA.lst ProcessKeys.lst Config.lst ProcessPresurarization.lst Message.lst ./RP6Lib/RP6control/RP6ControlLib.lst ./RP6Lib/RP6common/RP6uart.lst 
+  rm -f ProcessMessages.s ProcessLeds.s ProcessLCD.s LPA.s ProcessKeys.s Config.s ProcessPresurarization.s Message.s ./RP6Lib/RP6control/RP6ControlLib.s ./RP6Lib/RP6common/RP6uart.s
+  rm -f ProcessMessages.d ProcessLeds.d ProcessLCD.d LPA.d ProcessKeys.d Config.d ProcessPresurarization.d Message.d ./RP6Lib/RP6control/RP6ControlLib.d ./RP6Lib/RP6common/RP6uart.d
+  rm -f ProcessMessages.i ProcessLeds.i ProcessLCD.i LPA.i ProcessKeys.i Config.i ProcessPresurarization.i Message.i ./RP6Lib/RP6control/RP6ControlLib.i ./RP6Lib/RP6common/RP6uart.i
+  rm -f .dep/*
+  rmdir .dep
+  -------- end --------
+  
+  ------------------- build -------------------
+  
+  -------- begin --------
+  avr-gcc (GCC) 4.8.2 20131010 (prerelease)
+  Copyright (C) 2013 Free Software Foundation, Inc.
+  This is free software; see the source for copying conditions.  There is NO
+  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  
+  
+  Compiling: ProcessMessages.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessMessages.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/ProcessMessages.o.d ProcessMessages.c -o ProcessMessages.o
+  
+  Compiling: ProcessLeds.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessLeds.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/ProcessLeds.o.d ProcessLeds.c -o ProcessLeds.o
+  
+  Compiling: ProcessLCD.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessLCD.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/ProcessLCD.o.d ProcessLCD.c -o ProcessLCD.o
+  
+  Compiling: LPA.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=LPA.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/LPA.o.d LPA.c -o LPA.o
+  
+  Compiling: ProcessKeys.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessKeys.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/ProcessKeys.o.d ProcessKeys.c -o ProcessKeys.o
+  
+  Compiling: Config.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=Config.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/Config.o.d Config.c -o Config.o
+  
+  Compiling: ProcessPresurarization.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessPresurarization.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/ProcessPresurarization.o.d ProcessPresurarization.c -o ProcessPresurarization.o
+  
+  Compiling: Message.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=Message.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/Message.o.d Message.c -o Message.o
+  
+  Compiling: RP6Lib/RP6control/RP6ControlLib.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=RP6Lib/RP6control/RP6ControlLib.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/RP6ControlLib.o.d RP6Lib/RP6control/RP6ControlLib.c -o RP6Lib/RP6control/RP6ControlLib.o
+  
+  Compiling: RP6Lib/RP6common/RP6uart.c
+  avr-gcc -c -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=RP6Lib/RP6common/RP6uart.lst -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/RP6uart.o.d RP6Lib/RP6common/RP6uart.c -o RP6Lib/RP6common/RP6uart.o
+  RP6Lib/RP6common/RP6uart.c: In function '__vector_13':
+  RP6Lib/RP6common/RP6uart.c:221:26: warning: variable 'dummy' set but not used [-Wunused-but-set-variable]
+    static volatile uint8_t dummy;
+                            ^
+  RP6Lib/RP6common/RP6uart.c: In function 'clearReceptionBuffer':
+  RP6Lib/RP6common/RP6uart.c:296:17: warning: variable 'dummy' set but not used [-Wunused-but-set-variable]
+    static uint8_t dummy;
+                   ^
+  
+  Linking: control.elf
+  avr-gcc -mmcu=atmega32 -I. -gdwarf-2   -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=ProcessMessages.o -I./RP6Lib -I./RP6Lib -I./RP6Lib/RP6control -I./RP6Lib/RP6common -I./RP6Lib/RP6base -I./RP6Lib/RP6control_M256_WIFI -I./LPADecompressieLib -std=gnu99 -MD -MP -MF .dep/control.elf.d ProcessMessages.o ProcessLeds.o ProcessLCD.o LPA.o ProcessKeys.o Config.o ProcessPresurarization.o Message.o RP6Lib/RP6control/RP6ControlLib.o RP6Lib/RP6common/RP6uart.o --output control.elf -Wl,-Map=control.map,--cref    -lm -lLPAdecompressie -L./LPADecompressieLib
+  
+  Creating load file for Flash: control.hex
+  avr-objcopy -O ihex -R .eeprom control.elf control.hex
+  
+  Creating Extended Listing: control.lss
+  avr-objdump -h -S control.elf > control.lss
+  
+  Creating Symbol Table: control.sym
+  avr-nm -n control.elf > control.sym
+  
+  Size after:
+  AVR Memory Usage
+  ----------------
+  Device: atmega32
+  
+  Program:    6482 bytes (19.8% Full)
+  (.text + .data + .bootloader)
+  
+  Data:        152 bytes (7.4% Full)
+  (.data + .bss + .noinit)
+  
+  
+  
+  -------- end --------
+  
+  ------------------- info  -------------------
+  Using Project name    : control
+  Using Project path    : D:\Desktop\LPA\control\
+  Using Project HEX File: "D:\Desktop\LPA\control\control.hex"
+  Using Robotloader cmd : "D:\Development\RP6\RobotLoader\"
+  ------------------- upload ------------------
+  RobotLoader - COMMANDLINE MODE
+  Perform Action: 
+  Upload Program...
+  --> Hexfile Path: D:\Desktop\LPA\control\control.hex
+  Listing all serial ports...
+  ### Error, could not find specified comport: 
+  Please check the used portname!
+  Trying to close port...
+  Exit code: 1
+  ---------------------------------------------

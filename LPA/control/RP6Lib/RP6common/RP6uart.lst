@@ -1,0 +1,1399 @@
+   1               		.file	"RP6uart.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	writeChar
+  12               	writeChar:
+  13               	.LFB5:
+  14               		.file 1 "RP6Lib/RP6common/RP6uart.c"
+   1:RP6Lib/RP6common/RP6uart.c **** /* ****************************************************************************
+   2:RP6Lib/RP6common/RP6uart.c ****  *                           _______________________
+   3:RP6Lib/RP6common/RP6uart.c ****  *                           \| RP6  ROBOT SYSTEM |/
+   4:RP6Lib/RP6common/RP6uart.c ****  *                            \_-_-_-_-_-_-_-_-_-_/         		 >>> COMMON
+   5:RP6Lib/RP6common/RP6uart.c ****  * ----------------------------------------------------------------------------
+   6:RP6Lib/RP6common/RP6uart.c ****  * ------------------- [c]2006 / 2007 - AREXX ENGINEERING ---------------------
+   7:RP6Lib/RP6common/RP6uart.c ****  * -------------------------- http://www.arexx.com/ ---------------------------
+   8:RP6Lib/RP6common/RP6uart.c ****  * ****************************************************************************
+   9:RP6Lib/RP6common/RP6uart.c ****  * File: RP6uart.c
+  10:RP6Lib/RP6common/RP6uart.c ****  * Version: 1.1
+  11:RP6Lib/RP6common/RP6uart.c ****  * Target: RP6 Base & Processor Expansion - ATMEGA32
+  12:RP6Lib/RP6common/RP6uart.c ****  * Author(s): Dominik S. Herwald
+  13:RP6Lib/RP6common/RP6uart.c ****  * ****************************************************************************
+  14:RP6Lib/RP6common/RP6uart.c ****  * Description:
+  15:RP6Lib/RP6common/RP6uart.c ****  *
+  16:RP6Lib/RP6common/RP6uart.c ****  * The RP6 UART Library. (UART = "Universal Aynchronous Receiver Transceiver")
+  17:RP6Lib/RP6common/RP6uart.c ****  *
+  18:RP6Lib/RP6common/RP6uart.c ****  * It contains data transfer functions for the UART. 
+  19:RP6Lib/RP6common/RP6uart.c ****  * In this new version, the reception functions have been completely rewritten
+  20:RP6Lib/RP6common/RP6uart.c ****  * and are now Interrupt based with a circular buffer.
+  21:RP6Lib/RP6common/RP6uart.c ****  *
+  22:RP6Lib/RP6common/RP6uart.c ****  * --------
+  23:RP6Lib/RP6common/RP6uart.c ****  *
+  24:RP6Lib/RP6common/RP6uart.c ****  * Hint: You should better leave all this as it is if you just started with
+  25:RP6Lib/RP6common/RP6uart.c ****  * C programming, but it is a good idea to read the comments and review the
+  26:RP6Lib/RP6common/RP6uart.c ****  * code, it will help you to understand C programming for AVR better.
+  27:RP6Lib/RP6common/RP6uart.c ****  *
+  28:RP6Lib/RP6common/RP6uart.c ****  * Of course you are free to add new functions and improvements to this
+  29:RP6Lib/RP6common/RP6uart.c ****  * library and make them available to the public on the Internet.
+  30:RP6Lib/RP6common/RP6uart.c ****  * Please use the changelog at the end of this file to document your
+  31:RP6Lib/RP6common/RP6uart.c ****  * changes. And add your name (or nickname) to any new function or 
+  32:RP6Lib/RP6common/RP6uart.c ****  * modification you added! E.g. a "modified by <nickname> at <date>" is 
+  33:RP6Lib/RP6common/RP6uart.c ****  * always a good idea to show other users where and what you changed the 
+  34:RP6Lib/RP6common/RP6uart.c ****  * source code!
+  35:RP6Lib/RP6common/RP6uart.c ****  *
+  36:RP6Lib/RP6common/RP6uart.c ****  * ****************************************************************************
+  37:RP6Lib/RP6common/RP6uart.c ****  * CHANGELOG AND LICENSING INFORMATION CAN BE FOUND AT THE END OF THIS FILE!
+  38:RP6Lib/RP6common/RP6uart.c ****  * ****************************************************************************
+  39:RP6Lib/RP6common/RP6uart.c ****  */
+  40:RP6Lib/RP6common/RP6uart.c ****  
+  41:RP6Lib/RP6common/RP6uart.c **** /*****************************************************************************/
+  42:RP6Lib/RP6common/RP6uart.c **** // Includes:
+  43:RP6Lib/RP6common/RP6uart.c **** 
+  44:RP6Lib/RP6common/RP6uart.c **** #include "RP6uart.h"
+  45:RP6Lib/RP6common/RP6uart.c **** 
+  46:RP6Lib/RP6common/RP6uart.c **** /*****************************************************************************/
+  47:RP6Lib/RP6common/RP6uart.c **** // UART transmit functions:
+  48:RP6Lib/RP6common/RP6uart.c **** 
+  49:RP6Lib/RP6common/RP6uart.c **** /**
+  50:RP6Lib/RP6common/RP6uart.c ****  * Write a single character to the UART.
+  51:RP6Lib/RP6common/RP6uart.c ****  *
+  52:RP6Lib/RP6common/RP6uart.c ****  * Example:
+  53:RP6Lib/RP6common/RP6uart.c ****  *
+  54:RP6Lib/RP6common/RP6uart.c ****  *			writeChar('R');
+  55:RP6Lib/RP6common/RP6uart.c ****  *			writeChar('P');
+  56:RP6Lib/RP6common/RP6uart.c ****  *			writeChar('6');
+  57:RP6Lib/RP6common/RP6uart.c ****  *			writeChar('\n');
+  58:RP6Lib/RP6common/RP6uart.c ****  *			// '\n' is a special code for the "new line" character!
+  59:RP6Lib/RP6common/RP6uart.c ****  *			writeChar('0');
+  60:RP6Lib/RP6common/RP6uart.c ****  *			writeChar(48); // 48 is ASCII code for '0'
+  61:RP6Lib/RP6common/RP6uart.c ****  *			writeChar(49); // 1
+  62:RP6Lib/RP6common/RP6uart.c ****  *			writeChar(50); // 2
+  63:RP6Lib/RP6common/RP6uart.c ****  *			writeChar(51); // 3
+  64:RP6Lib/RP6common/RP6uart.c ****  *			//...
+  65:RP6Lib/RP6common/RP6uart.c ****  *
+  66:RP6Lib/RP6common/RP6uart.c ****  *			would output:
+  67:RP6Lib/RP6common/RP6uart.c ****  *			RP6
+  68:RP6Lib/RP6common/RP6uart.c ****  *			00123
+  69:RP6Lib/RP6common/RP6uart.c ****  *
+  70:RP6Lib/RP6common/RP6uart.c ****  */
+  71:RP6Lib/RP6common/RP6uart.c **** void writeChar(char ch)
+  72:RP6Lib/RP6common/RP6uart.c **** {
+  15               		.loc 1 72 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+  21               	.LVL0:
+  22               	.L3:
+  73:RP6Lib/RP6common/RP6uart.c ****     while (!(UCSRA & (1<<UDRE)));
+  23               		.loc 1 73 0 discriminator 1
+  24 0000 5D9B      		sbis 0xb,5
+  25 0002 00C0      		rjmp .L3
+  74:RP6Lib/RP6common/RP6uart.c ****     UDR = (uint8_t)ch;
+  26               		.loc 1 74 0
+  27 0004 8CB9      		out 0xc,r24
+  28 0006 0895      		ret
+  29               		.cfi_endproc
+  30               	.LFE5:
+  32               	.global	writeString
+  34               	writeString:
+  35               	.LFB6:
+  75:RP6Lib/RP6common/RP6uart.c **** }
+  76:RP6Lib/RP6common/RP6uart.c **** 
+  77:RP6Lib/RP6common/RP6uart.c **** /**
+  78:RP6Lib/RP6common/RP6uart.c ****  * Writes a null terminated string or buffer from SRAM to UART.
+  79:RP6Lib/RP6common/RP6uart.c ****  * Make sure that it really IS null terminated!
+  80:RP6Lib/RP6common/RP6uart.c ****  * ("null terminated" means that the string has a null (=0) at the end.
+  81:RP6Lib/RP6common/RP6uart.c ****  * this is automatically added to it by the compiler when you put the
+  82:RP6Lib/RP6common/RP6uart.c ****  * string in double quotes like this: writeString("test");  )
+  83:RP6Lib/RP6common/RP6uart.c ****  *
+  84:RP6Lib/RP6common/RP6uart.c ****  * ATTENTION: This fills up SRAM Memory with the
+  85:RP6Lib/RP6common/RP6uart.c ****  * strings, even if they are constant and never changed.
+  86:RP6Lib/RP6common/RP6uart.c ****  * If you want to write constant text strings to the UART, better use
+  87:RP6Lib/RP6common/RP6uart.c ****  * writeNStringP(const uint8_t *pstring) (s. below), which reads the
+  88:RP6Lib/RP6common/RP6uart.c ****  * text from flash program memory and does not fill up the SRAM with
+  89:RP6Lib/RP6common/RP6uart.c ****  * the string data!
+  90:RP6Lib/RP6common/RP6uart.c ****  *
+  91:RP6Lib/RP6common/RP6uart.c ****  * Example:
+  92:RP6Lib/RP6common/RP6uart.c ****  *
+  93:RP6Lib/RP6common/RP6uart.c ****  *			writeString("RP6 Robot System\n");
+  94:RP6Lib/RP6common/RP6uart.c ****  *
+  95:RP6Lib/RP6common/RP6uart.c ****  */
+  96:RP6Lib/RP6common/RP6uart.c **** void writeString(char *string)
+  97:RP6Lib/RP6common/RP6uart.c **** {
+  36               		.loc 1 97 0
+  37               		.cfi_startproc
+  38               	.LVL1:
+  39 0008 CF93      		push r28
+  40               	.LCFI0:
+  41               		.cfi_def_cfa_offset 3
+  42               		.cfi_offset 28, -2
+  43 000a DF93      		push r29
+  44               	.LCFI1:
+  45               		.cfi_def_cfa_offset 4
+  46               		.cfi_offset 29, -3
+  47               	/* prologue: function */
+  48               	/* frame size = 0 */
+  49               	/* stack size = 2 */
+  50               	.L__stack_usage = 2
+  51 000c EC01      		movw r28,r24
+  52               	.LVL2:
+  53               	.L6:
+  98:RP6Lib/RP6common/RP6uart.c **** 	while(*string)
+  54               		.loc 1 98 0 discriminator 1
+  55 000e 8991      		ld r24,Y+
+  56               	.LVL3:
+  57 0010 8823      		tst r24
+  58 0012 01F0      		breq .L8
+  59               	.LVL4:
+  99:RP6Lib/RP6common/RP6uart.c **** 		writeChar(*string++);
+  60               		.loc 1 99 0
+  61 0014 0E94 0000 		call writeChar
+  62               	.LVL5:
+  63 0018 00C0      		rjmp .L6
+  64               	.LVL6:
+  65               	.L8:
+  66               	/* epilogue start */
+ 100:RP6Lib/RP6common/RP6uart.c **** }
+  67               		.loc 1 100 0
+  68 001a DF91      		pop r29
+  69 001c CF91      		pop r28
+  70               	.LVL7:
+  71 001e 0895      		ret
+  72               		.cfi_endproc
+  73               	.LFE6:
+  75               	.global	writeNStringP
+  77               	writeNStringP:
+  78               	.LFB7:
+ 101:RP6Lib/RP6common/RP6uart.c **** 		
+ 102:RP6Lib/RP6common/RP6uart.c **** /**
+ 103:RP6Lib/RP6common/RP6uart.c ****  * Writes a null terminated string from flash program memory to UART.
+ 104:RP6Lib/RP6common/RP6uart.c ****  * You can use the macro writeString_P(STRING); , this macro
+ 105:RP6Lib/RP6common/RP6uart.c ****  * ensures that the String is stored in program memory only!
+ 106:RP6Lib/RP6common/RP6uart.c ****  * Otherwise you need to use PSTR("your string") from AVRLibC for this. 
+ 107:RP6Lib/RP6common/RP6uart.c ****  *
+ 108:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 109:RP6Lib/RP6common/RP6uart.c ****  *
+ 110:RP6Lib/RP6common/RP6uart.c ****  *			writeNStringP(PSTR("RP6 Robot System\n"));
+ 111:RP6Lib/RP6common/RP6uart.c ****  *
+ 112:RP6Lib/RP6common/RP6uart.c ****  *			// There is also a Macro that makes life easier and
+ 113:RP6Lib/RP6common/RP6uart.c ****  *			// you can simply write:
+ 114:RP6Lib/RP6common/RP6uart.c ****  *			writeString_P("RP6 Robot System\n");
+ 115:RP6Lib/RP6common/RP6uart.c ****  *
+ 116:RP6Lib/RP6common/RP6uart.c ****  */
+ 117:RP6Lib/RP6common/RP6uart.c **** void writeNStringP(const char *pstring)
+ 118:RP6Lib/RP6common/RP6uart.c **** {
+  79               		.loc 1 118 0
+  80               		.cfi_startproc
+  81               	.LVL8:
+  82 0020 CF93      		push r28
+  83               	.LCFI2:
+  84               		.cfi_def_cfa_offset 3
+  85               		.cfi_offset 28, -2
+  86 0022 DF93      		push r29
+  87               	.LCFI3:
+  88               		.cfi_def_cfa_offset 4
+  89               		.cfi_offset 29, -3
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92               	/* stack size = 2 */
+  93               	.L__stack_usage = 2
+  94 0024 FC01      		movw r30,r24
+  95               	.LVL9:
+  96               	.L10:
+  97               	.LBB10:
+ 119:RP6Lib/RP6common/RP6uart.c ****     uint8_t c;
+ 120:RP6Lib/RP6common/RP6uart.c ****     for (;(c = pgm_read_byte_near(pstring++));writeChar(c));
+  98               		.loc 1 120 0 discriminator 1
+  99               	/* #APP */
+ 100               	 ;  120 "RP6Lib/RP6common/RP6uart.c" 1
+ 101 0026 8491      		lpm r24, Z
+ 102               		
+ 103               	 ;  0 "" 2
+ 104               	.LVL10:
+ 105               	/* #NOAPP */
+ 106 0028 EF01      		movw r28,r30
+ 107 002a 2196      		adiw r28,1
+ 108               	.LVL11:
+ 109               	.LBE10:
+ 110 002c 8823      		tst r24
+ 111 002e 01F0      		breq .L12
+ 112               		.loc 1 120 0 is_stmt 0 discriminator 2
+ 113 0030 0E94 0000 		call writeChar
+ 114               	.LVL12:
+ 115 0034 FE01      		movw r30,r28
+ 116 0036 00C0      		rjmp .L10
+ 117               	.LVL13:
+ 118               	.L12:
+ 119               	/* epilogue start */
+ 121:RP6Lib/RP6common/RP6uart.c **** }
+ 120               		.loc 1 121 0 is_stmt 1
+ 121 0038 DF91      		pop r29
+ 122 003a CF91      		pop r28
+ 123               	.LVL14:
+ 124 003c 0895      		ret
+ 125               		.cfi_endproc
+ 126               	.LFE7:
+ 128               	.global	writeStringLength
+ 130               	writeStringLength:
+ 131               	.LFB8:
+ 122:RP6Lib/RP6common/RP6uart.c **** 
+ 123:RP6Lib/RP6common/RP6uart.c **** 
+ 124:RP6Lib/RP6common/RP6uart.c **** /**
+ 125:RP6Lib/RP6common/RP6uart.c ****  * Writes a string with specified length and offset from SRAM to UART.
+ 126:RP6Lib/RP6common/RP6uart.c ****  * If it is a null terminated string, output will be stopped at the
+ 127:RP6Lib/RP6common/RP6uart.c ****  * end! It does not need to be null terminated, but it is recommended
+ 128:RP6Lib/RP6common/RP6uart.c ****  * to use only null terminated strings/buffers, otherwise the function could
+ 129:RP6Lib/RP6common/RP6uart.c ****  * output any SRAM memory data stored after the string until it reaches a 0
+ 130:RP6Lib/RP6common/RP6uart.c ****  * or the specified length.
+ 131:RP6Lib/RP6common/RP6uart.c ****  *
+ 132:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 133:RP6Lib/RP6common/RP6uart.c ****  *
+ 134:RP6Lib/RP6common/RP6uart.c ****  *			writeStringLength("RP6 Robot Sytem\n",16,0);
+ 135:RP6Lib/RP6common/RP6uart.c ****  *			// would output: "RP6 Robot Sytem\n"
+ 136:RP6Lib/RP6common/RP6uart.c ****  *			writeStringLength("RP6 Robot Sytem\n",11,4);
+ 137:RP6Lib/RP6common/RP6uart.c ****  *			// would output: "Robot System"
+ 138:RP6Lib/RP6common/RP6uart.c ****  * 			writeStringLength("RP6 Robot Sytem\n",40,4);
+ 139:RP6Lib/RP6common/RP6uart.c ****  *			// would output: "Robot System\n"
+ 140:RP6Lib/RP6common/RP6uart.c ****  *			// No matter if the specified length is 40 characters!
+ 141:RP6Lib/RP6common/RP6uart.c ****  *
+ 142:RP6Lib/RP6common/RP6uart.c ****  */
+ 143:RP6Lib/RP6common/RP6uart.c **** void writeStringLength(char *string, uint8_t length, uint8_t offset)
+ 144:RP6Lib/RP6common/RP6uart.c **** {
+ 132               		.loc 1 144 0
+ 133               		.cfi_startproc
+ 134               	.LVL15:
+ 135 003e 0F93      		push r16
+ 136               	.LCFI4:
+ 137               		.cfi_def_cfa_offset 3
+ 138               		.cfi_offset 16, -2
+ 139 0040 1F93      		push r17
+ 140               	.LCFI5:
+ 141               		.cfi_def_cfa_offset 4
+ 142               		.cfi_offset 17, -3
+ 143 0042 CF93      		push r28
+ 144               	.LCFI6:
+ 145               		.cfi_def_cfa_offset 5
+ 146               		.cfi_offset 28, -4
+ 147 0044 DF93      		push r29
+ 148               	.LCFI7:
+ 149               		.cfi_def_cfa_offset 6
+ 150               		.cfi_offset 29, -5
+ 151 0046 1F92      		push __zero_reg__
+ 152               	.LCFI8:
+ 153               		.cfi_def_cfa_offset 7
+ 154 0048 CDB7      		in r28,__SP_L__
+ 155 004a DEB7      		in r29,__SP_H__
+ 156               	.LCFI9:
+ 157               		.cfi_def_cfa_register 28
+ 158               	/* prologue: function */
+ 159               	/* frame size = 1 */
+ 160               	/* stack size = 5 */
+ 161               	.L__stack_usage = 5
+ 162               	.LVL16:
+ 145:RP6Lib/RP6common/RP6uart.c **** 	for(string = &string[offset]; *string && length; length--)
+ 163               		.loc 1 145 0
+ 164 004c 8C01      		movw r16,r24
+ 165 004e 040F      		add r16,r20
+ 166 0050 111D      		adc r17,__zero_reg__
+ 167               	.LVL17:
+ 168               	.L14:
+ 169               		.loc 1 145 0 is_stmt 0 discriminator 1
+ 170 0052 F801      		movw r30,r16
+ 171 0054 8191      		ld r24,Z+
+ 172 0056 8F01      		movw r16,r30
+ 173               	.LVL18:
+ 174 0058 8823      		tst r24
+ 175 005a 01F0      		breq .L13
+ 176               		.loc 1 145 0 discriminator 2
+ 177 005c 6623      		tst r22
+ 178 005e 01F0      		breq .L13
+ 179               	.LVL19:
+ 146:RP6Lib/RP6common/RP6uart.c **** 		writeChar(*string++);
+ 180               		.loc 1 146 0 is_stmt 1 discriminator 1
+ 181 0060 6983      		std Y+1,r22
+ 182 0062 0E94 0000 		call writeChar
+ 183               	.LVL20:
+ 145:RP6Lib/RP6common/RP6uart.c **** 	for(string = &string[offset]; *string && length; length--)
+ 184               		.loc 1 145 0 discriminator 1
+ 185 0066 6981      		ldd r22,Y+1
+ 186 0068 6150      		subi r22,lo8(-(-1))
+ 187               	.LVL21:
+ 188 006a 00C0      		rjmp .L14
+ 189               	.LVL22:
+ 190               	.L13:
+ 191               	/* epilogue start */
+ 147:RP6Lib/RP6common/RP6uart.c **** }
+ 192               		.loc 1 147 0
+ 193 006c 0F90      		pop __tmp_reg__
+ 194 006e DF91      		pop r29
+ 195 0070 CF91      		pop r28
+ 196 0072 1F91      		pop r17
+ 197 0074 0F91      		pop r16
+ 198               	.LVL23:
+ 199 0076 0895      		ret
+ 200               		.cfi_endproc
+ 201               	.LFE8:
+ 203               	.global	writeInteger
+ 205               	writeInteger:
+ 206               	.LFB9:
+ 148:RP6Lib/RP6common/RP6uart.c **** 
+ 149:RP6Lib/RP6common/RP6uart.c **** /**
+ 150:RP6Lib/RP6common/RP6uart.c ****  * Write a number (with specified base) to the UART.
+ 151:RP6Lib/RP6common/RP6uart.c ****  *
+ 152:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 153:RP6Lib/RP6common/RP6uart.c ****  *
+ 154:RP6Lib/RP6common/RP6uart.c ****  *			// Write a hexadecimal number to the UART:
+ 155:RP6Lib/RP6common/RP6uart.c ****  *			writeInteger(0xAACC,16);
+ 156:RP6Lib/RP6common/RP6uart.c ****  *			// Instead of 16 you can also write "HEX" as this is defined in the
+ 157:RP6Lib/RP6common/RP6uart.c ****  *			// RP6RobotBaseLib.h :
+ 158:RP6Lib/RP6common/RP6uart.c ****  *			writeInteger(0xAACC, HEX);
+ 159:RP6Lib/RP6common/RP6uart.c ****  *			// Other Formats:
+ 160:RP6Lib/RP6common/RP6uart.c ****  *			writeInteger(1024,DEC);  	// Decimal
+ 161:RP6Lib/RP6common/RP6uart.c ****  *			writeInteger(044,OCT);		// Ocal
+ 162:RP6Lib/RP6common/RP6uart.c ****  *			writeInteger(0b11010111,BIN); // Binary
+ 163:RP6Lib/RP6common/RP6uart.c ****  */
+ 164:RP6Lib/RP6common/RP6uart.c **** void writeInteger(int16_t number, uint8_t base)
+ 165:RP6Lib/RP6common/RP6uart.c **** {
+ 207               		.loc 1 165 0
+ 208               		.cfi_startproc
+ 209               	.LVL24:
+ 210 0078 CF93      		push r28
+ 211               	.LCFI10:
+ 212               		.cfi_def_cfa_offset 3
+ 213               		.cfi_offset 28, -2
+ 214 007a DF93      		push r29
+ 215               	.LCFI11:
+ 216               		.cfi_def_cfa_offset 4
+ 217               		.cfi_offset 29, -3
+ 218 007c CDB7      		in r28,__SP_L__
+ 219 007e DEB7      		in r29,__SP_H__
+ 220               	.LCFI12:
+ 221               		.cfi_def_cfa_register 28
+ 222 0080 6197      		sbiw r28,17
+ 223               	.LCFI13:
+ 224               		.cfi_def_cfa_offset 21
+ 225 0082 0FB6      		in __tmp_reg__,__SREG__
+ 226 0084 F894      		cli
+ 227 0086 DEBF      		out __SP_H__,r29
+ 228 0088 0FBE      		out __SREG__,__tmp_reg__
+ 229 008a CDBF      		out __SP_L__,r28
+ 230               	/* prologue: function */
+ 231               	/* frame size = 17 */
+ 232               	/* stack size = 19 */
+ 233               	.L__stack_usage = 19
+ 234               	.LVL25:
+ 166:RP6Lib/RP6common/RP6uart.c **** 	char buffer[17];
+ 167:RP6Lib/RP6common/RP6uart.c **** 	itoa(number, &buffer[0], base);
+ 235               		.loc 1 167 0
+ 236 008c 462F      		mov r20,r22
+ 237 008e 50E0      		ldi r21,0
+ 238               	.LBB11:
+ 239               	.LBB12:
+ 240               		.file 2 "d:\\development\\rp6\\avr\\include\\stdlib.h"
+   1:d:\development\rp6\avr\include\stdlib.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:d:\development\rp6\avr\include\stdlib.h ****    Copyright (c) 2004,2007 Joerg Wunsch
+   3:d:\development\rp6\avr\include\stdlib.h **** 
+   4:d:\development\rp6\avr\include\stdlib.h ****    Portions of documentation Copyright (c) 1990, 1991, 1993, 1994
+   5:d:\development\rp6\avr\include\stdlib.h ****    The Regents of the University of California.
+   6:d:\development\rp6\avr\include\stdlib.h **** 
+   7:d:\development\rp6\avr\include\stdlib.h ****    All rights reserved.
+   8:d:\development\rp6\avr\include\stdlib.h **** 
+   9:d:\development\rp6\avr\include\stdlib.h ****    Redistribution and use in source and binary forms, with or without
+  10:d:\development\rp6\avr\include\stdlib.h ****    modification, are permitted provided that the following conditions are met:
+  11:d:\development\rp6\avr\include\stdlib.h **** 
+  12:d:\development\rp6\avr\include\stdlib.h ****    * Redistributions of source code must retain the above copyright
+  13:d:\development\rp6\avr\include\stdlib.h ****      notice, this list of conditions and the following disclaimer.
+  14:d:\development\rp6\avr\include\stdlib.h **** 
+  15:d:\development\rp6\avr\include\stdlib.h ****    * Redistributions in binary form must reproduce the above copyright
+  16:d:\development\rp6\avr\include\stdlib.h ****      notice, this list of conditions and the following disclaimer in
+  17:d:\development\rp6\avr\include\stdlib.h ****      the documentation and/or other materials provided with the
+  18:d:\development\rp6\avr\include\stdlib.h ****      distribution.
+  19:d:\development\rp6\avr\include\stdlib.h **** 
+  20:d:\development\rp6\avr\include\stdlib.h ****    * Neither the name of the copyright holders nor the names of
+  21:d:\development\rp6\avr\include\stdlib.h ****      contributors may be used to endorse or promote products derived
+  22:d:\development\rp6\avr\include\stdlib.h ****      from this software without specific prior written permission.
+  23:d:\development\rp6\avr\include\stdlib.h **** 
+  24:d:\development\rp6\avr\include\stdlib.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  25:d:\development\rp6\avr\include\stdlib.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  26:d:\development\rp6\avr\include\stdlib.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  27:d:\development\rp6\avr\include\stdlib.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  28:d:\development\rp6\avr\include\stdlib.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  29:d:\development\rp6\avr\include\stdlib.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  30:d:\development\rp6\avr\include\stdlib.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  31:d:\development\rp6\avr\include\stdlib.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  32:d:\development\rp6\avr\include\stdlib.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  33:d:\development\rp6\avr\include\stdlib.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  34:d:\development\rp6\avr\include\stdlib.h ****   POSSIBILITY OF SUCH DAMAGE.
+  35:d:\development\rp6\avr\include\stdlib.h **** 
+  36:d:\development\rp6\avr\include\stdlib.h ****   $Id: stdlib.h 2301 2012-11-16 21:06:44Z arcanum $
+  37:d:\development\rp6\avr\include\stdlib.h **** */
+  38:d:\development\rp6\avr\include\stdlib.h **** 
+  39:d:\development\rp6\avr\include\stdlib.h **** #ifndef _STDLIB_H_
+  40:d:\development\rp6\avr\include\stdlib.h **** #define	_STDLIB_H_ 1
+  41:d:\development\rp6\avr\include\stdlib.h **** 
+  42:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ASSEMBLER__
+  43:d:\development\rp6\avr\include\stdlib.h **** 
+  44:d:\development\rp6\avr\include\stdlib.h **** #define __need_NULL
+  45:d:\development\rp6\avr\include\stdlib.h **** #define __need_size_t
+  46:d:\development\rp6\avr\include\stdlib.h **** #define __need_wchar_t
+  47:d:\development\rp6\avr\include\stdlib.h **** #include <stddef.h>
+  48:d:\development\rp6\avr\include\stdlib.h **** 
+  49:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ptr_t
+  50:d:\development\rp6\avr\include\stdlib.h **** #define __ptr_t void *
+  51:d:\development\rp6\avr\include\stdlib.h **** #endif
+  52:d:\development\rp6\avr\include\stdlib.h **** 
+  53:d:\development\rp6\avr\include\stdlib.h **** #ifdef __cplusplus
+  54:d:\development\rp6\avr\include\stdlib.h **** extern "C" {
+  55:d:\development\rp6\avr\include\stdlib.h **** #endif
+  56:d:\development\rp6\avr\include\stdlib.h **** 
+  57:d:\development\rp6\avr\include\stdlib.h **** /** \file */
+  58:d:\development\rp6\avr\include\stdlib.h **** 
+  59:d:\development\rp6\avr\include\stdlib.h **** /** \defgroup avr_stdlib <stdlib.h>: General utilities
+  60:d:\development\rp6\avr\include\stdlib.h ****     \code #include <stdlib.h> \endcode
+  61:d:\development\rp6\avr\include\stdlib.h **** 
+  62:d:\development\rp6\avr\include\stdlib.h ****     This file declares some basic C macros and functions as
+  63:d:\development\rp6\avr\include\stdlib.h ****     defined by the ISO standard, plus some AVR-specific extensions.
+  64:d:\development\rp6\avr\include\stdlib.h **** */
+  65:d:\development\rp6\avr\include\stdlib.h **** 
+  66:d:\development\rp6\avr\include\stdlib.h **** /*@{*/
+  67:d:\development\rp6\avr\include\stdlib.h **** /** Result type for function div(). */
+  68:d:\development\rp6\avr\include\stdlib.h **** typedef struct {
+  69:d:\development\rp6\avr\include\stdlib.h **** 	int quot;                   /**< The Quotient. */
+  70:d:\development\rp6\avr\include\stdlib.h **** 	int rem;                    /**< The Remainder. */
+  71:d:\development\rp6\avr\include\stdlib.h **** } div_t;
+  72:d:\development\rp6\avr\include\stdlib.h **** 
+  73:d:\development\rp6\avr\include\stdlib.h **** /** Result type for function ldiv(). */
+  74:d:\development\rp6\avr\include\stdlib.h **** typedef struct {
+  75:d:\development\rp6\avr\include\stdlib.h **** 	long quot;                  /**< The Quotient. */
+  76:d:\development\rp6\avr\include\stdlib.h **** 	long rem;                   /**< The Remainder. */
+  77:d:\development\rp6\avr\include\stdlib.h **** } ldiv_t;
+  78:d:\development\rp6\avr\include\stdlib.h **** 
+  79:d:\development\rp6\avr\include\stdlib.h **** /** Comparision function type for qsort(), just for convenience. */
+  80:d:\development\rp6\avr\include\stdlib.h **** typedef int (*__compar_fn_t)(const void *, const void *);
+  81:d:\development\rp6\avr\include\stdlib.h **** 
+  82:d:\development\rp6\avr\include\stdlib.h **** #ifndef __DOXYGEN__
+  83:d:\development\rp6\avr\include\stdlib.h **** 
+  84:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ATTR_CONST__
+  85:d:\development\rp6\avr\include\stdlib.h **** # define __ATTR_CONST__ __attribute__((__const__))
+  86:d:\development\rp6\avr\include\stdlib.h **** #endif
+  87:d:\development\rp6\avr\include\stdlib.h **** 
+  88:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ATTR_MALLOC__
+  89:d:\development\rp6\avr\include\stdlib.h **** # define __ATTR_MALLOC__ __attribute__((__malloc__))
+  90:d:\development\rp6\avr\include\stdlib.h **** #endif
+  91:d:\development\rp6\avr\include\stdlib.h **** 
+  92:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ATTR_NORETURN__
+  93:d:\development\rp6\avr\include\stdlib.h **** # define __ATTR_NORETURN__ __attribute__((__noreturn__))
+  94:d:\development\rp6\avr\include\stdlib.h **** #endif
+  95:d:\development\rp6\avr\include\stdlib.h **** 
+  96:d:\development\rp6\avr\include\stdlib.h **** #ifndef __ATTR_PURE__
+  97:d:\development\rp6\avr\include\stdlib.h **** # define __ATTR_PURE__ __attribute__((__pure__))
+  98:d:\development\rp6\avr\include\stdlib.h **** #endif
+  99:d:\development\rp6\avr\include\stdlib.h **** 
+ 100:d:\development\rp6\avr\include\stdlib.h **** #ifndef	__ATTR_GNU_INLINE__
+ 101:d:\development\rp6\avr\include\stdlib.h **** # ifdef  __GNUC_STDC_INLINE__
+ 102:d:\development\rp6\avr\include\stdlib.h **** #  define __ATTR_GNU_INLINE__   __attribute__((__gnu_inline__))
+ 103:d:\development\rp6\avr\include\stdlib.h **** # else
+ 104:d:\development\rp6\avr\include\stdlib.h **** #  define __ATTR_GNU_INLINE__
+ 105:d:\development\rp6\avr\include\stdlib.h **** # endif
+ 106:d:\development\rp6\avr\include\stdlib.h **** #endif
+ 107:d:\development\rp6\avr\include\stdlib.h **** 
+ 108:d:\development\rp6\avr\include\stdlib.h **** #endif
+ 109:d:\development\rp6\avr\include\stdlib.h **** 
+ 110:d:\development\rp6\avr\include\stdlib.h **** /** The abort() function causes abnormal program termination to occur.
+ 111:d:\development\rp6\avr\include\stdlib.h ****     This realization disables interrupts and jumps to _exit() function
+ 112:d:\development\rp6\avr\include\stdlib.h ****     with argument equal to 1. In the limited AVR environment, execution is
+ 113:d:\development\rp6\avr\include\stdlib.h ****     effectively halted by entering an infinite loop. */
+ 114:d:\development\rp6\avr\include\stdlib.h **** extern void abort(void) __ATTR_NORETURN__;
+ 115:d:\development\rp6\avr\include\stdlib.h **** 
+ 116:d:\development\rp6\avr\include\stdlib.h **** /** The abs() function computes the absolute value of the integer \c i.
+ 117:d:\development\rp6\avr\include\stdlib.h ****    \note The abs() and labs() functions are builtins of gcc.
+ 118:d:\development\rp6\avr\include\stdlib.h **** */
+ 119:d:\development\rp6\avr\include\stdlib.h **** extern int abs(int __i) __ATTR_CONST__;
+ 120:d:\development\rp6\avr\include\stdlib.h **** #ifndef __DOXYGEN__
+ 121:d:\development\rp6\avr\include\stdlib.h **** #define	abs(__i) __builtin_abs(__i)
+ 122:d:\development\rp6\avr\include\stdlib.h **** #endif
+ 123:d:\development\rp6\avr\include\stdlib.h **** 
+ 124:d:\development\rp6\avr\include\stdlib.h **** /** The labs() function computes the absolute value of the long integer
+ 125:d:\development\rp6\avr\include\stdlib.h ****     \c i.
+ 126:d:\development\rp6\avr\include\stdlib.h ****    \note The abs() and labs() functions are builtins of gcc.
+ 127:d:\development\rp6\avr\include\stdlib.h **** */
+ 128:d:\development\rp6\avr\include\stdlib.h **** extern long labs(long __i) __ATTR_CONST__;
+ 129:d:\development\rp6\avr\include\stdlib.h **** #ifndef __DOXYGEN__
+ 130:d:\development\rp6\avr\include\stdlib.h **** #define labs(__i) __builtin_labs(__i)
+ 131:d:\development\rp6\avr\include\stdlib.h **** #endif
+ 132:d:\development\rp6\avr\include\stdlib.h **** 
+ 133:d:\development\rp6\avr\include\stdlib.h **** /**
+ 134:d:\development\rp6\avr\include\stdlib.h ****      The bsearch() function searches an array of \c nmemb objects, the
+ 135:d:\development\rp6\avr\include\stdlib.h ****      initial member of which is pointed to by \c base, for a member
+ 136:d:\development\rp6\avr\include\stdlib.h ****      that matches the object pointed to by \c key.  The size of each
+ 137:d:\development\rp6\avr\include\stdlib.h ****      member of the array is specified by \c size.
+ 138:d:\development\rp6\avr\include\stdlib.h **** 
+ 139:d:\development\rp6\avr\include\stdlib.h ****      The contents of the array should be in ascending sorted order
+ 140:d:\development\rp6\avr\include\stdlib.h ****      according to the comparison function referenced by \c compar.
+ 141:d:\development\rp6\avr\include\stdlib.h ****      The \c compar routine is expected to have two arguments which
+ 142:d:\development\rp6\avr\include\stdlib.h ****      point to the key object and to an array member, in that order,
+ 143:d:\development\rp6\avr\include\stdlib.h ****      and should return an integer less than, equal to, or greater than
+ 144:d:\development\rp6\avr\include\stdlib.h ****      zero if the key object is found, respectively, to be less than,
+ 145:d:\development\rp6\avr\include\stdlib.h ****      to match, or be greater than the array member.
+ 146:d:\development\rp6\avr\include\stdlib.h **** 
+ 147:d:\development\rp6\avr\include\stdlib.h ****      The bsearch() function returns a pointer to a matching member of
+ 148:d:\development\rp6\avr\include\stdlib.h ****      the array, or a null pointer if no match is found.  If two
+ 149:d:\development\rp6\avr\include\stdlib.h ****      members compare as equal, which member is matched is unspecified.
+ 150:d:\development\rp6\avr\include\stdlib.h **** */
+ 151:d:\development\rp6\avr\include\stdlib.h **** extern void *bsearch(const void *__key, const void *__base, size_t __nmemb,
+ 152:d:\development\rp6\avr\include\stdlib.h **** 		     size_t __size, int (*__compar)(const void *, const void *));
+ 153:d:\development\rp6\avr\include\stdlib.h **** 
+ 154:d:\development\rp6\avr\include\stdlib.h **** /* __divmodhi4 and __divmodsi4 from libgcc.a */
+ 155:d:\development\rp6\avr\include\stdlib.h **** /**
+ 156:d:\development\rp6\avr\include\stdlib.h ****      The div() function computes the value \c num/denom and returns
+ 157:d:\development\rp6\avr\include\stdlib.h ****      the quotient and remainder in a structure named \c div_t that
+ 158:d:\development\rp6\avr\include\stdlib.h ****      contains two int members named \c quot and \c rem.
+ 159:d:\development\rp6\avr\include\stdlib.h **** */
+ 160:d:\development\rp6\avr\include\stdlib.h **** extern div_t div(int __num, int __denom) __asm__("__divmodhi4") __ATTR_CONST__;
+ 161:d:\development\rp6\avr\include\stdlib.h **** /**
+ 162:d:\development\rp6\avr\include\stdlib.h ****      The ldiv() function computes the value \c num/denom and returns
+ 163:d:\development\rp6\avr\include\stdlib.h ****      the quotient and remainder in a structure named \c ldiv_t that
+ 164:d:\development\rp6\avr\include\stdlib.h ****      contains two long integer members named \c quot and \c rem.
+ 165:d:\development\rp6\avr\include\stdlib.h **** */
+ 166:d:\development\rp6\avr\include\stdlib.h **** extern ldiv_t ldiv(long __num, long __denom) __asm__("__divmodsi4") __ATTR_CONST__;
+ 167:d:\development\rp6\avr\include\stdlib.h **** 
+ 168:d:\development\rp6\avr\include\stdlib.h **** /**
+ 169:d:\development\rp6\avr\include\stdlib.h ****      The qsort() function is a modified partition-exchange sort, or
+ 170:d:\development\rp6\avr\include\stdlib.h ****      quicksort.
+ 171:d:\development\rp6\avr\include\stdlib.h **** 
+ 172:d:\development\rp6\avr\include\stdlib.h ****      The qsort() function sorts an array of \c nmemb objects, the
+ 173:d:\development\rp6\avr\include\stdlib.h ****      initial member of which is pointed to by \c base.  The size of
+ 174:d:\development\rp6\avr\include\stdlib.h ****      each object is specified by \c size.  The contents of the array
+ 175:d:\development\rp6\avr\include\stdlib.h ****      base are sorted in ascending order according to a comparison
+ 176:d:\development\rp6\avr\include\stdlib.h ****      function pointed to by \c compar, which requires two arguments
+ 177:d:\development\rp6\avr\include\stdlib.h ****      pointing to the objects being compared.
+ 178:d:\development\rp6\avr\include\stdlib.h **** 
+ 179:d:\development\rp6\avr\include\stdlib.h ****      The comparison function must return an integer less than, equal
+ 180:d:\development\rp6\avr\include\stdlib.h ****      to, or greater than zero if the first argument is considered to
+ 181:d:\development\rp6\avr\include\stdlib.h ****      be respectively less than, equal to, or greater than the second.
+ 182:d:\development\rp6\avr\include\stdlib.h **** */
+ 183:d:\development\rp6\avr\include\stdlib.h **** extern void qsort(void *__base, size_t __nmemb, size_t __size,
+ 184:d:\development\rp6\avr\include\stdlib.h **** 		  __compar_fn_t __compar);
+ 185:d:\development\rp6\avr\include\stdlib.h **** 
+ 186:d:\development\rp6\avr\include\stdlib.h **** /**
+ 187:d:\development\rp6\avr\include\stdlib.h ****     The strtol() function converts the string in \c nptr to a long
+ 188:d:\development\rp6\avr\include\stdlib.h ****     value.  The conversion is done according to the given base, which
+ 189:d:\development\rp6\avr\include\stdlib.h ****     must be between 2 and 36 inclusive, or be the special value 0.
+ 190:d:\development\rp6\avr\include\stdlib.h **** 
+ 191:d:\development\rp6\avr\include\stdlib.h ****     The string may begin with an arbitrary amount of white space (as
+ 192:d:\development\rp6\avr\include\stdlib.h ****     determined by isspace()) followed by a single optional \c '+' or \c '-'
+ 193:d:\development\rp6\avr\include\stdlib.h ****     sign.  If \c base is zero or 16, the string may then include a
+ 194:d:\development\rp6\avr\include\stdlib.h ****     \c "0x" prefix, and the number will be read in base 16; otherwise,
+ 195:d:\development\rp6\avr\include\stdlib.h ****     a zero base is taken as 10 (decimal) unless the next character is
+ 196:d:\development\rp6\avr\include\stdlib.h ****     \c '0', in which case it is taken as 8 (octal).
+ 197:d:\development\rp6\avr\include\stdlib.h **** 
+ 198:d:\development\rp6\avr\include\stdlib.h ****     The remainder of the string is converted to a long value in the
+ 199:d:\development\rp6\avr\include\stdlib.h ****     obvious manner, stopping at the first character which is not a
+ 200:d:\development\rp6\avr\include\stdlib.h ****     valid digit in the given base.  (In bases above 10, the letter \c 'A'
+ 201:d:\development\rp6\avr\include\stdlib.h ****     in either upper or lower case represents 10, \c 'B' represents 11,
+ 202:d:\development\rp6\avr\include\stdlib.h ****     and so forth, with \c 'Z' representing 35.)
+ 203:d:\development\rp6\avr\include\stdlib.h **** 
+ 204:d:\development\rp6\avr\include\stdlib.h ****     If \c endptr is not NULL, strtol() stores the address of the first
+ 205:d:\development\rp6\avr\include\stdlib.h ****     invalid character in \c *endptr.  If there were no digits at all,
+ 206:d:\development\rp6\avr\include\stdlib.h ****     however, strtol() stores the original value of \c nptr in \c
+ 207:d:\development\rp6\avr\include\stdlib.h ****     *endptr.  (Thus, if \c *nptr is not \c '\\0' but \c **endptr is \c '\\0'
+ 208:d:\development\rp6\avr\include\stdlib.h ****     on return, the entire string was valid.)
+ 209:d:\development\rp6\avr\include\stdlib.h **** 
+ 210:d:\development\rp6\avr\include\stdlib.h ****     The strtol() function returns the result of the conversion, unless
+ 211:d:\development\rp6\avr\include\stdlib.h ****     the value would underflow or overflow.  If no conversion could be
+ 212:d:\development\rp6\avr\include\stdlib.h ****     performed, 0 is returned.  If an overflow or underflow occurs, \c
+ 213:d:\development\rp6\avr\include\stdlib.h ****     errno is set to \ref avr_errno "ERANGE" and the function return value
+ 214:d:\development\rp6\avr\include\stdlib.h ****     is clamped to \c LONG_MIN or \c LONG_MAX, respectively.
+ 215:d:\development\rp6\avr\include\stdlib.h **** */
+ 216:d:\development\rp6\avr\include\stdlib.h **** extern long strtol(const char *__nptr, char **__endptr, int __base);
+ 217:d:\development\rp6\avr\include\stdlib.h **** 
+ 218:d:\development\rp6\avr\include\stdlib.h **** /**
+ 219:d:\development\rp6\avr\include\stdlib.h ****     The strtoul() function converts the string in \c nptr to an
+ 220:d:\development\rp6\avr\include\stdlib.h ****     unsigned long value.  The conversion is done according to the
+ 221:d:\development\rp6\avr\include\stdlib.h ****     given base, which must be between 2 and 36 inclusive, or be the
+ 222:d:\development\rp6\avr\include\stdlib.h ****     special value 0.
+ 223:d:\development\rp6\avr\include\stdlib.h **** 
+ 224:d:\development\rp6\avr\include\stdlib.h ****     The string may begin with an arbitrary amount of white space (as
+ 225:d:\development\rp6\avr\include\stdlib.h ****     determined by isspace()) followed by a single optional \c '+' or \c '-'
+ 226:d:\development\rp6\avr\include\stdlib.h ****     sign.  If \c base is zero or 16, the string may then include a
+ 227:d:\development\rp6\avr\include\stdlib.h ****     \c "0x" prefix, and the number will be read in base 16; otherwise,
+ 228:d:\development\rp6\avr\include\stdlib.h ****     a zero base is taken as 10 (decimal) unless the next character is
+ 229:d:\development\rp6\avr\include\stdlib.h ****     \c '0', in which case it is taken as 8 (octal).
+ 230:d:\development\rp6\avr\include\stdlib.h **** 
+ 231:d:\development\rp6\avr\include\stdlib.h ****     The remainder of the string is converted to an unsigned long value
+ 232:d:\development\rp6\avr\include\stdlib.h ****     in the obvious manner, stopping at the first character which is
+ 233:d:\development\rp6\avr\include\stdlib.h ****     not a valid digit in the given base.  (In bases above 10, the
+ 234:d:\development\rp6\avr\include\stdlib.h ****     letter \c 'A' in either upper or lower case represents 10, \c 'B'
+ 235:d:\development\rp6\avr\include\stdlib.h ****     represents 11, and so forth, with \c 'Z' representing 35.)
+ 236:d:\development\rp6\avr\include\stdlib.h **** 
+ 237:d:\development\rp6\avr\include\stdlib.h ****     If \c endptr is not NULL, strtoul() stores the address of the first
+ 238:d:\development\rp6\avr\include\stdlib.h ****     invalid character in \c *endptr.  If there were no digits at all,
+ 239:d:\development\rp6\avr\include\stdlib.h ****     however, strtoul() stores the original value of \c nptr in \c
+ 240:d:\development\rp6\avr\include\stdlib.h ****     *endptr.  (Thus, if \c *nptr is not \c '\\0' but \c **endptr is \c '\\0'
+ 241:d:\development\rp6\avr\include\stdlib.h ****     on return, the entire string was valid.)
+ 242:d:\development\rp6\avr\include\stdlib.h **** 
+ 243:d:\development\rp6\avr\include\stdlib.h ****     The strtoul() function return either the result of the conversion
+ 244:d:\development\rp6\avr\include\stdlib.h ****     or, if there was a leading minus sign, the negation of the result
+ 245:d:\development\rp6\avr\include\stdlib.h ****     of the conversion, unless the original (non-negated) value would
+ 246:d:\development\rp6\avr\include\stdlib.h ****     overflow; in the latter case, strtoul() returns ULONG_MAX, and \c
+ 247:d:\development\rp6\avr\include\stdlib.h ****     errno is set to \ref avr_errno "ERANGE".  If no conversion could 
+ 248:d:\development\rp6\avr\include\stdlib.h ****     be performed, 0 is returned.
+ 249:d:\development\rp6\avr\include\stdlib.h **** */
+ 250:d:\development\rp6\avr\include\stdlib.h **** extern unsigned long strtoul(const char *__nptr, char **__endptr, int __base);
+ 251:d:\development\rp6\avr\include\stdlib.h **** 
+ 252:d:\development\rp6\avr\include\stdlib.h **** /**
+ 253:d:\development\rp6\avr\include\stdlib.h ****     The atol() function converts the initial portion of the string
+ 254:d:\development\rp6\avr\include\stdlib.h ****     pointed to by \p s to long integer representation. In contrast to
+ 255:d:\development\rp6\avr\include\stdlib.h **** 
+ 256:d:\development\rp6\avr\include\stdlib.h ****         \code strtol(s, (char **)NULL, 10); \endcode
+ 257:d:\development\rp6\avr\include\stdlib.h **** 
+ 258:d:\development\rp6\avr\include\stdlib.h ****     this function does not detect overflow (\c errno is not changed and
+ 259:d:\development\rp6\avr\include\stdlib.h ****     the result value is not predictable), uses smaller memory (flash and
+ 260:d:\development\rp6\avr\include\stdlib.h ****     stack) and works more quickly.
+ 261:d:\development\rp6\avr\include\stdlib.h **** */
+ 262:d:\development\rp6\avr\include\stdlib.h **** extern long atol(const char *__s) __ATTR_PURE__;
+ 263:d:\development\rp6\avr\include\stdlib.h **** 
+ 264:d:\development\rp6\avr\include\stdlib.h **** /**
+ 265:d:\development\rp6\avr\include\stdlib.h ****     The atoi() function converts the initial portion of the string
+ 266:d:\development\rp6\avr\include\stdlib.h ****     pointed to by \p s to integer representation. In contrast to
+ 267:d:\development\rp6\avr\include\stdlib.h **** 
+ 268:d:\development\rp6\avr\include\stdlib.h ****         \code (int)strtol(s, (char **)NULL, 10); \endcode
+ 269:d:\development\rp6\avr\include\stdlib.h **** 
+ 270:d:\development\rp6\avr\include\stdlib.h ****     this function does not detect overflow (\c errno is not changed and
+ 271:d:\development\rp6\avr\include\stdlib.h ****     the result value is not predictable), uses smaller memory (flash and
+ 272:d:\development\rp6\avr\include\stdlib.h ****     stack) and works more quickly.
+ 273:d:\development\rp6\avr\include\stdlib.h **** */
+ 274:d:\development\rp6\avr\include\stdlib.h **** extern int atoi(const char *__s) __ATTR_PURE__;
+ 275:d:\development\rp6\avr\include\stdlib.h **** 
+ 276:d:\development\rp6\avr\include\stdlib.h **** /**
+ 277:d:\development\rp6\avr\include\stdlib.h ****    The exit() function terminates the application.  Since there is no
+ 278:d:\development\rp6\avr\include\stdlib.h ****    environment to return to, \c status is ignored, and code execution
+ 279:d:\development\rp6\avr\include\stdlib.h ****    will eventually reach an infinite loop, thereby effectively halting
+ 280:d:\development\rp6\avr\include\stdlib.h ****    all code processing.  Before entering the infinite loop, interrupts
+ 281:d:\development\rp6\avr\include\stdlib.h ****    are globally disabled.
+ 282:d:\development\rp6\avr\include\stdlib.h **** 
+ 283:d:\development\rp6\avr\include\stdlib.h ****    In a C++ context, global destructors will be called before halting
+ 284:d:\development\rp6\avr\include\stdlib.h ****    execution.
+ 285:d:\development\rp6\avr\include\stdlib.h **** */
+ 286:d:\development\rp6\avr\include\stdlib.h **** extern void exit(int __status) __ATTR_NORETURN__;
+ 287:d:\development\rp6\avr\include\stdlib.h **** 
+ 288:d:\development\rp6\avr\include\stdlib.h **** /**
+ 289:d:\development\rp6\avr\include\stdlib.h ****    The malloc() function allocates \c size bytes of memory.
+ 290:d:\development\rp6\avr\include\stdlib.h ****    If malloc() fails, a NULL pointer is returned.
+ 291:d:\development\rp6\avr\include\stdlib.h **** 
+ 292:d:\development\rp6\avr\include\stdlib.h ****    Note that malloc() does \e not initialize the returned memory to
+ 293:d:\development\rp6\avr\include\stdlib.h ****    zero bytes.
+ 294:d:\development\rp6\avr\include\stdlib.h **** 
+ 295:d:\development\rp6\avr\include\stdlib.h ****    See the chapter about \ref malloc "malloc() usage" for implementation
+ 296:d:\development\rp6\avr\include\stdlib.h ****    details.
+ 297:d:\development\rp6\avr\include\stdlib.h **** */
+ 298:d:\development\rp6\avr\include\stdlib.h **** extern void *malloc(size_t __size) __ATTR_MALLOC__;
+ 299:d:\development\rp6\avr\include\stdlib.h **** 
+ 300:d:\development\rp6\avr\include\stdlib.h **** /**
+ 301:d:\development\rp6\avr\include\stdlib.h ****    The free() function causes the allocated memory referenced by \c
+ 302:d:\development\rp6\avr\include\stdlib.h ****    ptr to be made available for future allocations.  If \c ptr is
+ 303:d:\development\rp6\avr\include\stdlib.h ****    NULL, no action occurs.
+ 304:d:\development\rp6\avr\include\stdlib.h **** */
+ 305:d:\development\rp6\avr\include\stdlib.h **** extern void free(void *__ptr);
+ 306:d:\development\rp6\avr\include\stdlib.h **** 
+ 307:d:\development\rp6\avr\include\stdlib.h **** /**
+ 308:d:\development\rp6\avr\include\stdlib.h ****    \c malloc() \ref malloc_tunables "tunable".
+ 309:d:\development\rp6\avr\include\stdlib.h **** */
+ 310:d:\development\rp6\avr\include\stdlib.h **** extern size_t __malloc_margin;
+ 311:d:\development\rp6\avr\include\stdlib.h **** 
+ 312:d:\development\rp6\avr\include\stdlib.h **** /**
+ 313:d:\development\rp6\avr\include\stdlib.h ****    \c malloc() \ref malloc_tunables "tunable".
+ 314:d:\development\rp6\avr\include\stdlib.h **** */
+ 315:d:\development\rp6\avr\include\stdlib.h **** extern char *__malloc_heap_start;
+ 316:d:\development\rp6\avr\include\stdlib.h **** 
+ 317:d:\development\rp6\avr\include\stdlib.h **** /**
+ 318:d:\development\rp6\avr\include\stdlib.h ****    \c malloc() \ref malloc_tunables "tunable".
+ 319:d:\development\rp6\avr\include\stdlib.h **** */
+ 320:d:\development\rp6\avr\include\stdlib.h **** extern char *__malloc_heap_end;
+ 321:d:\development\rp6\avr\include\stdlib.h **** 
+ 322:d:\development\rp6\avr\include\stdlib.h **** /**
+ 323:d:\development\rp6\avr\include\stdlib.h ****    Allocate \c nele elements of \c size each.  Identical to calling
+ 324:d:\development\rp6\avr\include\stdlib.h ****    \c malloc() using <tt>nele * size</tt> as argument, except the
+ 325:d:\development\rp6\avr\include\stdlib.h ****    allocated memory will be cleared to zero.
+ 326:d:\development\rp6\avr\include\stdlib.h **** */
+ 327:d:\development\rp6\avr\include\stdlib.h **** extern void *calloc(size_t __nele, size_t __size) __ATTR_MALLOC__;
+ 328:d:\development\rp6\avr\include\stdlib.h **** 
+ 329:d:\development\rp6\avr\include\stdlib.h **** /**
+ 330:d:\development\rp6\avr\include\stdlib.h ****    The realloc() function tries to change the size of the region
+ 331:d:\development\rp6\avr\include\stdlib.h ****    allocated at \c ptr to the new \c size value.  It returns a
+ 332:d:\development\rp6\avr\include\stdlib.h ****    pointer to the new region.  The returned pointer might be the
+ 333:d:\development\rp6\avr\include\stdlib.h ****    same as the old pointer, or a pointer to a completely different
+ 334:d:\development\rp6\avr\include\stdlib.h ****    region.
+ 335:d:\development\rp6\avr\include\stdlib.h **** 
+ 336:d:\development\rp6\avr\include\stdlib.h ****    The contents of the returned region up to either the old or the new
+ 337:d:\development\rp6\avr\include\stdlib.h ****    size value (whatever is less) will be identical to the contents of
+ 338:d:\development\rp6\avr\include\stdlib.h ****    the old region, even in case a new region had to be allocated.
+ 339:d:\development\rp6\avr\include\stdlib.h **** 
+ 340:d:\development\rp6\avr\include\stdlib.h ****    It is acceptable to pass \c ptr as NULL, in which case realloc()
+ 341:d:\development\rp6\avr\include\stdlib.h ****    will behave identical to malloc().
+ 342:d:\development\rp6\avr\include\stdlib.h **** 
+ 343:d:\development\rp6\avr\include\stdlib.h ****    If the new memory cannot be allocated, realloc() returns NULL, and
+ 344:d:\development\rp6\avr\include\stdlib.h ****    the region at \c ptr will not be changed.
+ 345:d:\development\rp6\avr\include\stdlib.h **** */
+ 346:d:\development\rp6\avr\include\stdlib.h **** extern void *realloc(void *__ptr, size_t __size) __ATTR_MALLOC__;
+ 347:d:\development\rp6\avr\include\stdlib.h **** 
+ 348:d:\development\rp6\avr\include\stdlib.h **** extern double strtod(const char *__nptr, char **__endptr);
+ 349:d:\development\rp6\avr\include\stdlib.h **** 
+ 350:d:\development\rp6\avr\include\stdlib.h **** extern double atof(const char *__nptr);
+ 351:d:\development\rp6\avr\include\stdlib.h **** 
+ 352:d:\development\rp6\avr\include\stdlib.h **** /** Highest number that can be generated by rand(). */
+ 353:d:\development\rp6\avr\include\stdlib.h **** #define	RAND_MAX 0x7FFF
+ 354:d:\development\rp6\avr\include\stdlib.h **** 
+ 355:d:\development\rp6\avr\include\stdlib.h **** /**
+ 356:d:\development\rp6\avr\include\stdlib.h ****      The rand() function computes a sequence of pseudo-random integers in the
+ 357:d:\development\rp6\avr\include\stdlib.h ****      range of 0 to \c RAND_MAX (as defined by the header file <stdlib.h>).
+ 358:d:\development\rp6\avr\include\stdlib.h **** 
+ 359:d:\development\rp6\avr\include\stdlib.h ****      The srand() function sets its argument \c seed as the seed for a new
+ 360:d:\development\rp6\avr\include\stdlib.h ****      sequence of pseudo-random numbers to be returned by rand().  These
+ 361:d:\development\rp6\avr\include\stdlib.h ****      sequences are repeatable by calling srand() with the same seed value.
+ 362:d:\development\rp6\avr\include\stdlib.h **** 
+ 363:d:\development\rp6\avr\include\stdlib.h ****      If no seed value is provided, the functions are automatically seeded with
+ 364:d:\development\rp6\avr\include\stdlib.h ****      a value of 1.
+ 365:d:\development\rp6\avr\include\stdlib.h **** 
+ 366:d:\development\rp6\avr\include\stdlib.h ****      In compliance with the C standard, these functions operate on
+ 367:d:\development\rp6\avr\include\stdlib.h ****      \c int arguments.  Since the underlying algorithm already uses
+ 368:d:\development\rp6\avr\include\stdlib.h ****      32-bit calculations, this causes a loss of precision.  See
+ 369:d:\development\rp6\avr\include\stdlib.h ****      \c random() for an alternate set of functions that retains full
+ 370:d:\development\rp6\avr\include\stdlib.h ****      32-bit precision.
+ 371:d:\development\rp6\avr\include\stdlib.h **** */
+ 372:d:\development\rp6\avr\include\stdlib.h **** extern int rand(void);
+ 373:d:\development\rp6\avr\include\stdlib.h **** /**
+ 374:d:\development\rp6\avr\include\stdlib.h ****    Pseudo-random number generator seeding; see rand().
+ 375:d:\development\rp6\avr\include\stdlib.h **** */
+ 376:d:\development\rp6\avr\include\stdlib.h **** extern void srand(unsigned int __seed);
+ 377:d:\development\rp6\avr\include\stdlib.h **** 
+ 378:d:\development\rp6\avr\include\stdlib.h **** /**
+ 379:d:\development\rp6\avr\include\stdlib.h ****    Variant of rand() that stores the context in the user-supplied
+ 380:d:\development\rp6\avr\include\stdlib.h ****    variable located at \c ctx instead of a static library variable
+ 381:d:\development\rp6\avr\include\stdlib.h ****    so the function becomes re-entrant.
+ 382:d:\development\rp6\avr\include\stdlib.h **** */
+ 383:d:\development\rp6\avr\include\stdlib.h **** extern int rand_r(unsigned long *__ctx);
+ 384:d:\development\rp6\avr\include\stdlib.h **** /*@}*/
+ 385:d:\development\rp6\avr\include\stdlib.h **** 
+ 386:d:\development\rp6\avr\include\stdlib.h **** /*@{*/
+ 387:d:\development\rp6\avr\include\stdlib.h **** /** \name Non-standard (i.e. non-ISO C) functions.
+ 388:d:\development\rp6\avr\include\stdlib.h ****  \ingroup avr_stdlib
+ 389:d:\development\rp6\avr\include\stdlib.h **** */
+ 390:d:\development\rp6\avr\include\stdlib.h **** /**
+ 391:d:\development\rp6\avr\include\stdlib.h ****    \brief Convert an integer to a string.
+ 392:d:\development\rp6\avr\include\stdlib.h **** 
+ 393:d:\development\rp6\avr\include\stdlib.h ****    The function itoa() converts the integer value from \c val into an
+ 394:d:\development\rp6\avr\include\stdlib.h ****    ASCII representation that will be stored under \c s.  The caller
+ 395:d:\development\rp6\avr\include\stdlib.h ****    is responsible for providing sufficient storage in \c s.
+ 396:d:\development\rp6\avr\include\stdlib.h **** 
+ 397:d:\development\rp6\avr\include\stdlib.h ****    \note The minimal size of the buffer \c s depends on the choice of
+ 398:d:\development\rp6\avr\include\stdlib.h ****    radix. For example, if the radix is 2 (binary), you need to supply a buffer
+ 399:d:\development\rp6\avr\include\stdlib.h ****    with a minimal length of 8 * sizeof (int) + 1 characters, i.e. one
+ 400:d:\development\rp6\avr\include\stdlib.h ****    character for each bit plus one for the string terminator. Using a larger
+ 401:d:\development\rp6\avr\include\stdlib.h ****    radix will require a smaller minimal buffer size.
+ 402:d:\development\rp6\avr\include\stdlib.h **** 
+ 403:d:\development\rp6\avr\include\stdlib.h ****    \warning If the buffer is too small, you risk a buffer overflow.
+ 404:d:\development\rp6\avr\include\stdlib.h **** 
+ 405:d:\development\rp6\avr\include\stdlib.h ****    Conversion is done using the \c radix as base, which may be a
+ 406:d:\development\rp6\avr\include\stdlib.h ****    number between 2 (binary conversion) and up to 36.  If \c radix
+ 407:d:\development\rp6\avr\include\stdlib.h ****    is greater than 10, the next digit after \c '9' will be the letter
+ 408:d:\development\rp6\avr\include\stdlib.h ****    \c 'a'.
+ 409:d:\development\rp6\avr\include\stdlib.h ****     
+ 410:d:\development\rp6\avr\include\stdlib.h ****     If radix is 10 and val is negative, a minus sign will be prepended.
+ 411:d:\development\rp6\avr\include\stdlib.h **** 
+ 412:d:\development\rp6\avr\include\stdlib.h ****    The itoa() function returns the pointer passed as \c s.
+ 413:d:\development\rp6\avr\include\stdlib.h **** */
+ 414:d:\development\rp6\avr\include\stdlib.h **** #ifdef  __DOXYGEN__
+ 415:d:\development\rp6\avr\include\stdlib.h **** extern char *itoa(int val, char *s, int radix);
+ 416:d:\development\rp6\avr\include\stdlib.h **** #else
+ 417:d:\development\rp6\avr\include\stdlib.h **** extern __inline__ __ATTR_GNU_INLINE__
+ 418:d:\development\rp6\avr\include\stdlib.h **** char *itoa (int __val, char *__s, int __radix)
+ 419:d:\development\rp6\avr\include\stdlib.h **** {
+ 420:d:\development\rp6\avr\include\stdlib.h ****     if (!__builtin_constant_p (__radix)) {
+ 421:d:\development\rp6\avr\include\stdlib.h **** 	extern char *__itoa (int, char *, int);
+ 422:d:\development\rp6\avr\include\stdlib.h **** 	return __itoa (__val, __s, __radix);
+ 241               		.loc 2 422 0
+ 242 0090 BE01      		movw r22,r28
+ 243               	.LVL26:
+ 244 0092 6F5F      		subi r22,-1
+ 245 0094 7F4F      		sbci r23,-1
+ 246 0096 0E94 0000 		call __itoa
+ 247               	.LVL27:
+ 248               	.LBE12:
+ 249               	.LBE11:
+ 168:RP6Lib/RP6common/RP6uart.c **** 	writeString(&buffer[0]);
+ 250               		.loc 1 168 0
+ 251 009a CE01      		movw r24,r28
+ 252 009c 0196      		adiw r24,1
+ 253 009e 0E94 0000 		call writeString
+ 254               	.LVL28:
+ 255               	/* epilogue start */
+ 169:RP6Lib/RP6common/RP6uart.c **** }
+ 256               		.loc 1 169 0
+ 257 00a2 6196      		adiw r28,17
+ 258 00a4 0FB6      		in __tmp_reg__,__SREG__
+ 259 00a6 F894      		cli
+ 260 00a8 DEBF      		out __SP_H__,r29
+ 261 00aa 0FBE      		out __SREG__,__tmp_reg__
+ 262 00ac CDBF      		out __SP_L__,r28
+ 263 00ae DF91      		pop r29
+ 264 00b0 CF91      		pop r28
+ 265 00b2 0895      		ret
+ 266               		.cfi_endproc
+ 267               	.LFE9:
+ 269               	.global	writeIntegerLength
+ 271               	writeIntegerLength:
+ 272               	.LFB10:
+ 170:RP6Lib/RP6common/RP6uart.c **** 
+ 171:RP6Lib/RP6common/RP6uart.c **** /**
+ 172:RP6Lib/RP6common/RP6uart.c ****  * Same as writeInteger, but with defined length.
+ 173:RP6Lib/RP6common/RP6uart.c ****  * This means this routine will add leading zeros to the number if length is
+ 174:RP6Lib/RP6common/RP6uart.c ****  * larger than the actual value or cut the upper digits if length is smaller
+ 175:RP6Lib/RP6common/RP6uart.c ****  * than the actual value.
+ 176:RP6Lib/RP6common/RP6uart.c ****  *
+ 177:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 178:RP6Lib/RP6common/RP6uart.c ****  *
+ 179:RP6Lib/RP6common/RP6uart.c ****  *			// Write a hexadecimal number to the UART:
+ 180:RP6Lib/RP6common/RP6uart.c ****  *			writeIntegerLength(0xAACC, 16, 8);
+ 181:RP6Lib/RP6common/RP6uart.c ****  *			// Instead of 16 you can also write "HEX" as this is defined in the
+ 182:RP6Lib/RP6common/RP6uart.c ****  *			// RP6RobotBaseLib.h :
+ 183:RP6Lib/RP6common/RP6uart.c ****  *			writeIntegerLength(0xAACC, HEX, 8);
+ 184:RP6Lib/RP6common/RP6uart.c ****  *			// Other Formats:
+ 185:RP6Lib/RP6common/RP6uart.c ****  *			writeIntegerLength(1024,DEC,6);  	// Decimal
+ 186:RP6Lib/RP6common/RP6uart.c ****  *			writeIntegerLength(044,OCT,4);		// Ocal
+ 187:RP6Lib/RP6common/RP6uart.c ****  *			writeIntegerLength(0b11010111,BIN,8); // Binary
+ 188:RP6Lib/RP6common/RP6uart.c ****  */
+ 189:RP6Lib/RP6common/RP6uart.c **** void writeIntegerLength(int16_t number, uint8_t base, uint8_t length)
+ 190:RP6Lib/RP6common/RP6uart.c **** {
+ 273               		.loc 1 190 0
+ 274               		.cfi_startproc
+ 275               	.LVL29:
+ 276 00b4 EF92      		push r14
+ 277               	.LCFI14:
+ 278               		.cfi_def_cfa_offset 3
+ 279               		.cfi_offset 14, -2
+ 280 00b6 FF92      		push r15
+ 281               	.LCFI15:
+ 282               		.cfi_def_cfa_offset 4
+ 283               		.cfi_offset 15, -3
+ 284 00b8 0F93      		push r16
+ 285               	.LCFI16:
+ 286               		.cfi_def_cfa_offset 5
+ 287               		.cfi_offset 16, -4
+ 288 00ba 1F93      		push r17
+ 289               	.LCFI17:
+ 290               		.cfi_def_cfa_offset 6
+ 291               		.cfi_offset 17, -5
+ 292 00bc CF93      		push r28
+ 293               	.LCFI18:
+ 294               		.cfi_def_cfa_offset 7
+ 295               		.cfi_offset 28, -6
+ 296 00be DF93      		push r29
+ 297               	.LCFI19:
+ 298               		.cfi_def_cfa_offset 8
+ 299               		.cfi_offset 29, -7
+ 300 00c0 CDB7      		in r28,__SP_L__
+ 301 00c2 DEB7      		in r29,__SP_H__
+ 302               	.LCFI20:
+ 303               		.cfi_def_cfa_register 28
+ 304 00c4 6197      		sbiw r28,17
+ 305               	.LCFI21:
+ 306               		.cfi_def_cfa_offset 25
+ 307 00c6 0FB6      		in __tmp_reg__,__SREG__
+ 308 00c8 F894      		cli
+ 309 00ca DEBF      		out __SP_H__,r29
+ 310 00cc 0FBE      		out __SREG__,__tmp_reg__
+ 311 00ce CDBF      		out __SP_L__,r28
+ 312               	/* prologue: function */
+ 313               	/* frame size = 17 */
+ 314               	/* stack size = 23 */
+ 315               	.L__stack_usage = 23
+ 316 00d0 E42E      		mov r14,r20
+ 317               	.LVL30:
+ 191:RP6Lib/RP6common/RP6uart.c **** 	char buffer[17];
+ 192:RP6Lib/RP6common/RP6uart.c **** 	itoa(number, &buffer[0], base);
+ 318               		.loc 1 192 0
+ 319 00d2 462F      		mov r20,r22
+ 320               	.LVL31:
+ 321 00d4 50E0      		ldi r21,0
+ 322               	.LBB13:
+ 323               	.LBB14:
+ 324               		.loc 2 422 0
+ 325 00d6 8E01      		movw r16,r28
+ 326 00d8 0F5F      		subi r16,-1
+ 327 00da 1F4F      		sbci r17,-1
+ 328 00dc B801      		movw r22,r16
+ 329               	.LVL32:
+ 330 00de 0E94 0000 		call __itoa
+ 331               	.LVL33:
+ 332               	.LBE14:
+ 333               	.LBE13:
+ 193:RP6Lib/RP6common/RP6uart.c **** 	int8_t cnt = length - strlen(buffer);
+ 334               		.loc 1 193 0
+ 335 00e2 F801      		movw r30,r16
+ 336               		0:
+ 337 00e4 0190      		ld __tmp_reg__,Z+
+ 338 00e6 0020      		tst __tmp_reg__
+ 339 00e8 01F4      		brne 0b
+ 340 00ea 3197      		sbiw r30,1
+ 341 00ec E01B      		sub r30,r16
+ 342 00ee F10B      		sbc r31,r17
+ 343 00f0 FE2C      		mov r15,r14
+ 344 00f2 FE1A      		sub r15,r30
+ 345               	.LVL34:
+ 194:RP6Lib/RP6common/RP6uart.c **** 	if(cnt > 0) {
+ 346               		.loc 1 194 0
+ 347 00f4 1F14      		cp __zero_reg__,r15
+ 348 00f6 04F4      		brge .L22
+ 349               	.L24:
+ 350 00f8 FA94      		dec r15
+ 351               	.LVL35:
+ 195:RP6Lib/RP6common/RP6uart.c **** 		for(; cnt > 0; cnt--, writeChar('0'));
+ 352               		.loc 1 195 0 discriminator 2
+ 353 00fa 80E3      		ldi r24,lo8(48)
+ 354 00fc 0E94 0000 		call writeChar
+ 355               	.LVL36:
+ 356 0100 F110      		cpse r15,__zero_reg__
+ 357 0102 00C0      		rjmp .L24
+ 196:RP6Lib/RP6common/RP6uart.c **** 		writeString(&buffer[0]);
+ 358               		.loc 1 196 0
+ 359 0104 C801      		movw r24,r16
+ 360 0106 0E94 0000 		call writeString
+ 361               	.LVL37:
+ 362 010a 00C0      		rjmp .L21
+ 363               	.L22:
+ 197:RP6Lib/RP6common/RP6uart.c **** 	}
+ 198:RP6Lib/RP6common/RP6uart.c **** 	else 
+ 199:RP6Lib/RP6common/RP6uart.c **** 		writeStringLength(&buffer[0],length,-cnt);
+ 364               		.loc 1 199 0
+ 365 010c 4F2D      		mov r20,r15
+ 366 010e 4195      		neg r20
+ 367 0110 6E2D      		mov r22,r14
+ 368 0112 C801      		movw r24,r16
+ 369 0114 0E94 0000 		call writeStringLength
+ 370               	.LVL38:
+ 371               	.L21:
+ 372               	/* epilogue start */
+ 200:RP6Lib/RP6common/RP6uart.c **** }
+ 373               		.loc 1 200 0
+ 374 0118 6196      		adiw r28,17
+ 375 011a 0FB6      		in __tmp_reg__,__SREG__
+ 376 011c F894      		cli
+ 377 011e DEBF      		out __SP_H__,r29
+ 378 0120 0FBE      		out __SREG__,__tmp_reg__
+ 379 0122 CDBF      		out __SP_L__,r28
+ 380 0124 DF91      		pop r29
+ 381 0126 CF91      		pop r28
+ 382 0128 1F91      		pop r17
+ 383 012a 0F91      		pop r16
+ 384 012c FF90      		pop r15
+ 385               	.LVL39:
+ 386 012e EF90      		pop r14
+ 387               	.LVL40:
+ 388 0130 0895      		ret
+ 389               		.cfi_endproc
+ 390               	.LFE10:
+ 392               	.global	__vector_13
+ 394               	__vector_13:
+ 395               	.LFB11:
+ 201:RP6Lib/RP6common/RP6uart.c **** 
+ 202:RP6Lib/RP6common/RP6uart.c **** /*****************************************************************************/
+ 203:RP6Lib/RP6common/RP6uart.c **** // UART receive functions:
+ 204:RP6Lib/RP6common/RP6uart.c **** 
+ 205:RP6Lib/RP6common/RP6uart.c **** // MAXIMUM Buffer size is 254.
+ 206:RP6Lib/RP6common/RP6uart.c **** volatile char uart_receive_buffer[UART_RECEIVE_BUFFER_SIZE+1];
+ 207:RP6Lib/RP6common/RP6uart.c **** 
+ 208:RP6Lib/RP6common/RP6uart.c **** volatile uint8_t uart_status;
+ 209:RP6Lib/RP6common/RP6uart.c **** 
+ 210:RP6Lib/RP6common/RP6uart.c **** uint8_t read_pos = 0;
+ 211:RP6Lib/RP6common/RP6uart.c **** uint8_t write_pos = 0; 
+ 212:RP6Lib/RP6common/RP6uart.c **** uint8_t read_size = 0;
+ 213:RP6Lib/RP6common/RP6uart.c **** uint8_t write_size = 0;
+ 214:RP6Lib/RP6common/RP6uart.c **** 
+ 215:RP6Lib/RP6common/RP6uart.c **** /**
+ 216:RP6Lib/RP6common/RP6uart.c ****  * UART receive ISR.
+ 217:RP6Lib/RP6common/RP6uart.c ****  * Handles reception to circular buffer.
+ 218:RP6Lib/RP6common/RP6uart.c ****  */
+ 219:RP6Lib/RP6common/RP6uart.c **** ISR(USART_RXC_vect)
+ 220:RP6Lib/RP6common/RP6uart.c **** {	
+ 396               		.loc 1 220 0
+ 397               		.cfi_startproc
+ 398 0132 1F92      		push r1
+ 399               	.LCFI22:
+ 400               		.cfi_def_cfa_offset 3
+ 401               		.cfi_offset 1, -2
+ 402 0134 0F92      		push r0
+ 403               	.LCFI23:
+ 404               		.cfi_def_cfa_offset 4
+ 405               		.cfi_offset 0, -3
+ 406 0136 0FB6      		in r0,__SREG__
+ 407 0138 0F92      		push r0
+ 408 013a 1124      		clr __zero_reg__
+ 409 013c 2F93      		push r18
+ 410               	.LCFI24:
+ 411               		.cfi_def_cfa_offset 5
+ 412               		.cfi_offset 18, -4
+ 413 013e 8F93      		push r24
+ 414               	.LCFI25:
+ 415               		.cfi_def_cfa_offset 6
+ 416               		.cfi_offset 24, -5
+ 417 0140 9F93      		push r25
+ 418               	.LCFI26:
+ 419               		.cfi_def_cfa_offset 7
+ 420               		.cfi_offset 25, -6
+ 421 0142 EF93      		push r30
+ 422               	.LCFI27:
+ 423               		.cfi_def_cfa_offset 8
+ 424               		.cfi_offset 30, -7
+ 425 0144 FF93      		push r31
+ 426               	.LCFI28:
+ 427               		.cfi_def_cfa_offset 9
+ 428               		.cfi_offset 31, -8
+ 429               	/* prologue: Signal */
+ 430               	/* frame size = 0 */
+ 431               	/* stack size = 8 */
+ 432               	.L__stack_usage = 8
+ 221:RP6Lib/RP6common/RP6uart.c **** 	static volatile uint8_t dummy;
+ 222:RP6Lib/RP6common/RP6uart.c **** 	if(((uint8_t)(write_size - read_size)) < UART_RECEIVE_BUFFER_SIZE) {
+ 433               		.loc 1 222 0
+ 434 0146 9091 0000 		lds r25,write_size
+ 435 014a 8091 0000 		lds r24,read_size
+ 436 014e 292F      		mov r18,r25
+ 437 0150 281B      		sub r18,r24
+ 438 0152 2032      		cpi r18,lo8(32)
+ 439 0154 00F4      		brsh .L27
+ 223:RP6Lib/RP6common/RP6uart.c **** 		uart_receive_buffer[write_pos++] = UDR;
+ 440               		.loc 1 223 0
+ 441 0156 E091 0000 		lds r30,write_pos
+ 442 015a 81E0      		ldi r24,lo8(1)
+ 443 015c 8E0F      		add r24,r30
+ 444 015e 8093 0000 		sts write_pos,r24
+ 445 0162 F0E0      		ldi r31,0
+ 446 0164 2CB1      		in r18,0xc
+ 447 0166 E050      		subi r30,lo8(-(uart_receive_buffer))
+ 448 0168 F040      		sbci r31,hi8(-(uart_receive_buffer))
+ 449 016a 2083      		st Z,r18
+ 224:RP6Lib/RP6common/RP6uart.c **** 		write_size++;
+ 450               		.loc 1 224 0
+ 451 016c 9F5F      		subi r25,lo8(-(1))
+ 452 016e 9093 0000 		sts write_size,r25
+ 225:RP6Lib/RP6common/RP6uart.c **** 		if(write_pos > UART_RECEIVE_BUFFER_SIZE) 
+ 453               		.loc 1 225 0
+ 454 0172 8132      		cpi r24,lo8(33)
+ 455 0174 00F0      		brlo .L28
+ 226:RP6Lib/RP6common/RP6uart.c **** 			write_pos = 0;
+ 456               		.loc 1 226 0
+ 457 0176 1092 0000 		sts write_pos,__zero_reg__
+ 458               	.L28:
+ 227:RP6Lib/RP6common/RP6uart.c **** 		uart_status = UART_BUFFER_OK;
+ 459               		.loc 1 227 0
+ 460 017a 1092 0000 		sts uart_status,__zero_reg__
+ 461 017e 00C0      		rjmp .L26
+ 462               	.L27:
+ 228:RP6Lib/RP6common/RP6uart.c **** 	}
+ 229:RP6Lib/RP6common/RP6uart.c **** 	else {	
+ 230:RP6Lib/RP6common/RP6uart.c **** 		dummy = UDR;
+ 463               		.loc 1 230 0
+ 464 0180 8CB1      		in r24,0xc
+ 465 0182 8093 0000 		sts dummy.1979,r24
+ 231:RP6Lib/RP6common/RP6uart.c **** 		uart_status = UART_BUFFER_OVERFLOW;
+ 466               		.loc 1 231 0
+ 467 0186 81E0      		ldi r24,lo8(1)
+ 468 0188 8093 0000 		sts uart_status,r24
+ 469               	.L26:
+ 470               	/* epilogue start */
+ 232:RP6Lib/RP6common/RP6uart.c **** 	}
+ 233:RP6Lib/RP6common/RP6uart.c **** }
+ 471               		.loc 1 233 0
+ 472 018c FF91      		pop r31
+ 473 018e EF91      		pop r30
+ 474 0190 9F91      		pop r25
+ 475 0192 8F91      		pop r24
+ 476 0194 2F91      		pop r18
+ 477 0196 0F90      		pop r0
+ 478 0198 0FBE      		out __SREG__,r0
+ 479 019a 0F90      		pop r0
+ 480 019c 1F90      		pop r1
+ 481 019e 1895      		reti
+ 482               		.cfi_endproc
+ 483               	.LFE11:
+ 485               	.global	readChar
+ 487               	readChar:
+ 488               	.LFB12:
+ 234:RP6Lib/RP6common/RP6uart.c **** 
+ 235:RP6Lib/RP6common/RP6uart.c **** /**
+ 236:RP6Lib/RP6common/RP6uart.c ****  * Read a char from the circular buffer. 
+ 237:RP6Lib/RP6common/RP6uart.c ****  * The char is removed from the buffer (or more precise: not accessible directly anymore
+ 238:RP6Lib/RP6common/RP6uart.c ****  * and will be overwritten as soon as new data becomes available)!
+ 239:RP6Lib/RP6common/RP6uart.c ****  *
+ 240:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 241:RP6Lib/RP6common/RP6uart.c ****  *
+ 242:RP6Lib/RP6common/RP6uart.c ****  * // [...]
+ 243:RP6Lib/RP6common/RP6uart.c ****  * if(getBufferLength()) 		
+ 244:RP6Lib/RP6common/RP6uart.c ****  *	   receivedData[data_position++] = readChar();
+ 245:RP6Lib/RP6common/RP6uart.c ****  * // [...]
+ 246:RP6Lib/RP6common/RP6uart.c ****  *
+ 247:RP6Lib/RP6common/RP6uart.c ****  */
+ 248:RP6Lib/RP6common/RP6uart.c **** char readChar(void)
+ 249:RP6Lib/RP6common/RP6uart.c **** {
+ 489               		.loc 1 249 0
+ 490               		.cfi_startproc
+ 491               	/* prologue: function */
+ 492               	/* frame size = 0 */
+ 493               	/* stack size = 0 */
+ 494               	.L__stack_usage = 0
+ 250:RP6Lib/RP6common/RP6uart.c **** 	uart_status = UART_BUFFER_OK;
+ 495               		.loc 1 250 0
+ 496 01a0 1092 0000 		sts uart_status,__zero_reg__
+ 251:RP6Lib/RP6common/RP6uart.c **** 	if(((uint8_t)(write_size - read_size)) > 0) {
+ 497               		.loc 1 251 0
+ 498 01a4 8091 0000 		lds r24,read_size
+ 499 01a8 9091 0000 		lds r25,write_size
+ 500 01ac 9817      		cp r25,r24
+ 501 01ae 01F0      		breq .L33
+ 252:RP6Lib/RP6common/RP6uart.c **** 		read_size++;
+ 502               		.loc 1 252 0
+ 503 01b0 8F5F      		subi r24,lo8(-(1))
+ 504 01b2 8093 0000 		sts read_size,r24
+ 253:RP6Lib/RP6common/RP6uart.c **** 		if(read_pos > UART_RECEIVE_BUFFER_SIZE) 
+ 505               		.loc 1 253 0
+ 506 01b6 8091 0000 		lds r24,read_pos
+ 507 01ba 8132      		cpi r24,lo8(33)
+ 508 01bc 00F0      		brlo .L32
+ 254:RP6Lib/RP6common/RP6uart.c **** 			read_pos = 0;
+ 509               		.loc 1 254 0
+ 510 01be 1092 0000 		sts read_pos,__zero_reg__
+ 511               	.L32:
+ 255:RP6Lib/RP6common/RP6uart.c **** 		return uart_receive_buffer[read_pos++];
+ 512               		.loc 1 255 0
+ 513 01c2 E091 0000 		lds r30,read_pos
+ 514 01c6 81E0      		ldi r24,lo8(1)
+ 515 01c8 8E0F      		add r24,r30
+ 516 01ca 8093 0000 		sts read_pos,r24
+ 517 01ce F0E0      		ldi r31,0
+ 518 01d0 E050      		subi r30,lo8(-(uart_receive_buffer))
+ 519 01d2 F040      		sbci r31,hi8(-(uart_receive_buffer))
+ 520 01d4 8081      		ld r24,Z
+ 521 01d6 0895      		ret
+ 522               	.L33:
+ 256:RP6Lib/RP6common/RP6uart.c **** 	}
+ 257:RP6Lib/RP6common/RP6uart.c **** 	return 0;
+ 523               		.loc 1 257 0
+ 524 01d8 80E0      		ldi r24,0
+ 258:RP6Lib/RP6common/RP6uart.c **** }
+ 525               		.loc 1 258 0
+ 526 01da 0895      		ret
+ 527               		.cfi_endproc
+ 528               	.LFE12:
+ 530               	.global	readChars
+ 532               	readChars:
+ 533               	.LFB13:
+ 259:RP6Lib/RP6common/RP6uart.c **** 
+ 260:RP6Lib/RP6common/RP6uart.c **** /**
+ 261:RP6Lib/RP6common/RP6uart.c ****  * Same as readChar, but this function copies numberOfChars chars from the
+ 262:RP6Lib/RP6common/RP6uart.c ****  * circular buffer to buf. 
+ 263:RP6Lib/RP6common/RP6uart.c ****  * It also returns the number of characters really copied to the buffer! 
+ 264:RP6Lib/RP6common/RP6uart.c ****  * Just in case that there were fewer chars in the buffer...
+ 265:RP6Lib/RP6common/RP6uart.c ****  */
+ 266:RP6Lib/RP6common/RP6uart.c **** uint8_t readChars(char *buf, uint8_t numberOfChars)
+ 267:RP6Lib/RP6common/RP6uart.c **** {
+ 534               		.loc 1 267 0
+ 535               		.cfi_startproc
+ 536               	.LVL41:
+ 537               	/* prologue: function */
+ 538               	/* frame size = 0 */
+ 539               	/* stack size = 0 */
+ 540               	.L__stack_usage = 0
+ 268:RP6Lib/RP6common/RP6uart.c **** 	uint8_t i = 0;
+ 269:RP6Lib/RP6common/RP6uart.c **** 	uart_status = UART_BUFFER_OK;
+ 541               		.loc 1 269 0
+ 542 01dc 1092 0000 		sts uart_status,__zero_reg__
+ 268:RP6Lib/RP6common/RP6uart.c **** 	uint8_t i = 0;
+ 543               		.loc 1 268 0
+ 544 01e0 20E0      		ldi r18,0
+ 545               	.LVL42:
+ 546               	.L35:
+ 270:RP6Lib/RP6common/RP6uart.c **** 	while(((uint8_t)(write_size - read_size)) >= numberOfChars) {
+ 547               		.loc 1 270 0 discriminator 1
+ 548 01e2 4091 0000 		lds r20,read_size
+ 549 01e6 3091 0000 		lds r19,write_size
+ 550 01ea 341B      		sub r19,r20
+ 551 01ec 3617      		cp r19,r22
+ 552 01ee 00F0      		brlo .L38
+ 271:RP6Lib/RP6common/RP6uart.c **** 		read_size++;
+ 553               		.loc 1 271 0
+ 554 01f0 4F5F      		subi r20,lo8(-(1))
+ 555 01f2 4093 0000 		sts read_size,r20
+ 272:RP6Lib/RP6common/RP6uart.c **** 		buf[i++] = uart_receive_buffer[read_pos++];
+ 556               		.loc 1 272 0
+ 557 01f6 31E0      		ldi r19,lo8(1)
+ 558 01f8 320F      		add r19,r18
+ 559               	.LVL43:
+ 560 01fa E091 0000 		lds r30,read_pos
+ 561 01fe 41E0      		ldi r20,lo8(1)
+ 562 0200 4E0F      		add r20,r30
+ 563 0202 4093 0000 		sts read_pos,r20
+ 564 0206 F0E0      		ldi r31,0
+ 565 0208 E050      		subi r30,lo8(-(uart_receive_buffer))
+ 566 020a F040      		sbci r31,hi8(-(uart_receive_buffer))
+ 567 020c 4081      		ld r20,Z
+ 568 020e FC01      		movw r30,r24
+ 569 0210 E20F      		add r30,r18
+ 570 0212 F11D      		adc r31,__zero_reg__
+ 571 0214 4083      		st Z,r20
+ 273:RP6Lib/RP6common/RP6uart.c **** 		if(read_pos > UART_RECEIVE_BUFFER_SIZE) 
+ 572               		.loc 1 273 0
+ 573 0216 2091 0000 		lds r18,read_pos
+ 574 021a 2132      		cpi r18,lo8(33)
+ 575 021c 00F0      		brlo .L36
+ 274:RP6Lib/RP6common/RP6uart.c **** 			read_pos = 0;
+ 576               		.loc 1 274 0
+ 577 021e 1092 0000 		sts read_pos,__zero_reg__
+ 578               	.L36:
+ 267:RP6Lib/RP6common/RP6uart.c **** 	uint8_t i = 0;
+ 579               		.loc 1 267 0 discriminator 1
+ 580 0222 232F      		mov r18,r19
+ 581 0224 00C0      		rjmp .L35
+ 582               	.LVL44:
+ 583               	.L38:
+ 275:RP6Lib/RP6common/RP6uart.c **** 	}
+ 276:RP6Lib/RP6common/RP6uart.c **** 	return i;
+ 277:RP6Lib/RP6common/RP6uart.c **** }
+ 584               		.loc 1 277 0
+ 585 0226 822F      		mov r24,r18
+ 586               	.LVL45:
+ 587 0228 0895      		ret
+ 588               		.cfi_endproc
+ 589               	.LFE13:
+ 591               	.global	getBufferLength
+ 593               	getBufferLength:
+ 594               	.LFB14:
+ 278:RP6Lib/RP6common/RP6uart.c **** 
+ 279:RP6Lib/RP6common/RP6uart.c **** /**
+ 280:RP6Lib/RP6common/RP6uart.c ****  * Returns the current number of elements in the buffer.
+ 281:RP6Lib/RP6common/RP6uart.c ****  *
+ 282:RP6Lib/RP6common/RP6uart.c ****  * Example:
+ 283:RP6Lib/RP6common/RP6uart.c ****  * s. readChar function above!
+ 284:RP6Lib/RP6common/RP6uart.c ****  */
+ 285:RP6Lib/RP6common/RP6uart.c **** uint8_t getBufferLength(void)
+ 286:RP6Lib/RP6common/RP6uart.c **** {
+ 595               		.loc 1 286 0
+ 596               		.cfi_startproc
+ 597               	/* prologue: function */
+ 598               	/* frame size = 0 */
+ 599               	/* stack size = 0 */
+ 600               	.L__stack_usage = 0
+ 287:RP6Lib/RP6common/RP6uart.c **** 	return (((uint8_t)(write_size - read_size)));
+ 601               		.loc 1 287 0
+ 602 022a 8091 0000 		lds r24,write_size
+ 603 022e 9091 0000 		lds r25,read_size
+ 288:RP6Lib/RP6common/RP6uart.c **** }
+ 604               		.loc 1 288 0
+ 605 0232 891B      		sub r24,r25
+ 606 0234 0895      		ret
+ 607               		.cfi_endproc
+ 608               	.LFE14:
+ 610               	.global	clearReceptionBuffer
+ 612               	clearReceptionBuffer:
+ 613               	.LFB15:
+ 289:RP6Lib/RP6common/RP6uart.c **** 
+ 290:RP6Lib/RP6common/RP6uart.c **** /**
+ 291:RP6Lib/RP6common/RP6uart.c ****  * Clears the reception buffer - it disables UART Receive 
+ 292:RP6Lib/RP6common/RP6uart.c ****  * interrupt for a short period of time. 
+ 293:RP6Lib/RP6common/RP6uart.c ****  */
+ 294:RP6Lib/RP6common/RP6uart.c **** void clearReceptionBuffer(void)
+ 295:RP6Lib/RP6common/RP6uart.c **** {
+ 614               		.loc 1 295 0
+ 615               		.cfi_startproc
+ 616               	/* prologue: function */
+ 617               	/* frame size = 0 */
+ 618               	/* stack size = 0 */
+ 619               	.L__stack_usage = 0
+ 296:RP6Lib/RP6common/RP6uart.c **** 	static uint8_t dummy;
+ 297:RP6Lib/RP6common/RP6uart.c **** 	UCSRB &= ~(1 << RXCIE); // disable UART RX Interrupt
+ 620               		.loc 1 297 0
+ 621 0236 5798      		cbi 0xa,7
+ 298:RP6Lib/RP6common/RP6uart.c **** 	dummy = UDR;
+ 622               		.loc 1 298 0
+ 623 0238 8CB1      		in r24,0xc
+ 624 023a 8093 0000 		sts dummy.1997,r24
+ 299:RP6Lib/RP6common/RP6uart.c **** 	read_pos = 0;
+ 625               		.loc 1 299 0
+ 626 023e 1092 0000 		sts read_pos,__zero_reg__
+ 300:RP6Lib/RP6common/RP6uart.c **** 	write_pos = 0; 
+ 627               		.loc 1 300 0
+ 628 0242 1092 0000 		sts write_pos,__zero_reg__
+ 301:RP6Lib/RP6common/RP6uart.c **** 	read_size = 0;
+ 629               		.loc 1 301 0
+ 630 0246 1092 0000 		sts read_size,__zero_reg__
+ 302:RP6Lib/RP6common/RP6uart.c **** 	write_size = 0;
+ 631               		.loc 1 302 0
+ 632 024a 1092 0000 		sts write_size,__zero_reg__
+ 303:RP6Lib/RP6common/RP6uart.c **** 	uart_status = UART_BUFFER_OK;
+ 633               		.loc 1 303 0
+ 634 024e 1092 0000 		sts uart_status,__zero_reg__
+ 304:RP6Lib/RP6common/RP6uart.c **** 	UCSRB |= (1 << RXCIE); // enable Interrupt again
+ 635               		.loc 1 304 0
+ 636 0252 579A      		sbi 0xa,7
+ 637 0254 0895      		ret
+ 638               		.cfi_endproc
+ 639               	.LFE15:
+ 641               		.local	dummy.1997
+ 642               		.comm	dummy.1997,1,1
+ 643               		.local	dummy.1979
+ 644               		.comm	dummy.1979,1,1
+ 645               	.global	write_size
+ 646               		.section .bss
+ 649               	write_size:
+ 650 0000 00        		.zero	1
+ 651               	.global	read_size
+ 654               	read_size:
+ 655 0001 00        		.zero	1
+ 656               	.global	write_pos
+ 659               	write_pos:
+ 660 0002 00        		.zero	1
+ 661               	.global	read_pos
+ 664               	read_pos:
+ 665 0003 00        		.zero	1
+ 666               		.comm	uart_status,1,1
+ 667               		.comm	uart_receive_buffer,33,1
+ 668               		.text
+ 669               	.Letext0:
+ 670               		.file 3 "d:\\development\\rp6\\avr\\include\\stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 RP6uart.c
+D:\System\TEMP\ccCHblg1.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccCHblg1.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccCHblg1.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccCHblg1.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccCHblg1.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccCHblg1.s:12     .text:00000000 writeChar
+D:\System\TEMP\ccCHblg1.s:34     .text:00000008 writeString
+D:\System\TEMP\ccCHblg1.s:77     .text:00000020 writeNStringP
+D:\System\TEMP\ccCHblg1.s:130    .text:0000003e writeStringLength
+D:\System\TEMP\ccCHblg1.s:205    .text:00000078 writeInteger
+D:\System\TEMP\ccCHblg1.s:271    .text:000000b4 writeIntegerLength
+D:\System\TEMP\ccCHblg1.s:394    .text:00000132 __vector_13
+D:\System\TEMP\ccCHblg1.s:649    .bss:00000000 write_size
+D:\System\TEMP\ccCHblg1.s:654    .bss:00000001 read_size
+D:\System\TEMP\ccCHblg1.s:659    .bss:00000002 write_pos
+                            *COM*:00000021 uart_receive_buffer
+                            *COM*:00000001 uart_status
+D:\System\TEMP\ccCHblg1.s:642    .bss:00000005 dummy.1979
+D:\System\TEMP\ccCHblg1.s:487    .text:000001a0 readChar
+D:\System\TEMP\ccCHblg1.s:664    .bss:00000003 read_pos
+D:\System\TEMP\ccCHblg1.s:532    .text:000001dc readChars
+D:\System\TEMP\ccCHblg1.s:593    .text:0000022a getBufferLength
+D:\System\TEMP\ccCHblg1.s:612    .text:00000236 clearReceptionBuffer
+                             .bss:00000004 dummy.1997
+
+UNDEFINED SYMBOLS
+__itoa
+__do_clear_bss

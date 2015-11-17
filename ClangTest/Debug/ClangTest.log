@@ -1,0 +1,156 @@
+﻿clang-cl.exe : warning : argument unused during compilation: '/ZI'
+clang-cl.exe : warning : argument unused during compilation: '/Gm'
+clang-cl.exe : warning : argument unused during compilation: '/GS'
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\climits:5:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(580,23): error : expected ';' at end of declaration list
+          __thiscall ~_Lockit() _NOEXCEPT;        // clear the lock
+                               ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(715,27): error : expected ';' at end of declaration list
+          __thiscall ~_Init_locks() _NOEXCEPT;
+                                   ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath(18,54): error : expected ';' at end of declaration
+          _Check_return_ inline _Ty _Pow_int(_Ty _Xx, int _Yx) _NOEXCEPT
+                                                              ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath(18,55): error : C++ requires a type specifier for all declarations
+          _Check_return_ inline _Ty _Pow_int(_Ty _Xx, int _Yx) _NOEXCEPT
+                                                               ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(31,21) :  note: expanded from macro '_NOEXCEPT'
+    #define _NOEXCEPT     noexcept
+                          ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath(18,64): error : expected ';' after top level declarator
+          _Check_return_ inline _Ty _Pow_int(_Ty _Xx, int _Yx) _NOEXCEPT
+                                                                        ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath:656:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtgmath.h:8:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common:6:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(21,34): error : no member named 'calloc' in the global namespace; did you mean '_alloca'?
+  using _CSTD bsearch; using _CSTD calloc; using _CSTD div;
+                             ~~~~~ ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(21,34) :  note: '_alloca' declared here
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(22,31): error : no member named 'free' in the global namespace
+  using _CSTD exit; using _CSTD free;
+                          ~~~~~ ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(23,49): error : no member named 'malloc' in the global namespace; did you mean '_alloca'?
+  using _CSTD labs; using _CSTD ldiv; using _CSTD malloc;
+                                            ~~~~~ ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(21,34) :  note: '_alloca' declared here
+  using _CSTD bsearch; using _CSTD calloc; using _CSTD div;
+                                   ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib(25,50): error : no member named 'realloc' in the global namespace
+  using _CSTD qsort; using _CSTD rand; using _CSTD realloc;
+                                             ~~~~~ ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath:656:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtgmath.h:8:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(24,9): error : unknown type name 'constexpr'
+          static _CONST_DATA _Ty value = _Val;
+                 ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(43,23) :  note: expanded from macro '_CONST_DATA'
+    #define _CONST_DATA   constexpr
+                          ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath:656:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtgmath.h:8:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(24,24): error : expected ';' at end of declaration list
+          static _CONST_DATA _Ty value = _Val;
+                                ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(26,10): error : unknown type name '_Ty'
+          typedef _Ty value_type;
+                  ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(29,2): error : unknown type name 'constexpr'
+          _CONST_FUN operator value_type() const _NOEXCEPT
+          ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(44,22) :  note: expanded from macro '_CONST_FUN'
+    #define _CONST_FUN    constexpr
+                          ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cmath:656:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtgmath.h:8:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(29,40): error : expected ';' at end of declaration list
+          _CONST_FUN operator value_type() const _NOEXCEPT
+                                                ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(231,22): error : use of undeclared identifier 'char16_t'
+          struct _Is_integral<char16_t>
+                              ^
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtr1common(237,22): error : use of undeclared identifier 'char32_t'
+          struct _Is_integral<char32_t>
+                              ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:10:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\streambuf:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xiosbase:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocale:8:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\stdexcept:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\exception:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\type_traits:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstddef:9:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\initializer_list(27,2): error : unknown type name 'constexpr'
+          _CONST_FUN initializer_list() _NOEXCEPT
+          ^
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\yvals.h(44,22) :  note: expanded from macro '_CONST_FUN'
+    #define _CONST_FUN    constexpr
+                          ^
+  In file included from main.cxx:1:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\iostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\istream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ostream:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\ios:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocnum:10:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\streambuf:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xiosbase:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xlocale:8:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\stdexcept:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\exception:7:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\type_traits:6:
+  In file included from C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xstddef:9:
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\initializer_list(27,13): error : constructor cannot have a return type
+          _CONST_FUN initializer_list() _NOEXCEPT
+                     ^~~~~~~~~~~~~~~~
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\initializer_list(27,31): error : expected ';' at end of declaration list
+          _CONST_FUN initializer_list() _NOEXCEPT
+                                       ^
+CL : fatal error : too many errors emitted, stopping now [-ferror-limit=]
+  20 errors generated.

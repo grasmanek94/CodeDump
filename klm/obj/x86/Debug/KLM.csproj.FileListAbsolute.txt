@@ -1,0 +1,8 @@
+D:\Desktop\klm\obj\x86\Debug\KLM.csprojResolveAssemblyReference.cache
+D:\Desktop\klm\obj\x86\Debug\KLM.g.resources
+D:\Desktop\klm\bin\Debug\KLM.exe
+D:\Desktop\klm\bin\Debug\KLM.pdb
+D:\Desktop\klm\obj\x86\Debug\KLM.exe
+D:\Desktop\klm\obj\x86\Debug\KLM.pdb
+D:\Development\Projects\klm\obj\x86\Debug\KLM.exe
+D:\Development\Projects\klm\obj\x86\Debug\KLM.pdb

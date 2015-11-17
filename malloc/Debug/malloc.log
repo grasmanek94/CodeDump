@@ -1,0 +1,5 @@
+﻿  main.cxx
+d:\development\projects\malloc\main.cxx(6): warning C4307: '*': integral constant overflow
+d:\development\projects\malloc\main.cxx(9): warning C4307: '*': integral constant overflow
+d:\development\projects\malloc\main.cxx(11): warning C4307: '*': integral constant overflow
+  malloc.vcxproj -> D:\Development\Projects\malloc\Debug\malloc.exe

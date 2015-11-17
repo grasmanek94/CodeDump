@@ -1,0 +1,1253 @@
+Archive member included because of file (symbol)
+
+./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                              ProcessMessages.o (DecompUnit_get_pressure)
+./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                              ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o) (HAL_reset)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+                              ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o) (__mulsi3)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+                              ProcessLeds.o (__udivmodhi4)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+                              ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o) (__divmodsi4)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o) (__negsi2)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o (exit)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+                              ProcessLCD.o (__do_copy_data)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+                              ProcessMessages.o (__do_clear_bss)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o) (__muluhisi3)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o) (__udivmodsi4)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o) (__umulhisi3)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                              Message.o (malloc)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                              RP6Lib/RP6control/RP6ControlLib.o (__itoa)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o) (__itoa_ncheck)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o) (__utoa_common)
+d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o) (strrev)
+
+Allocating common symbols
+Common symbol       size              file
+
+timer               0x2               ProcessMessages.o
+uart_status         0x1               RP6Lib/RP6common/RP6uart.o
+controlStatus       0x1               RP6Lib/RP6control/RP6ControlLib.o
+__brkval            0x2               d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+message             0x2               Message.o
+lcd_tmp_buffer      0x11              RP6Lib/RP6control/RP6ControlLib.o
+stopwatches         0x11              RP6Lib/RP6control/RP6ControlLib.o
+_pressureChangePump
+                    0x2               ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+externalPort        0x1               RP6Lib/RP6control/RP6ControlLib.o
+delay_timer         0x1               RP6Lib/RP6control/RP6ControlLib.o
+ms_timer            0x1               RP6Lib/RP6control/RP6ControlLib.o
+__flp               0x2               d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+_pressureChangeValve
+                    0x2               ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+uart_receive_buffer
+                    0x21              RP6Lib/RP6common/RP6uart.o
+sound_timer         0x2               RP6Lib/RP6control/RP6ControlLib.o
+config              0x3               Config.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+LOAD ProcessMessages.o
+LOAD ProcessLeds.o
+LOAD ProcessLCD.o
+LOAD LPA.o
+LOAD ProcessKeys.o
+LOAD Config.o
+LOAD ProcessPresurarization.o
+LOAD Message.o
+LOAD RP6Lib/RP6control/RP6ControlLib.o
+LOAD RP6Lib/RP6common/RP6uart.o
+LOAD d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libm.a
+LOAD ./LPADecompressieLib\libLPAdecompressie.a
+START GROUP
+LOAD d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a
+LOAD d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libm.a
+LOAD d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a
+END GROUP
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1926
+ *(.vectors)
+ .vectors       0x00000000       0x54 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x00000054                . = ALIGN (0x2)
+                0x00000054                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000054        0x0 linker stubs
+ *(.trampolines*)
+                0x00000054                __trampolines_end = .
+ *(.progmem*)
+ .progmem.data  0x00000054       0x22 LPA.o
+                0x00000076                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000076                __ctors_start = .
+ *(.ctors)
+                0x00000076                __ctors_end = .
+                0x00000076                __dtors_start = .
+ *(.dtors)
+                0x00000076                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000076        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000076                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000076        0xc d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000082       0x16 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+                0x00000082                __do_copy_data
+ .init4         0x00000098       0x10 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000098                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000a8        0x8 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init9)
+ *(.text)
+ .text          0x000000b0        0x4 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+                0x000000b0                __vector_12
+                0x000000b0                __bad_interrupt
+                0x000000b0                __vector_6
+                0x000000b0                __vector_11
+                0x000000b0                __vector_17
+                0x000000b0                __vector_19
+                0x000000b0                __vector_5
+                0x000000b0                __vector_4
+                0x000000b0                __vector_9
+                0x000000b0                __vector_15
+                0x000000b0                __vector_8
+                0x000000b0                __vector_14
+                0x000000b0                __vector_16
+                0x000000b0                __vector_18
+                0x000000b0                __vector_20
+ .text          0x000000b4      0x164 ProcessMessages.o
+                0x000000b4                ProcessMessages
+ .text          0x00000218       0x40 ProcessLeds.o
+                0x00000218                ProcessLeds
+ .text          0x00000258       0xc0 ProcessLCD.o
+                0x00000258                ProcessLCD
+ .text          0x00000318       0x50 LPA.o
+                0x00000318                setup
+                0x00000354                loop
+ .text          0x00000368       0x1e ProcessKeys.o
+                0x00000368                ProcessKeys
+ .text          0x00000386        0x0 Config.o
+ .text          0x00000386       0x50 ProcessPresurarization.o
+                0x00000386                ProcessPresurarization
+ .text          0x000003d6      0x2c8 Message.o
+                0x000003d6                CalculateCorruptionCheck
+                0x00000426                Message_BeginWrite
+                0x00000436                Message_Init
+                0x00000456                Message_GetAction
+                0x00000462                Message_SetAction
+                0x0000046e                Message_GetDataLenght
+                0x0000047a                Message_Read_byte
+                0x000004b0                Message_Write_byte
+                0x000004e6                Message_Read_Int16
+                0x0000052c                Message_Write_Int16
+                0x00000562                Message_Receive
+                0x00000640                Message_Send
+                0x00000692                Message_IsCorrupt
+ .text          0x0000069e      0x81e RP6Lib/RP6control/RP6ControlLib.o
+                0x0000069e                INT0_event_DUMMY
+                0x000006a0                INT1_event_DUMMY
+                0x000006a2                INT2_event_DUMMY
+                0x000006a4                INT0_setEventHandler
+                0x000006ae                __vector_1
+                0x000006fc                INT1_setEventHandler
+                0x00000706                __vector_2
+                0x00000754                INT2_setEventHandler
+                0x0000075e                __vector_3
+                0x000007ac                readADC
+                0x000007ca                writeSPI
+                0x000007d2                readSPI
+                0x000007dc                readWordSPI
+                0x000007fc                writeWordSPI
+                0x0000080e                writeBufferSPI
+                0x00000826                readBufferSPI
+                0x00000842                SPI_EEPROM_readByte
+                0x00000862                SPI_EEPROM_readBytes
+                0x000008a4                SPI_EEPROM_enableWrite
+                0x000008b0                SPI_EEPROM_disableWrite
+                0x000008bc                SPI_EEPROM_getStatus
+                0x000008cc                SPI_EEPROM_writeByte
+                0x00000900                SPI_EEPROM_writeBytes
+                0x00000940                outputExt
+                0x00000952                setLEDs
+                0x00000964                getPressedKeyNumber
+                0x000009cc                checkPressedKeyEvent
+                0x000009f0                checkReleasedKeyEvent
+                0x00000a18                __vector_10
+                0x00000b6a                beep
+                0x00000b86                setBeeperPitch
+                0x00000ba4                sleep
+                0x00000bba                mSleep
+                0x00000bd4                dischargePeakDetector
+                0x00000be4                getMicrophonePeak
+                0x00000c10                delayCycles
+                0x00000c1a                setLCDD
+                0x00000c3c                write4BitLCDData
+                0x00000c58                writeLCDCommand
+                0x00000c66                setCursorPosLCD
+                0x00000c74                initLCD
+                0x00000cf2                clearLCD
+                0x00000d00                writeCharLCD
+                0x00000d0e                writeNStringLCD_P
+                0x00000d2c                _showScreenLCD_P
+                0x00000d64                writeStringLCD
+                0x00000d7c                writeIntegerLCD
+                0x00000d90                writeStringLengthLCD
+                0x00000dca                writeIntegerLengthLCD
+                0x00000e48                clearPosLCD
+                0x00000e62                initRP6Control
+ .text          0x00000ebc      0x256 RP6Lib/RP6common/RP6uart.o
+                0x00000ebc                writeChar
+                0x00000ec4                writeString
+                0x00000edc                writeNStringP
+                0x00000efa                writeStringLength
+                0x00000f34                writeInteger
+                0x00000f70                writeIntegerLength
+                0x00000fee                __vector_13
+                0x0000105c                readChar
+                0x00001098                readChars
+                0x000010e6                getBufferLength
+                0x000010f2                clearReceptionBuffer
+ .text          0x00001112      0x38a ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                0x00001112                DecompUnit_get_pressure
+                0x00001132                DecompUnit_get_maxpressure
+                0x00001138                DecompUnit_get_pumpstate
+                0x0000113e                DecompUnit_get_valvestate
+                0x00001144                DecompUnit_get_pumpCapacity
+                0x0000114a                DecompUnit_get_valveLoss
+                0x0000116a                __vector_7
+                0x00001380                DecompUnit_set_pump
+                0x00001416                DecompUnit_set_valve
+                0x0000143e                DecompUnit_reset
+ .text          0x0000149c       0xb0 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                0x0000149c                HAL_reset
+                0x000014c2                HAL_get_TOGGLE
+                0x000014d8                HAL_get_BUTTON1
+                0x000014ee                HAL_get_BUTTON2
+                0x00001504                HAL_clear_LEDS
+                0x00001510                HAL_set_LED_RED
+                0x0000151c                HAL_set_LED_GREEN
+                0x00001528                HAL_set_RGB_RED
+                0x00001534                HAL_set_RGB_GREEN
+                0x00001540                HAL_set_RGB_BLUE
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+ .text          0x0000154c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x0000154c                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x0000154c        0xa LPA.o
+                0x0000154c                main
+ .text.libgcc.mul
+                0x00001556       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+                0x00001556                __mulsi3
+ .text.libgcc.div
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc   0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc.prologue
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc.builtins
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc.fmul
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc.fixed
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .text.libgcc.mul
+                0x00001576        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.div
+                0x00001576       0x28 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+                0x00001576                __udivmodhi4
+ .text.libgcc   0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x0000159e        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.div
+                0x0000159e       0x2e d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+                0x0000159e                __divmodsi4
+ .text.libgcc   0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.prologue
+                0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.builtins
+                0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.fmul
+                0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.fixed
+                0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .text.libgcc.mul
+                0x000015cc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.div
+                0x000015cc       0x10 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+                0x000015cc                __negsi2
+ .text.libgcc   0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.prologue
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.builtins
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.fmul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.fixed
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .text.libgcc.mul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x000015dc        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x000015dc       0x16 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+                0x000015dc                __muluhisi3
+ .text.libgcc.div
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc   0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc.prologue
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc.builtins
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc.fmul
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc.fixed
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc.mul
+                0x000015f2        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.div
+                0x000015f2       0x44 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+                0x000015f2                __udivmodsi4
+ .text.libgcc   0x00001636        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x00001636        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x00001636        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x00001636        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x00001636        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x00001636       0x1e d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+                0x00001636                __umulhisi3
+ .text.libgcc.div
+                0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x00001654        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .text.avr-libc
+                0x00001654      0x24e d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x00001654                malloc
+                0x00001784                free
+ .text.avr-libc
+                0x000018a2       0x16 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x000018a2                __itoa
+                0x000018a2                itoa
+ .text.avr-libc
+                0x000018b8       0x16 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x000018b8                __itoa_ncheck
+ .text.avr-libc
+                0x000018ce       0x34 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x000018ce                __utoa_ncheck
+                0x000018d0                __utoa_common
+ .text.avr-libc
+                0x00001902       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00001902                strrev
+                0x00001922                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00001922        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+                0x00001922                _exit
+                0x00001922                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00001922        0x4 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001926                _etext = .
+
+.data           0x00800060       0x2c load address 0x00001926
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .data          0x00800060        0x0 ProcessMessages.o
+ .data          0x00800060        0x0 ProcessLeds.o
+ .data          0x00800060        0x0 ProcessLCD.o
+ .data          0x00800060        0x0 LPA.o
+ .data          0x00800060        0x0 ProcessKeys.o
+ .data          0x00800060        0x0 Config.o
+ .data          0x00800060        0x0 ProcessPresurarization.o
+ .data          0x00800060        0x0 Message.o
+ .data          0x00800060        0x6 RP6Lib/RP6control/RP6ControlLib.o
+ .data          0x00800066        0x0 RP6Lib/RP6common/RP6uart.o
+ .data          0x00800066        0x3 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                0x00800066                _valveState
+                0x00800067                drukknop1
+                0x00800068                drukknop2
+ .data          0x00800069        0x0 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x00800069        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .data          0x00800069        0x6 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x00800069                __malloc_heap_end
+                0x0080006b                __malloc_heap_start
+                0x0080006d                __malloc_margin
+ .data          0x0080006f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .data          0x0080006f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+ .data          0x0080006f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+ .data          0x0080006f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ .rodata.str1.1
+                0x0080006f       0x1c ProcessLCD.o
+ *(.gnu.linkonce.d*)
+                0x0080008c                . = ALIGN (0x2)
+ *fill*         0x0080008b        0x1 
+                0x0080008c                _edata = .
+                0x0080008c                PROVIDE (__data_end, .)
+
+.bss            0x0080008c       0x6c
+                0x0080008c                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080008c        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x0080008c        0x0 ProcessMessages.o
+ .bss           0x0080008c        0x0 ProcessLeds.o
+ .bss           0x0080008c        0x0 ProcessLCD.o
+ .bss           0x0080008c        0x0 LPA.o
+ .bss           0x0080008c        0x0 ProcessKeys.o
+ .bss           0x0080008c        0x0 Config.o
+ .bss           0x0080008c        0x0 ProcessPresurarization.o
+ .bss           0x0080008c        0x0 Message.o
+ .bss           0x0080008c        0x2 RP6Lib/RP6control/RP6ControlLib.o
+ .bss           0x0080008e        0x6 RP6Lib/RP6common/RP6uart.o
+                0x0080008e                write_size
+                0x0080008f                read_size
+                0x00800090                write_pos
+                0x00800091                read_pos
+ .bss           0x00800094        0xb ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                0x00800094                _pressure
+                0x00800098                _pumpState
+                0x00800099                _turnofftimerS
+                0x0080009b                _turnofftimer
+                0x0080009d                _turnontimer
+ .bss           0x0080009f        0x0 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+ .bss           0x0080009f        0x0 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080009f        0x2 ProcessMessages.o
+                0x0080009f                timer
+ COMMON         0x008000a1        0x3 Config.o
+                0x008000a1                config
+ COMMON         0x008000a4        0x2 Message.o
+                0x008000a4                message
+ COMMON         0x008000a6       0x28 RP6Lib/RP6control/RP6ControlLib.o
+                0x008000a6                controlStatus
+                0x008000a7                lcd_tmp_buffer
+                0x008000b8                stopwatches
+                0x008000c9                externalPort
+                0x008000ca                delay_timer
+                0x008000cb                ms_timer
+                0x008000cc                sound_timer
+ COMMON         0x008000ce       0x22 RP6Lib/RP6common/RP6uart.o
+                0x008000ce                uart_status
+                0x008000cf                uart_receive_buffer
+ COMMON         0x008000f0        0x4 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                0x008000f0                _pressureChangePump
+                0x008000f2                _pressureChangeValve
+ COMMON         0x008000f4        0x4 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x008000f4                __brkval
+                0x008000f6                __flp
+                0x008000f8                PROVIDE (__bss_end, .)
+                0x00001926                __data_load_start = LOADADDR (.data)
+                0x00001952                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008000f8        0x0
+                0x008000f8                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008000f8                PROVIDE (__noinit_end, .)
+                0x008000f8                _end = .
+                0x008000f8                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x27
+ *(.comment)
+ .comment       0x00000000       0x27 ProcessMessages.o
+                                 0x28 (size before relaxing)
+ .comment       0x00000000       0x28 ProcessLeds.o
+ .comment       0x00000000       0x28 ProcessLCD.o
+ .comment       0x00000000       0x28 LPA.o
+ .comment       0x00000000       0x28 ProcessKeys.o
+ .comment       0x00000000       0x28 Config.o
+ .comment       0x00000000       0x28 ProcessPresurarization.o
+ .comment       0x00000000       0x28 Message.o
+ .comment       0x00000000       0x28 RP6Lib/RP6control/RP6ControlLib.o
+ .comment       0x00000000       0x28 RP6Lib/RP6common/RP6uart.o
+ .comment       0x00000000       0x28 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x2c0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 ProcessMessages.o
+ .debug_aranges
+                0x00000020       0x20 ProcessLeds.o
+ .debug_aranges
+                0x00000040       0x20 ProcessLCD.o
+ .debug_aranges
+                0x00000060       0x28 LPA.o
+ .debug_aranges
+                0x00000088       0x20 ProcessKeys.o
+ .debug_aranges
+                0x000000a8       0x18 Config.o
+ .debug_aranges
+                0x000000c0       0x20 ProcessPresurarization.o
+ .debug_aranges
+                0x000000e0       0x20 Message.o
+ .debug_aranges
+                0x00000100       0x20 RP6Lib/RP6control/RP6ControlLib.o
+ .debug_aranges
+                0x00000120       0x20 RP6Lib/RP6common/RP6uart.o
+ .debug_aranges
+                0x00000140       0x20 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_aranges
+                0x00000160       0x20 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .debug_aranges
+                0x00000180       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .debug_aranges
+                0x000001a0       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_aranges
+                0x000001c0       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .debug_aranges
+                0x000001e0       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .debug_aranges
+                0x00000200       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .debug_aranges
+                0x00000220       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .debug_aranges
+                0x00000240       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_aranges
+                0x00000260       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .debug_aranges
+                0x00000280       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_aranges
+                0x000002a0       0x20 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_pubnames
+                0x00000000      0x2a1
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0x1ca ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_pubnames
+                0x000001ca       0xd7 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+
+.debug_info     0x00000000     0x3ec4
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0x4e6 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .debug_info    0x000004e6      0x4de ProcessMessages.o
+ .debug_info    0x000009c4      0x152 ProcessLeds.o
+ .debug_info    0x00000b16      0x346 ProcessLCD.o
+ .debug_info    0x00000e5c      0x31f LPA.o
+ .debug_info    0x0000117b      0x133 ProcessKeys.o
+ .debug_info    0x000012ae       0xb8 Config.o
+ .debug_info    0x00001366      0x1c2 ProcessPresurarization.o
+ .debug_info    0x00001528      0x502 Message.o
+ .debug_info    0x00001a2a     0x13fa RP6Lib/RP6control/RP6ControlLib.o
+ .debug_info    0x00002e24      0x582 RP6Lib/RP6common/RP6uart.o
+ .debug_info    0x000033a6      0x27c ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_info    0x00003622      0x280 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .debug_info    0x000038a2       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .debug_info    0x0000393f       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_info    0x000039dc       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .debug_info    0x00003a79       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .debug_info    0x00003b16       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .debug_info    0x00003bb3       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .debug_info    0x00003c50       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_info    0x00003ced       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .debug_info    0x00003d8a       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_info    0x00003e27       0x9d d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_abbrev   0x00000000     0x16f9
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x4a3 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .debug_abbrev  0x000004a3      0x17c ProcessMessages.o
+ .debug_abbrev  0x0000061f       0xe9 ProcessLeds.o
+ .debug_abbrev  0x00000708      0x12e ProcessLCD.o
+ .debug_abbrev  0x00000836      0x121 LPA.o
+ .debug_abbrev  0x00000957       0xcc ProcessKeys.o
+ .debug_abbrev  0x00000a23       0x60 Config.o
+ .debug_abbrev  0x00000a83      0x143 ProcessPresurarization.o
+ .debug_abbrev  0x00000bc6      0x1fe Message.o
+ .debug_abbrev  0x00000dc4      0x43b RP6Lib/RP6control/RP6ControlLib.o
+ .debug_abbrev  0x000011ff      0x264 RP6Lib/RP6common/RP6uart.o
+ .debug_abbrev  0x00001463       0xe6 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_abbrev  0x00001549       0xe8 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .debug_abbrev  0x00001631       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .debug_abbrev  0x00001645       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_abbrev  0x00001659       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .debug_abbrev  0x0000166d       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .debug_abbrev  0x00001681       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .debug_abbrev  0x00001695       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x000016a9       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x000016bd       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .debug_abbrev  0x000016d1       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_abbrev  0x000016e5       0x14 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_line     0x00000000     0x151c
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000       0x1a d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .debug_line    0x0000001a      0x13b ProcessMessages.o
+ .debug_line    0x00000155       0xde ProcessLeds.o
+ .debug_line    0x00000233      0x127 ProcessLCD.o
+ .debug_line    0x0000035a      0x154 LPA.o
+ .debug_line    0x000004ae       0xa7 ProcessKeys.o
+ .debug_line    0x00000555       0x3f Config.o
+ .debug_line    0x00000594       0xef ProcessPresurarization.o
+ .debug_line    0x00000683      0x1ab Message.o
+ .debug_line    0x0000082e      0x2a8 RP6Lib/RP6control/RP6ControlLib.o
+ .debug_line    0x00000ad6      0x121 RP6Lib/RP6common/RP6uart.o
+ .debug_line    0x00000bf7      0x2e4 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_line    0x00000edb      0x1b2 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+ .debug_line    0x0000108d       0x76 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+ .debug_line    0x00001103       0x7b d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_line    0x0000117e       0x7b d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+ .debug_line    0x000011f9       0x69 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+ .debug_line    0x00001262       0x69 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+ .debug_line    0x000012cb       0x72 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+ .debug_line    0x0000133d       0x6f d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_line    0x000013ac       0x71 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+ .debug_line    0x0000141d       0x89 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_line    0x000014a6       0x76 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_frame    0x00000000      0xaa8
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x38 ProcessMessages.o
+ .debug_frame   0x00000038       0x24 ProcessLeds.o
+ .debug_frame   0x0000005c       0x24 ProcessLCD.o
+ .debug_frame   0x00000080       0x44 LPA.o
+ .debug_frame   0x000000c4       0x24 ProcessKeys.o
+ .debug_frame   0x000000e8       0x30 ProcessPresurarization.o
+ .debug_frame   0x00000118      0x128 Message.o
+ .debug_frame   0x00000240      0x5a0 RP6Lib/RP6control/RP6ControlLib.o
+ .debug_frame   0x000007e0      0x168 RP6Lib/RP6common/RP6uart.o
+ .debug_frame   0x00000948       0xb0 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+ .debug_frame   0x000009f8       0xb0 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+
+.debug_str      0x00000000      0xfb4
+ *(.debug_str)
+ .debug_str     0x00000000      0x199 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+ .debug_str     0x00000199      0x469 ProcessMessages.o
+                                0x4c9 (size before relaxing)
+ .debug_str     0x00000602       0x44 ProcessLeds.o
+                                0x1c1 (size before relaxing)
+ .debug_str     0x00000646       0x53 ProcessLCD.o
+                                0x231 (size before relaxing)
+ .debug_str     0x00000699       0x7f LPA.o
+                                0x272 (size before relaxing)
+ .debug_str     0x00000718       0x22 ProcessKeys.o
+                                0x193 (size before relaxing)
+ .debug_str     0x0000073a        0x9 Config.o
+                                0x157 (size before relaxing)
+ .debug_str     0x00000743       0x72 ProcessPresurarization.o
+                                0x21f (size before relaxing)
+ .debug_str     0x000007b5       0xce Message.o
+                                0x36f (size before relaxing)
+ .debug_str     0x00000883      0x432 RP6Lib/RP6control/RP6ControlLib.o
+                                0x67f (size before relaxing)
+ .debug_str     0x00000cb5       0xee RP6Lib/RP6common/RP6uart.o
+                                0x2b2 (size before relaxing)
+ .debug_str     0x00000da3      0x164 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                0x283 (size before relaxing)
+ .debug_str     0x00000f07       0xad ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                0x188 (size before relaxing)
+
+.debug_loc      0x00000000     0x19ea
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x48 ProcessMessages.o
+ .debug_loc     0x00000048       0x4a ProcessLeds.o
+ .debug_loc     0x00000092       0x13 ProcessKeys.o
+ .debug_loc     0x000000a5       0x99 ProcessPresurarization.o
+ .debug_loc     0x0000013e      0x294 Message.o
+ .debug_loc     0x000003d2     0x104b RP6Lib/RP6control/RP6ControlLib.o
+ .debug_loc     0x0000141d      0x586 RP6Lib/RP6common/RP6uart.o
+ .debug_loc     0x000019a3       0x47 ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x00000000       0x18
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x18 LPA.o
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(control.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+CalculateCorruptionCheck                          Message.o
+DecompUnit_get_maxpressure                        ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+DecompUnit_get_pressure                           ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  ProcessPresurarization.o
+                                                  ProcessLCD.o
+                                                  ProcessLeds.o
+                                                  ProcessMessages.o
+DecompUnit_get_pumpCapacity                       ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+DecompUnit_get_pumpstate                          ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  ProcessLCD.o
+                                                  ProcessMessages.o
+DecompUnit_get_valveLoss                          ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+DecompUnit_get_valvestate                         ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  ProcessLCD.o
+                                                  ProcessMessages.o
+DecompUnit_reset                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  LPA.o
+DecompUnit_set_pump                               ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  ProcessPresurarization.o
+DecompUnit_set_valve                              ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  ProcessPresurarization.o
+HAL_clear_LEDS                                    ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+HAL_get_BUTTON1                                   ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+HAL_get_BUTTON2                                   ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+HAL_get_TOGGLE                                    ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+HAL_reset                                         ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+HAL_set_LED_GREEN                                 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+HAL_set_LED_RED                                   ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+HAL_set_RGB_BLUE                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+HAL_set_RGB_GREEN                                 ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+HAL_set_RGB_RED                                   ./LPADecompressieLib\libLPAdecompressie.a(LPA_HAL.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+INT0_event_DUMMY                                  RP6Lib/RP6control/RP6ControlLib.o
+INT0_setEventHandler                              RP6Lib/RP6control/RP6ControlLib.o
+INT1_event_DUMMY                                  RP6Lib/RP6control/RP6ControlLib.o
+INT1_setEventHandler                              RP6Lib/RP6control/RP6ControlLib.o
+INT2_event_DUMMY                                  RP6Lib/RP6control/RP6ControlLib.o
+INT2_setEventHandler                              RP6Lib/RP6control/RP6ControlLib.o
+Message_BeginWrite                                Message.o
+                                                  ProcessMessages.o
+Message_GetAction                                 Message.o
+                                                  ProcessMessages.o
+Message_GetDataLenght                             Message.o
+                                                  ProcessMessages.o
+Message_Init                                      Message.o
+                                                  LPA.o
+Message_IsCorrupt                                 Message.o
+                                                  ProcessMessages.o
+Message_Read_Int16                                Message.o
+Message_Read_byte                                 Message.o
+                                                  ProcessMessages.o
+Message_Receive                                   Message.o
+                                                  ProcessMessages.o
+Message_Send                                      Message.o
+                                                  ProcessMessages.o
+Message_SetAction                                 Message.o
+                                                  ProcessMessages.o
+Message_Write_Int16                               Message.o
+                                                  ProcessMessages.o
+Message_Write_byte                                Message.o
+                                                  ProcessMessages.o
+ProcessKeys                                       ProcessKeys.o
+                                                  LPA.o
+ProcessLCD                                        ProcessLCD.o
+                                                  LPA.o
+ProcessLeds                                       ProcessLeds.o
+                                                  LPA.o
+ProcessMessages                                   ProcessMessages.o
+                                                  LPA.o
+ProcessPresurarization                            ProcessPresurarization.o
+                                                  LPA.o
+SPI_EEPROM_disableWrite                           RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_enableWrite                            RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_getStatus                              RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_readByte                               RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_readBytes                              RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_writeByte                              RP6Lib/RP6control/RP6ControlLib.o
+SPI_EEPROM_writeBytes                             RP6Lib/RP6control/RP6ControlLib.o
+__bad_interrupt                                   d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__brkval                                          d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__bss_end                                         d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+__data_start                                      d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+__divmodsi4                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+__do_clear_bss                                    d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_clear_bss.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  RP6Lib/RP6common/RP6uart.o
+                                                  RP6Lib/RP6control/RP6ControlLib.o
+                                                  Message.o
+                                                  ProcessPresurarization.o
+                                                  Config.o
+                                                  ProcessKeys.o
+                                                  LPA.o
+                                                  ProcessLCD.o
+                                                  ProcessLeds.o
+                                                  ProcessMessages.o
+__do_copy_data                                    d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_copy_data.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessLCD.o
+__flp                                             d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_end                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__heap_start                                      d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__init                                            d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__itoa                                            d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+                                                  RP6Lib/RP6common/RP6uart.o
+                                                  RP6Lib/RP6control/RP6ControlLib.o
+__itoa_ncheck                                     d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+__malloc_heap_end                                 d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_heap_start                               d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__malloc_margin                                   d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+__mulsi3                                          d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+                                                  ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+__muluhisi3                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_mulsi3.o)
+__negsi2                                          d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_negsi2.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+__stack                                           d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__udivmodhi4                                      d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodhi4.o)
+                                                  ProcessLeds.o
+__udivmodsi4                                      d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_udivmodsi4.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_divmodsi4.o)
+__umulhisi3                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_umulhisi3.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_muluhisi3.o)
+__utoa_common                                     d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+__utoa_ncheck                                     d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+__vector_1                                        RP6Lib/RP6control/RP6ControlLib.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_10                                       RP6Lib/RP6control/RP6ControlLib.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_11                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_12                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_13                                       RP6Lib/RP6common/RP6uart.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_14                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_15                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_16                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_17                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_18                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_19                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_2                                        RP6Lib/RP6control/RP6ControlLib.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_20                                       d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_3                                        RP6Lib/RP6control/RP6ControlLib.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_4                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_5                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_6                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_7                                        ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_8                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_9                                        d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vector_default                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+__vectors                                         d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+_exit                                             d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+_pressure                                         ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_pressureChangePump                               ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_pressureChangeValve                              ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_pumpState                                        ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_showScreenLCD_P                                  RP6Lib/RP6control/RP6ControlLib.o
+                                                  LPA.o
+_turnofftimer                                     ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_turnofftimerS                                    ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_turnontimer                                      ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+_valveState                                       ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+beep                                              RP6Lib/RP6control/RP6ControlLib.o
+checkPressedKeyEvent                              RP6Lib/RP6control/RP6ControlLib.o
+checkReleasedKeyEvent                             RP6Lib/RP6control/RP6ControlLib.o
+clearLCD                                          RP6Lib/RP6control/RP6ControlLib.o
+clearPosLCD                                       RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessLCD.o
+clearReceptionBuffer                              RP6Lib/RP6common/RP6uart.o
+config                                            Config.o
+                                                  ProcessPresurarization.o
+                                                  ProcessKeys.o
+                                                  LPA.o
+                                                  ProcessLCD.o
+                                                  ProcessLeds.o
+                                                  ProcessMessages.o
+controlStatus                                     RP6Lib/RP6control/RP6ControlLib.o
+delayCycles                                       RP6Lib/RP6control/RP6ControlLib.o
+delay_timer                                       RP6Lib/RP6control/RP6ControlLib.o
+dischargePeakDetector                             RP6Lib/RP6control/RP6ControlLib.o
+drukknop1                                         ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+drukknop2                                         ./LPADecompressieLib\libLPAdecompressie.a(LPA_Lib_decompressie.o)
+exit                                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/avr5\libgcc.a(_exit.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+externalPort                                      RP6Lib/RP6control/RP6ControlLib.o
+free                                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+getBufferLength                                   RP6Lib/RP6common/RP6uart.o
+                                                  Message.o
+getMicrophonePeak                                 RP6Lib/RP6control/RP6ControlLib.o
+getPressedKeyNumber                               RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessKeys.o
+initLCD                                           RP6Lib/RP6control/RP6ControlLib.o
+                                                  LPA.o
+initRP6Control                                    RP6Lib/RP6control/RP6ControlLib.o
+                                                  LPA.o
+itoa                                              d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(itoa.o)
+lcd_tmp_buffer                                    RP6Lib/RP6control/RP6ControlLib.o
+loop                                              LPA.o
+mSleep                                            RP6Lib/RP6control/RP6ControlLib.o
+                                                  Message.o
+main                                              LPA.o
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5/crtm32.o
+malloc                                            d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(malloc.o)
+                                                  Message.o
+message                                           Message.o
+ms_timer                                          RP6Lib/RP6control/RP6ControlLib.o
+outputExt                                         RP6Lib/RP6control/RP6ControlLib.o
+readADC                                           RP6Lib/RP6control/RP6ControlLib.o
+readBufferSPI                                     RP6Lib/RP6control/RP6ControlLib.o
+readChar                                          RP6Lib/RP6common/RP6uart.o
+                                                  Message.o
+readChars                                         RP6Lib/RP6common/RP6uart.o
+readSPI                                           RP6Lib/RP6control/RP6ControlLib.o
+readWordSPI                                       RP6Lib/RP6control/RP6ControlLib.o
+read_pos                                          RP6Lib/RP6common/RP6uart.o
+read_size                                         RP6Lib/RP6common/RP6uart.o
+setBeeperPitch                                    RP6Lib/RP6control/RP6ControlLib.o
+setCursorPosLCD                                   RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessLCD.o
+setLCDD                                           RP6Lib/RP6control/RP6ControlLib.o
+setLEDs                                           RP6Lib/RP6control/RP6ControlLib.o
+                                                  LPA.o
+                                                  ProcessLeds.o
+setup                                             LPA.o
+sleep                                             RP6Lib/RP6control/RP6ControlLib.o
+sound_timer                                       RP6Lib/RP6control/RP6ControlLib.o
+stopwatches                                       RP6Lib/RP6control/RP6ControlLib.o
+                                                  LPA.o
+                                                  ProcessMessages.o
+strrev                                            d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(strrev.o)
+                                                  d:/development/rp6/bin/../lib/gcc/avr/4.8.2/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+timer                                             RP6Lib/RP6control/RP6ControlLib.o
+                                                  Message.o
+                                                  ProcessPresurarization.o
+                                                  ProcessKeys.o
+                                                  LPA.o
+                                                  ProcessLCD.o
+                                                  ProcessLeds.o
+                                                  ProcessMessages.o
+uart_receive_buffer                               RP6Lib/RP6common/RP6uart.o
+uart_status                                       RP6Lib/RP6common/RP6uart.o
+write4BitLCDData                                  RP6Lib/RP6control/RP6ControlLib.o
+writeBufferSPI                                    RP6Lib/RP6control/RP6ControlLib.o
+writeChar                                         RP6Lib/RP6common/RP6uart.o
+                                                  Message.o
+writeCharLCD                                      RP6Lib/RP6control/RP6ControlLib.o
+writeInteger                                      RP6Lib/RP6common/RP6uart.o
+writeIntegerLCD                                   RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessLCD.o
+writeIntegerLength                                RP6Lib/RP6common/RP6uart.o
+writeIntegerLengthLCD                             RP6Lib/RP6control/RP6ControlLib.o
+writeLCDCommand                                   RP6Lib/RP6control/RP6ControlLib.o
+writeNStringLCD_P                                 RP6Lib/RP6control/RP6ControlLib.o
+writeNStringP                                     RP6Lib/RP6common/RP6uart.o
+writeSPI                                          RP6Lib/RP6control/RP6ControlLib.o
+writeString                                       RP6Lib/RP6common/RP6uart.o
+writeStringLCD                                    RP6Lib/RP6control/RP6ControlLib.o
+                                                  ProcessLCD.o
+writeStringLength                                 RP6Lib/RP6common/RP6uart.o
+writeStringLengthLCD                              RP6Lib/RP6control/RP6ControlLib.o
+writeWordSPI                                      RP6Lib/RP6control/RP6ControlLib.o
+write_pos                                         RP6Lib/RP6common/RP6uart.o
+write_size                                        RP6Lib/RP6common/RP6uart.o

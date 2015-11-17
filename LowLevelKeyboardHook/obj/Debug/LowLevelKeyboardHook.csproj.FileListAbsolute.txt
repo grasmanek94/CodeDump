@@ -1,0 +1,6 @@
+D:\Development\Projects\LowLevelKeyboardHook\bin\Debug\LowLevelKeyboardHook.exe.config
+D:\Development\Projects\LowLevelKeyboardHook\bin\Debug\LowLevelKeyboardHook.exe
+D:\Development\Projects\LowLevelKeyboardHook\bin\Debug\LowLevelKeyboardHook.pdb
+D:\Development\Projects\LowLevelKeyboardHook\obj\Debug\LowLevelKeyboardHook.csprojResolveAssemblyReference.cache
+D:\Development\Projects\LowLevelKeyboardHook\obj\Debug\LowLevelKeyboardHook.exe
+D:\Development\Projects\LowLevelKeyboardHook\obj\Debug\LowLevelKeyboardHook.pdb

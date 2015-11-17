@@ -1,0 +1,3 @@
+D:\Development\Projects\BTSerial\obj\Debug\Communication.csprojResolveAssemblyReference.cache
+D:\Development\Projects\BTSerial\obj\Debug\Communication.TrainDrukteForm.resources
+D:\Development\Projects\BTSerial\obj\Debug\Communication.csproj.GenerateResource.Cache

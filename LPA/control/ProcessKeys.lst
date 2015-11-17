@@ -1,0 +1,74 @@
+   1               		.file	"ProcessKeys.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	ProcessKeys
+  12               	ProcessKeys:
+  13               	.LFB11:
+  14               		.file 1 "ProcessKeys.c"
+   1:ProcessKeys.c **** #include <RP6ControlLib.h>
+   2:ProcessKeys.c **** 
+   3:ProcessKeys.c **** #include "Config.h"
+   4:ProcessKeys.c **** 
+   5:ProcessKeys.c **** void ProcessKeys(void)
+   6:ProcessKeys.c **** {
+  15               		.loc 1 6 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+   7:ProcessKeys.c **** 	if (!config.controlledByPC)
+  21               		.loc 1 7 0
+  22 0000 8091 0000 		lds r24,config+2
+  23 0004 8111      		cpse r24,__zero_reg__
+  24 0006 00C0      		rjmp .L1
+  25               	.LBB2:
+   8:ProcessKeys.c **** 	{
+   9:ProcessKeys.c **** 		uint8_t key = getPressedKeyNumber();
+  26               		.loc 1 9 0
+  27 0008 0E94 0000 		call getPressedKeyNumber
+  28               	.LVL0:
+  10:ProcessKeys.c **** 		if (key > 0 && key < 5)
+  29               		.loc 1 10 0
+  30 000c 9FEF      		ldi r25,lo8(-1)
+  31 000e 980F      		add r25,r24
+  32 0010 9430      		cpi r25,lo8(4)
+  33 0012 00F4      		brsh .L1
+  11:ProcessKeys.c **** 		{
+  12:ProcessKeys.c **** 			config.globalPressureBar = 2 * (key - 1);
+  34               		.loc 1 12 0
+  35 0014 880F      		lsl r24
+  36               	.LVL1:
+  37 0016 8250      		subi r24,lo8(-(-2))
+  38 0018 8093 0000 		sts config+1,r24
+  39               	.L1:
+  40 001c 0895      		ret
+  41               	.LBE2:
+  42               		.cfi_endproc
+  43               	.LFE11:
+  45               		.comm	timer,2,1
+  46               	.Letext0:
+  47               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+  48               		.file 3 "Message.h"
+  49               		.file 4 "Config.h"
+  50               		.file 5 "./RP6Lib/RP6control/RP6ControlLib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ProcessKeys.c
+D:\System\TEMP\ccJxCmeb.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccJxCmeb.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccJxCmeb.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccJxCmeb.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccJxCmeb.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccJxCmeb.s:12     .text:00000000 ProcessKeys
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+config
+getPressedKeyNumber
+__do_clear_bss

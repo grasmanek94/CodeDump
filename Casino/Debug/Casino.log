@@ -1,0 +1,6 @@
+﻿  main.cxx
+d:\development\projects\casino\main.cxx(9): error C3873: '0x2663': this character is not allowed as a first character of an identifier
+d:\development\projects\casino\main.cxx(33): error C3873: '0x2663': this character is not allowed as a first character of an identifier
+d:\development\projects\casino\main.cxx(34): error C3873: '0x2666': this character is not allowed as a first character of an identifier
+d:\development\projects\casino\main.cxx(35): error C3873: '0x2665': this character is not allowed as a first character of an identifier
+d:\development\projects\casino\main.cxx(36): error C3873: '0x2660': this character is not allowed as a first character of an identifier

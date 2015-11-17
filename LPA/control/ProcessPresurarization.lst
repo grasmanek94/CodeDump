@@ -1,0 +1,142 @@
+   1               		.file	"ProcessPresurarization.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	ProcessPresurarization
+  12               	ProcessPresurarization:
+  13               	.LFB11:
+  14               		.file 1 "ProcessPresurarization.c"
+   1:ProcessPresurarization.c **** #include <RP6ControlLib.h>
+   2:ProcessPresurarization.c **** #include <LPA_lib_decompressie.h>
+   3:ProcessPresurarization.c **** 
+   4:ProcessPresurarization.c **** #include "Config.h"
+   5:ProcessPresurarization.c **** 
+   6:ProcessPresurarization.c **** void ProcessPresurarization(void)
+   7:ProcessPresurarization.c **** {
+  15               		.loc 1 7 0
+  16               		.cfi_startproc
+  17 0000 CF93      		push r28
+  18               	.LCFI0:
+  19               		.cfi_def_cfa_offset 3
+  20               		.cfi_offset 28, -2
+  21 0002 DF93      		push r29
+  22               	.LCFI1:
+  23               		.cfi_def_cfa_offset 4
+  24               		.cfi_offset 29, -3
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	/* stack size = 2 */
+  28               	.L__stack_usage = 2
+  29               	.LVL0:
+   8:ProcessPresurarization.c **** 	unsigned int maximumDeviation = 50;
+   9:ProcessPresurarization.c **** 	unsigned int wantedPressure = config.globalPressureBar * 1000;
+  30               		.loc 1 9 0
+  31 0004 2091 0000 		lds r18,config+1
+  32 0008 88EE      		ldi r24,lo8(-24)
+  33 000a 93E0      		ldi r25,lo8(3)
+  34 000c 289F      		mul r18,r24
+  35 000e E001      		movw r28,r0
+  36 0010 299F      		mul r18,r25
+  37 0012 D00D      		add r29,r0
+  38 0014 1124      		clr __zero_reg__
+  39               	.LVL1:
+  10:ProcessPresurarization.c **** 	unsigned int currentPressure = DecompUnit_get_pressure();
+  40               		.loc 1 10 0
+  41 0016 0E94 0000 		call DecompUnit_get_pressure
+  42               	.LVL2:
+  11:ProcessPresurarization.c **** 
+  12:ProcessPresurarization.c **** 	if (currentPressure > wantedPressure + maximumDeviation)
+  43               		.loc 1 12 0
+  44 001a 9E01      		movw r18,r28
+  45 001c 2E5C      		subi r18,-50
+  46 001e 3F4F      		sbci r19,-1
+  47 0020 2817      		cp r18,r24
+  48 0022 3907      		cpc r19,r25
+  49 0024 00F4      		brsh .L2
+  13:ProcessPresurarization.c **** 	{
+  14:ProcessPresurarization.c **** 		DecompUnit_set_pump(OFF);
+  50               		.loc 1 14 0
+  51 0026 80E0      		ldi r24,0
+  52               	.LVL3:
+  53 0028 0E94 0000 		call DecompUnit_set_pump
+  54               	.LVL4:
+  15:ProcessPresurarization.c **** 		DecompUnit_set_valve(OPEN);
+  55               		.loc 1 15 0
+  56 002c 81E0      		ldi r24,lo8(1)
+  57 002e 00C0      		rjmp .L7
+  58               	.LVL5:
+  59               	.L2:
+  16:ProcessPresurarization.c **** 	}
+  17:ProcessPresurarization.c **** 	else if (currentPressure < (wantedPressure == 0 ? wantedPressure : wantedPressure - maximumDeviati
+  60               		.loc 1 17 0
+  61 0030 2097      		sbiw r28,0
+  62 0032 01F0      		breq .L3
+  63               		.loc 1 17 0 is_stmt 0 discriminator 2
+  64 0034 E297      		sbiw r28,50
+  65               	.LVL6:
+  66 0036 8C17      		cp r24,r28
+  67 0038 9D07      		cpc r25,r29
+  68 003a 00F4      		brsh .L3
+  18:ProcessPresurarization.c **** 	{
+  19:ProcessPresurarization.c **** 		DecompUnit_set_pump(ON);
+  69               		.loc 1 19 0 is_stmt 1
+  70 003c 81E0      		ldi r24,lo8(1)
+  71               	.LVL7:
+  72 003e 00C0      		rjmp .L8
+  73               	.LVL8:
+  74               	.L3:
+  20:ProcessPresurarization.c **** 		DecompUnit_set_valve(CLOSED);
+  21:ProcessPresurarization.c **** 	}
+  22:ProcessPresurarization.c **** 	else
+  23:ProcessPresurarization.c **** 	{
+  24:ProcessPresurarization.c **** 		DecompUnit_set_pump(OFF);
+  75               		.loc 1 24 0
+  76 0040 80E0      		ldi r24,0
+  77               	.LVL9:
+  78               	.L8:
+  79 0042 0E94 0000 		call DecompUnit_set_pump
+  80               	.LVL10:
+  25:ProcessPresurarization.c **** 		DecompUnit_set_valve(CLOSED);
+  81               		.loc 1 25 0
+  82 0046 80E0      		ldi r24,0
+  83               	.L7:
+  84               	/* epilogue start */
+  26:ProcessPresurarization.c **** 	}
+  27:ProcessPresurarization.c **** }
+  85               		.loc 1 27 0
+  86 0048 DF91      		pop r29
+  87 004a CF91      		pop r28
+  25:ProcessPresurarization.c **** 		DecompUnit_set_valve(CLOSED);
+  88               		.loc 1 25 0
+  89 004c 0C94 0000 		jmp DecompUnit_set_valve
+  90               	.LVL11:
+  91               		.cfi_endproc
+  92               	.LFE11:
+  94               		.comm	timer,2,1
+  95               	.Letext0:
+  96               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+  97               		.file 3 "./LPADecompressieLib/LPA_lib_decompressie.h"
+  98               		.file 4 "Message.h"
+  99               		.file 5 "Config.h"
+ 100               		.file 6 "./RP6Lib/RP6control/RP6ControlLib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ProcessPresurarization.c
+D:\System\TEMP\ccFzVzVg.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccFzVzVg.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccFzVzVg.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccFzVzVg.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccFzVzVg.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccFzVzVg.s:12     .text:00000000 ProcessPresurarization
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+config
+DecompUnit_get_pressure
+DecompUnit_set_pump
+DecompUnit_set_valve
+__do_clear_bss

@@ -1,0 +1,211 @@
+   1               		.file	"ProcessLCD.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.rodata.str1.1,"aMS",@progbits,1
+  11               	.LC0:
+  12 0000 4F4E 2000 		.string	"ON "
+  13               	.LC1:
+  14 0004 4F46 4600 		.string	"OFF"
+  15               	.LC2:
+  16 0008 4F50 454E 		.string	"OPEN  "
+  16      2020 00
+  17               	.LC3:
+  18 000f 434C 4F53 		.string	"CLOSED"
+  18      4544 00
+  19               	.LC4:
+  20 0016 5953 00   		.string	"YS"
+  21               	.LC5:
+  22 0019 4E4F 00   		.string	"NO"
+  23               		.text
+  24               	.global	ProcessLCD
+  26               	ProcessLCD:
+  27               	.LFB11:
+  28               		.file 1 "ProcessLCD.c"
+   1:ProcessLCD.c  **** #include <RP6ControlLib.h>
+   2:ProcessLCD.c  **** #include <LPA_lib_decompressie.h>
+   3:ProcessLCD.c  **** 
+   4:ProcessLCD.c  **** #include "Config.h"
+   5:ProcessLCD.c  **** 
+   6:ProcessLCD.c  **** void ProcessLCD(void)
+   7:ProcessLCD.c  **** {
+  29               		.loc 1 7 0
+  30               		.cfi_startproc
+  31               	/* prologue: function */
+  32               	/* frame size = 0 */
+  33               	/* stack size = 0 */
+  34               	.L__stack_usage = 0
+   8:ProcessLCD.c  **** 	clearPosLCD(0, 13, 3);
+  35               		.loc 1 8 0
+  36 0000 43E0      		ldi r20,lo8(3)
+  37 0002 6DE0      		ldi r22,lo8(13)
+  38 0004 80E0      		ldi r24,0
+  39 0006 0E94 0000 		call clearPosLCD
+  40               	.LVL0:
+   9:ProcessLCD.c  **** 	setCursorPosLCD(0, 13);
+  41               		.loc 1 9 0
+  42 000a 6DE0      		ldi r22,lo8(13)
+  43 000c 80E0      		ldi r24,0
+  44 000e 0E94 0000 		call setCursorPosLCD
+  45               	.LVL1:
+  10:ProcessLCD.c  **** 	writeStringLCD(DecompUnit_get_pumpstate() == ON ? "ON " : "OFF");
+  46               		.loc 1 10 0
+  47 0012 0E94 0000 		call DecompUnit_get_pumpstate
+  48               	.LVL2:
+  49 0016 8130      		cpi r24,lo8(1)
+  50 0018 01F4      		brne .L5
+  51 001a 80E0      		ldi r24,lo8(.LC0)
+  52 001c 90E0      		ldi r25,hi8(.LC0)
+  53 001e 00C0      		rjmp .L2
+  54               	.L5:
+  55 0020 80E0      		ldi r24,lo8(.LC1)
+  56 0022 90E0      		ldi r25,hi8(.LC1)
+  57               	.L2:
+  58               		.loc 1 10 0 is_stmt 0 discriminator 3
+  59 0024 0E94 0000 		call writeStringLCD
+  60               	.LVL3:
+  11:ProcessLCD.c  **** 
+  12:ProcessLCD.c  **** 	clearPosLCD(0, 3, 6);
+  61               		.loc 1 12 0 is_stmt 1 discriminator 3
+  62 0028 46E0      		ldi r20,lo8(6)
+  63 002a 63E0      		ldi r22,lo8(3)
+  64 002c 80E0      		ldi r24,0
+  65 002e 0E94 0000 		call clearPosLCD
+  66               	.LVL4:
+  13:ProcessLCD.c  **** 	setCursorPosLCD(0, 3);
+  67               		.loc 1 13 0 discriminator 3
+  68 0032 63E0      		ldi r22,lo8(3)
+  69 0034 80E0      		ldi r24,0
+  70 0036 0E94 0000 		call setCursorPosLCD
+  71               	.LVL5:
+  14:ProcessLCD.c  **** 	writeStringLCD(DecompUnit_get_valvestate() == OPEN ? "OPEN  " : "CLOSED");
+  72               		.loc 1 14 0 discriminator 3
+  73 003a 0E94 0000 		call DecompUnit_get_valvestate
+  74               	.LVL6:
+  75 003e 8130      		cpi r24,lo8(1)
+  76 0040 01F4      		brne .L6
+  77               		.loc 1 14 0 is_stmt 0
+  78 0042 80E0      		ldi r24,lo8(.LC2)
+  79 0044 90E0      		ldi r25,hi8(.LC2)
+  80 0046 00C0      		rjmp .L3
+  81               	.L6:
+  82 0048 80E0      		ldi r24,lo8(.LC3)
+  83 004a 90E0      		ldi r25,hi8(.LC3)
+  84               	.L3:
+  85               		.loc 1 14 0 discriminator 3
+  86 004c 0E94 0000 		call writeStringLCD
+  87               	.LVL7:
+  15:ProcessLCD.c  **** 
+  16:ProcessLCD.c  **** 	clearPosLCD(1, 0, 2);
+  88               		.loc 1 16 0 is_stmt 1 discriminator 3
+  89 0050 42E0      		ldi r20,lo8(2)
+  90 0052 60E0      		ldi r22,0
+  91 0054 81E0      		ldi r24,lo8(1)
+  92 0056 0E94 0000 		call clearPosLCD
+  93               	.LVL8:
+  17:ProcessLCD.c  **** 	setCursorPosLCD(1, 0);
+  94               		.loc 1 17 0 discriminator 3
+  95 005a 60E0      		ldi r22,0
+  96 005c 81E0      		ldi r24,lo8(1)
+  97 005e 0E94 0000 		call setCursorPosLCD
+  98               	.LVL9:
+  18:ProcessLCD.c  **** 	writeStringLCD(config.controlledByPC ? "YS" : "NO");
+  99               		.loc 1 18 0 discriminator 3
+ 100 0062 8091 0000 		lds r24,config+2
+ 101 0066 8823      		tst r24
+ 102 0068 01F0      		breq .L7
+ 103               		.loc 1 18 0 is_stmt 0
+ 104 006a 80E0      		ldi r24,lo8(.LC4)
+ 105 006c 90E0      		ldi r25,hi8(.LC4)
+ 106 006e 00C0      		rjmp .L4
+ 107               	.L7:
+ 108 0070 80E0      		ldi r24,lo8(.LC5)
+ 109 0072 90E0      		ldi r25,hi8(.LC5)
+ 110               	.L4:
+ 111               		.loc 1 18 0 discriminator 3
+ 112 0074 0E94 0000 		call writeStringLCD
+ 113               	.LVL10:
+  19:ProcessLCD.c  **** 
+  20:ProcessLCD.c  **** 	clearPosLCD(1, 3, 5);
+ 114               		.loc 1 20 0 is_stmt 1 discriminator 3
+ 115 0078 45E0      		ldi r20,lo8(5)
+ 116 007a 63E0      		ldi r22,lo8(3)
+ 117 007c 81E0      		ldi r24,lo8(1)
+ 118 007e 0E94 0000 		call clearPosLCD
+ 119               	.LVL11:
+  21:ProcessLCD.c  **** 	setCursorPosLCD(1, 3);
+ 120               		.loc 1 21 0 discriminator 3
+ 121 0082 63E0      		ldi r22,lo8(3)
+ 122 0084 81E0      		ldi r24,lo8(1)
+ 123 0086 0E94 0000 		call setCursorPosLCD
+ 124               	.LVL12:
+  22:ProcessLCD.c  **** 	writeIntegerLCD(DecompUnit_get_pressure(), DEC);
+ 125               		.loc 1 22 0 discriminator 3
+ 126 008a 0E94 0000 		call DecompUnit_get_pressure
+ 127               	.LVL13:
+ 128 008e 6AE0      		ldi r22,lo8(10)
+ 129 0090 0E94 0000 		call writeIntegerLCD
+ 130               	.LVL14:
+  23:ProcessLCD.c  **** 
+  24:ProcessLCD.c  **** 	clearPosLCD(1, 11, 5);
+ 131               		.loc 1 24 0 discriminator 3
+ 132 0094 45E0      		ldi r20,lo8(5)
+ 133 0096 6BE0      		ldi r22,lo8(11)
+ 134 0098 81E0      		ldi r24,lo8(1)
+ 135 009a 0E94 0000 		call clearPosLCD
+ 136               	.LVL15:
+  25:ProcessLCD.c  **** 	setCursorPosLCD(1, 11);
+ 137               		.loc 1 25 0 discriminator 3
+ 138 009e 6BE0      		ldi r22,lo8(11)
+ 139 00a0 81E0      		ldi r24,lo8(1)
+ 140 00a2 0E94 0000 		call setCursorPosLCD
+ 141               	.LVL16:
+  26:ProcessLCD.c  **** 	writeIntegerLCD(config.globalPressureBar * 1000, DEC);
+ 142               		.loc 1 26 0 discriminator 3
+ 143 00a6 2091 0000 		lds r18,config+1
+ 144 00aa 6AE0      		ldi r22,lo8(10)
+ 145 00ac 88EE      		ldi r24,lo8(-24)
+ 146 00ae 93E0      		ldi r25,lo8(3)
+ 147 00b0 AC01      		movw r20,r24
+ 148 00b2 249F      		mul r18,r20
+ 149 00b4 C001      		movw r24,r0
+ 150 00b6 259F      		mul r18,r21
+ 151 00b8 900D      		add r25,r0
+ 152 00ba 1124      		clr __zero_reg__
+ 153 00bc 0C94 0000 		jmp writeIntegerLCD
+ 154               	.LVL17:
+ 155               		.cfi_endproc
+ 156               	.LFE11:
+ 158               		.comm	timer,2,1
+ 159               	.Letext0:
+ 160               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+ 161               		.file 3 "./LPADecompressieLib/LPA_lib_decompressie.h"
+ 162               		.file 4 "Message.h"
+ 163               		.file 5 "Config.h"
+ 164               		.file 6 "./RP6Lib/RP6control/RP6ControlLib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ProcessLCD.c
+D:\System\TEMP\ccpR44bV.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccpR44bV.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccpR44bV.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccpR44bV.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccpR44bV.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccpR44bV.s:26     .text:00000000 ProcessLCD
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+clearPosLCD
+setCursorPosLCD
+DecompUnit_get_pumpstate
+writeStringLCD
+DecompUnit_get_valvestate
+config
+DecompUnit_get_pressure
+writeIntegerLCD
+__do_copy_data
+__do_clear_bss

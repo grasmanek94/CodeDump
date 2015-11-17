@@ -1,0 +1,11 @@
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\bin\Debug\ArduinoPiano.exe.config
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\bin\Debug\ArduinoPiano.exe
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\bin\Debug\ArduinoPiano.pdb
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.csprojResolveAssemblyReference.cache
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.Form1.resources
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.Properties.Resources.resources
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.csproj.GenerateResource.Cache
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.exe
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.pdb
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\Interop.WMPLib.dll
+D:\Development\Projects\ArduinoPiano\ArduinoPiano#\obj\Debug\ArduinoPiano.csproj.ResolveComReference.cache

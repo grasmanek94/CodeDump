@@ -1,0 +1,25 @@
+   1               		.file	"Config.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.comm	config,3,1
+  11               	.Letext0:
+  12               		.file 1 "Config.h"
+  13               		.file 2 "Message.h"
+  14               		.file 3 "Config.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Config.c
+D:\System\TEMP\ccfkx4Zf.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccfkx4Zf.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccfkx4Zf.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccfkx4Zf.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccfkx4Zf.s:6      *ABS*:00000001 __zero_reg__
+                            *COM*:00000003 config
+
+UNDEFINED SYMBOLS
+__do_clear_bss

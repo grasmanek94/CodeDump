@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{468826BD-7770-4B73-BBF7-1A32BE6C91CF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>KLM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CMessages.cs" />
+    <Compile Include="CUSB.cs" />
+    <Compile Include="KLM.Properties\Resources.cs" />
+    <Compile Include="KLM.Properties\Settings.cs" />
+    <Compile Include="KLM\App.cs" />
+    <Compile Include="KLM\MainWindow.cs" />
+    <Compile Include="KLM\_ColorSwatchControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RESOURCE_ID.cs" />
+    <Compile Include="SLM.Properties\Settings.cs" />
+    <Compile Include="SMBUS_ERRCODE.cs" />
+    <Compile Include="USB2SMBUS\DM.cs" />
+    <Compile Include="USB2SMBUS\FIO.cs" />
+    <Compile Include="USB2SMBUS\HID.cs" />
+    <Compile Include="USB2SMBUS\Kernel32.cs" />
+    <Compile Include="USB2SMBUS\SafeProcessHandle.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="KLM.Properties\Resources.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="8colorswatchcontrol.baml" />
+    <Resource Include="bg.png" />
+    <Resource Include="icon.png" />
+    <Resource Include="icon1.png" />
+    <Resource Include="keyboard-2.png" />
+    <Resource Include="keyboard.png" />
+    <Resource Include="klm_icon.ico" />
+    <Resource Include="led_manager_all_ui_images\image.png" />
+    <Resource Include="led_manager_all_ui_images\image1.png" />
+    <Resource Include="led_manager_all_ui_images\image10.png" />
+    <Resource Include="led_manager_all_ui_images\image11.png" />
+    <Resource Include="led_manager_all_ui_images\image12.png" />
+    <Resource Include="led_manager_all_ui_images\image13.png" />
+    <Resource Include="led_manager_all_ui_images\image14.png" />
+    <Resource Include="led_manager_all_ui_images\image15.png" />
+    <Resource Include="led_manager_all_ui_images\image16.png" />
+    <Resource Include="led_manager_all_ui_images\image17.png" />
+    <Resource Include="led_manager_all_ui_images\image18.png" />
+    <Resource Include="led_manager_all_ui_images\image19.png" />
+    <Resource Include="led_manager_all_ui_images\image2.png" />
+    <Resource Include="led_manager_all_ui_images\image20.png" />
+    <Resource Include="led_manager_all_ui_images\image3.png" />
+    <Resource Include="led_manager_all_ui_images\image4.png" />
+    <Resource Include="led_manager_all_ui_images\image5.png" />
+    <Resource Include="led_manager_all_ui_images\image6.png" />
+    <Resource Include="led_manager_all_ui_images\image7.png" />
+    <Resource Include="led_manager_all_ui_images\image8.png" />
+    <Resource Include="led_manager_all_ui_images\image9.png" />
+    <Resource Include="mainwindow.baml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

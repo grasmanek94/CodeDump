@@ -1,0 +1,8 @@
+D:\Development\Projects\BTSerial2\bin\Debug\BTSerial2.exe.config
+D:\Development\Projects\BTSerial2\bin\Debug\BTSerial2.exe
+D:\Development\Projects\BTSerial2\bin\Debug\BTSerial2.pdb
+D:\Development\Projects\BTSerial2\obj\Debug\BTSerial2.Form1.resources
+D:\Development\Projects\BTSerial2\obj\Debug\BTSerial2.Properties.Resources.resources
+D:\Development\Projects\BTSerial2\obj\Debug\BTSerial2.csproj.GenerateResource.Cache
+D:\Development\Projects\BTSerial2\obj\Debug\BTSerial2.exe
+D:\Development\Projects\BTSerial2\obj\Debug\BTSerial2.pdb

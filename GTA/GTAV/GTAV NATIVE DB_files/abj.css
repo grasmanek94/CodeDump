@@ -1,0 +1,125 @@
+body
+{
+	background: #364e6f;
+	font-family: tahoma,verdana,sans;
+	font-size: 12px;
+}
+.boundbox
+{
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+}
+#mw
+{
+	text-align: left;
+	margin: 0 auto;
+	background: white;
+	border: 1px #bbb solid;
+	padding: 1em 2em 2em;
+	min-width: 800px;
+	width: 85%;
+}
+
+.err
+{
+	color: red;
+	font-weight: bold;
+}
+
+#advloader
+{
+	margin: 0 auto;
+	text-align: center;
+}
+
+dt
+{
+	float: left;
+	width: 150px;
+	text-align: right;
+}
+dd
+{
+	float: right;
+	width: 250px;
+	text-align: left;
+}
+.clearfix{*zoom: 1;}
+.clearfix:before,
+.clearfix:after
+{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+.clearfix:after{clear: both;}
+
+dd input
+{
+	font-family: "Century Gothic", serif;
+	font-size: 16px;
+	padding: 5px;
+}
+
+dd input[type=text] {
+	width: 90%;
+	font-size: 14px;
+}
+input,textarea,select{border: 1px solid silver;font-family: consolas,"Courier New",courier,monospace;font-size: 10pt;}
+a:link,a:visited
+{
+	color: gray;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #1af;
+	/*text-decoration: underline overline;*/
+	text-decoration: underline;
+}
+a:active
+{
+	color: #96f;
+	text-decoration: none;
+}
+img{vertical-align:middle;padding:0;margin:0;}
+.al{text-align: left;}
+.ac{text-align: center;}
+.ar{text-align: right;}
+.aj{text-align: justify;}
+.fl{float:left;}
+.fr{float:right;}
+/****************/
+.tabz
+{
+	list-style-type: none;
+}
+.tabz li
+{
+	background: #f9f9f9;
+	display: inline;
+	font-size: 1.17em;
+	font-weight: bold;
+}
+.tabz li a{color: black;display: block;margin:3px;padding:5px;text-decoration:none;}
+.tabz li a:hover,.tabz li a:active{color:gray;}
+.tabz input{margin: 5px; padding: 0; vertical-align: middle;}
+
+.fta{width: 100%;margin: 0 auto;text-align: center;}
+.fctl{width: 500px;text-align: center;}
+.force_sync{display: block !important;}
+.funcinfo
+{
+	margin: 5px 0;
+	padding: 10px;
+	width: 550px;
+}
+.fndecl{color: black !important;font-family:consolas,"courier new",courier,monospace !important;font-size:10pt !important;}
+.fntype{color:#2b91af;}
+.fnparam{color:#808080;}
+.fncomm{color:#008000;}
+.loading{list-style-image:url(ajax.png)}

@@ -1,0 +1,213 @@
+   1               		.file	"LPA.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	setup
+  12               	setup:
+  13               	.LFB11:
+  14               		.file 1 "LPA.c"
+   1:LPA.c         **** #include <RP6ControlLib.h>
+   2:LPA.c         **** #include <LPA_lib_decompressie.h>
+   3:LPA.c         **** 
+   4:LPA.c         **** #include "VSIntelliSenseFix.h"
+   5:LPA.c         **** 
+   6:LPA.c         **** #include "Message.h"
+   7:LPA.c         **** #include "Config.h"
+   8:LPA.c         **** 
+   9:LPA.c         **** #include <RP6ControlLib.h>
+  10:LPA.c         **** #include <LPA_lib_decompressie.h>
+  11:LPA.c         **** 
+  12:LPA.c         **** #include "ProcessLCD.h"
+  13:LPA.c         **** #include "ProcessMessages.h"
+  14:LPA.c         **** #include "ProcessKeys.h"
+  15:LPA.c         **** #include "ProcessLeds.h"
+  16:LPA.c         **** #include "ProcessPresurarization.h"
+  17:LPA.c         **** 
+  18:LPA.c         **** void setup(void)
+  19:LPA.c         **** {
+  15               		.loc 1 19 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+  20:LPA.c         **** 	initRP6Control();
+  21               		.loc 1 20 0
+  22 0000 0E94 0000 		call initRP6Control
+  23               	.LVL0:
+  21:LPA.c         **** 	initLCD();
+  24               		.loc 1 21 0
+  25 0004 0E94 0000 		call initLCD
+  26               	.LVL1:
+  22:LPA.c         **** 	setLEDs(0b0000);
+  27               		.loc 1 22 0
+  28 0008 80E0      		ldi r24,0
+  29 000a 0E94 0000 		call setLEDs
+  30               	.LVL2:
+  23:LPA.c         **** 
+  24:LPA.c         **** 	//VS CLOSED AP OFF
+  25:LPA.c         **** 	//RM 50000 / 60000
+  26:LPA.c         **** 	showScreenLCD("VS        AP    ", "         /      ");
+  31               		.loc 1 26 0
+  32 000e 60E0      		ldi r22,lo8(__c.2289)
+  33 0010 70E0      		ldi r23,hi8(__c.2289)
+  34 0012 80E0      		ldi r24,lo8(__c.2287)
+  35 0014 90E0      		ldi r25,hi8(__c.2287)
+  36 0016 0E94 0000 		call _showScreenLCD_P
+  37               	.LVL3:
+  27:LPA.c         **** 
+  28:LPA.c         **** 	DecompUnit_reset();
+  38               		.loc 1 28 0
+  39 001a 0E94 0000 		call DecompUnit_reset
+  40               	.LVL4:
+  29:LPA.c         **** 
+  30:LPA.c         **** 	Message_Init();
+  41               		.loc 1 30 0
+  42 001e 0E94 0000 		call Message_Init
+  43               	.LVL5:
+  31:LPA.c         **** 
+  32:LPA.c         **** 	startStopwatch1();//sender
+  44               		.loc 1 32 0
+  45 0022 E0E0      		ldi r30,lo8(stopwatches)
+  46 0024 F0E0      		ldi r31,hi8(stopwatches)
+  47 0026 8081      		ld r24,Z
+  48 0028 8160      		ori r24,lo8(1)
+  49 002a 8083      		st Z,r24
+  33:LPA.c         **** 	startStopwatch2();//timeout counter
+  50               		.loc 1 33 0
+  51 002c 8081      		ld r24,Z
+  52 002e 8260      		ori r24,lo8(2)
+  53 0030 8083      		st Z,r24
+  34:LPA.c         **** 
+  35:LPA.c         **** 	config.controlledByPC = false;
+  54               		.loc 1 35 0
+  55 0032 1092 0000 		sts config+2,__zero_reg__
+  36:LPA.c         **** 	config.globalPressureBar = 0;
+  56               		.loc 1 36 0
+  57 0036 1092 0000 		sts config+1,__zero_reg__
+  58 003a 0895      		ret
+  59               		.cfi_endproc
+  60               	.LFE11:
+  62               	.global	loop
+  64               	loop:
+  65               	.LFB12:
+  37:LPA.c         **** }
+  38:LPA.c         **** 
+  39:LPA.c         **** void loop(void)
+  40:LPA.c         **** {
+  66               		.loc 1 40 0
+  67               		.cfi_startproc
+  68               	/* prologue: function */
+  69               	/* frame size = 0 */
+  70               	/* stack size = 0 */
+  71               	.L__stack_usage = 0
+  41:LPA.c         **** 	ProcessKeys();
+  72               		.loc 1 41 0
+  73 003c 0E94 0000 		call ProcessKeys
+  74               	.LVL6:
+  42:LPA.c         **** 	ProcessLeds();
+  75               		.loc 1 42 0
+  76 0040 0E94 0000 		call ProcessLeds
+  77               	.LVL7:
+  43:LPA.c         **** 	ProcessMessages();
+  78               		.loc 1 43 0
+  79 0044 0E94 0000 		call ProcessMessages
+  80               	.LVL8:
+  44:LPA.c         **** 	ProcessPresurarization();
+  81               		.loc 1 44 0
+  82 0048 0E94 0000 		call ProcessPresurarization
+  83               	.LVL9:
+  45:LPA.c         **** 	ProcessLCD();
+  84               		.loc 1 45 0
+  85 004c 0C94 0000 		jmp ProcessLCD
+  86               	.LVL10:
+  87               		.cfi_endproc
+  88               	.LFE12:
+  90               		.section	.text.startup,"ax",@progbits
+  91               	.global	main
+  93               	main:
+  94               	.LFB13:
+  46:LPA.c         **** }
+  47:LPA.c         **** 
+  48:LPA.c         **** int main(void)
+  49:LPA.c         **** {
+  95               		.loc 1 49 0
+  96               		.cfi_startproc
+  97               	/* prologue: function */
+  98               	/* frame size = 0 */
+  99               	/* stack size = 0 */
+ 100               	.L__stack_usage = 0
+  50:LPA.c         **** 	setup();
+ 101               		.loc 1 50 0
+ 102 0000 0E94 0000 		call setup
+ 103               	.LVL11:
+ 104               	.L4:
+  51:LPA.c         **** 	while (true)
+  52:LPA.c         **** 	{
+  53:LPA.c         **** 		loop();
+ 105               		.loc 1 53 0 discriminator 1
+ 106 0004 0E94 0000 		call loop
+ 107               	.LVL12:
+ 108 0008 00C0      		rjmp .L4
+ 109               		.cfi_endproc
+ 110               	.LFE13:
+ 112               		.section	.progmem.data,"a",@progbits
+ 115               	__c.2287:
+ 116 0000 5653 2020 		.string	"VS        AP    "
+ 116      2020 2020 
+ 116      2020 4150 
+ 116      2020 2020 
+ 116      00
+ 119               	__c.2289:
+ 120 0011 2020 2020 		.string	"         /      "
+ 120      2020 2020 
+ 120      202F 2020 
+ 120      2020 2020 
+ 120      00
+ 121               		.comm	timer,2,1
+ 122               		.text
+ 123               	.Letext0:
+ 124               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+ 125               		.file 3 "./RP6Lib/RP6control/RP6ControlLib.h"
+ 126               		.file 4 "Message.h"
+ 127               		.file 5 "Config.h"
+ 128               		.file 6 "./LPADecompressieLib/LPA_lib_decompressie.h"
+ 129               		.file 7 "ProcessKeys.h"
+ 130               		.file 8 "ProcessLeds.h"
+ 131               		.file 9 "ProcessMessages.h"
+ 132               		.file 10 "ProcessPresurarization.h"
+ 133               		.file 11 "ProcessLCD.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 LPA.c
+D:\System\TEMP\cc7zUqr2.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\cc7zUqr2.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\cc7zUqr2.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\cc7zUqr2.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\cc7zUqr2.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\cc7zUqr2.s:12     .text:00000000 setup
+D:\System\TEMP\cc7zUqr2.s:119    .progmem.data:00000011 __c.2289
+D:\System\TEMP\cc7zUqr2.s:115    .progmem.data:00000000 __c.2287
+D:\System\TEMP\cc7zUqr2.s:64     .text:0000003c loop
+D:\System\TEMP\cc7zUqr2.s:93     .text.startup:00000000 main
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+initRP6Control
+initLCD
+setLEDs
+_showScreenLCD_P
+DecompUnit_reset
+Message_Init
+stopwatches
+config
+ProcessKeys
+ProcessLeds
+ProcessMessages
+ProcessPresurarization
+ProcessLCD
+__do_clear_bss

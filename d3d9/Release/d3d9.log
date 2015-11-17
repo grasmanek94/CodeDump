@@ -1,0 +1,8 @@
+﻿  myIDirect3DSwapChain9.cpp
+     Creating library D:\Development\Projects\d3d9\Release\d3d9.lib and object D:\Development\Projects\d3d9\Release\d3d9.exp
+  Generating code
+  2 of 226 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  d3d9.vcxproj -> D:\Development\Projects\d3d9\Release\d3d9.dll

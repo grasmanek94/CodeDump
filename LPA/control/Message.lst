@@ -1,0 +1,914 @@
+   1               		.file	"Message.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	CalculateCorruptionCheck
+  12               	CalculateCorruptionCheck:
+  13               	.LFB11:
+  14               		.file 1 "Message.c"
+   1:Message.c     **** #if defined(ARDUINO)
+   2:Message.c     **** #include "Arduino.h"
+   3:Message.c     **** int getBufferLength()
+   4:Message.c     **** {
+   5:Message.c     **** 	return Serial.available();
+   6:Message.c     **** }
+   7:Message.c     **** 
+   8:Message.c     **** int readChar()
+   9:Message.c     **** {
+  10:Message.c     **** 	return Serial.read();
+  11:Message.c     **** }
+  12:Message.c     **** 
+  13:Message.c     **** void writeChar(byte b)
+  14:Message.c     **** {
+  15:Message.c     **** 	Serial.write(b);
+  16:Message.c     **** }
+  17:Message.c     **** #else
+  18:Message.c     **** #include <RP6ControlLib.h>
+  19:Message.c     **** #endif
+  20:Message.c     **** 
+  21:Message.c     **** #include "Message.h"
+  22:Message.c     **** 
+  23:Message.c     **** #include <string.h>
+  24:Message.c     **** 
+  25:Message.c     **** typedef struct
+  26:Message.c     **** {
+  27:Message.c     **** 	byte messageBuffer[MS_BufferSize];
+  28:Message.c     **** 	byte offset;
+  29:Message.c     **** 	byte localCorruptionCheck;
+  30:Message.c     **** 	bool corrupt;
+  31:Message.c     **** } SMessage;
+  32:Message.c     **** 
+  33:Message.c     **** SMessage * message;
+  34:Message.c     **** 
+  35:Message.c     **** #define VarDataLength (message->messageBuffer[MS_DataLen])
+  36:Message.c     **** #define VarAction (message->messageBuffer[MS_Action])
+  37:Message.c     **** #define VarCorrChk (message->messageBuffer[MS_CorrCheck])
+  38:Message.c     **** #define VarOffset (message->offset)
+  39:Message.c     **** #define VarBuffer (message->messageBuffer)
+  40:Message.c     **** #define CurrCorrChk (message->localCorruptionCheck)
+  41:Message.c     **** #define VarIsCorrupt (message->corrupt)
+  42:Message.c     **** 
+  43:Message.c     **** byte CalculateCorruptionCheck(void)
+  44:Message.c     **** {
+  15               		.loc 1 44 0
+  16               		.cfi_startproc
+  17 0000 CF93      		push r28
+  18               	.LCFI0:
+  19               		.cfi_def_cfa_offset 3
+  20               		.cfi_offset 28, -2
+  21 0002 DF93      		push r29
+  22               	.LCFI1:
+  23               		.cfi_def_cfa_offset 4
+  24               		.cfi_offset 29, -3
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	/* stack size = 2 */
+  28               	.L__stack_usage = 2
+  29               	.LVL0:
+  45:Message.c     **** 	long sum = 0;
+  46:Message.c     **** 	if (VarDataLength > 0)
+  30               		.loc 1 46 0
+  31 0004 E091 0000 		lds r30,message
+  32 0008 F091 0000 		lds r31,message+1
+  33 000c 8381      		ldd r24,Z+3
+  34 000e 8823      		tst r24
+  35 0010 01F0      		breq .L5
+  36 0012 20E0      		ldi r18,0
+  37 0014 30E0      		ldi r19,0
+  38 0016 40E0      		ldi r20,0
+  39 0018 50E0      		ldi r21,0
+  40 001a BA01      		movw r22,r20
+  41               	.LBB2:
+  47:Message.c     **** 	{
+  48:Message.c     **** 		for (int i = 0; i < VarDataLength; ++i)
+  42               		.loc 1 48 0
+  43 001c A82F      		mov r26,r24
+  44 001e B0E0      		ldi r27,0
+  45               	.LVL1:
+  46               	.L3:
+  47               		.loc 1 48 0 is_stmt 0 discriminator 1
+  48 0020 2A17      		cp r18,r26
+  49 0022 3B07      		cpc r19,r27
+  50 0024 04F4      		brge .L7
+  51 0026 EF01      		movw r28,r30
+  52 0028 C20F      		add r28,r18
+  53 002a D31F      		adc r29,r19
+  49:Message.c     **** 		{
+  50:Message.c     **** 			sum += VarBuffer[i + MS_DataBegin];
+  54               		.loc 1 50 0 is_stmt 1 discriminator 2
+  55 002c 9D81      		ldd r25,Y+5
+  56 002e 490F      		add r20,r25
+  57 0030 511D      		adc r21,__zero_reg__
+  58 0032 611D      		adc r22,__zero_reg__
+  59 0034 711D      		adc r23,__zero_reg__
+  60               	.LVL2:
+  48:Message.c     **** 		{
+  61               		.loc 1 48 0 discriminator 2
+  62 0036 2F5F      		subi r18,-1
+  63 0038 3F4F      		sbci r19,-1
+  64               	.LVL3:
+  65 003a 00C0      		rjmp .L3
+  66               	.L7:
+  67               	.LVL4:
+  68               	.LBE2:
+  51:Message.c     **** 		}
+  52:Message.c     **** 		sum %= MS_CorrModulo;
+  53:Message.c     **** 		sum ^= VarDataLength;
+  69               		.loc 1 53 0
+  70 003c 8427      		eor r24,r20
+  71               	.LVL5:
+  72 003e 00C0      		rjmp .L2
+  73               	.LVL6:
+  74               	.L5:
+  45:Message.c     **** 	if (VarDataLength > 0)
+  75               		.loc 1 45 0
+  76 0040 80E0      		ldi r24,0
+  77 0042 90E0      		ldi r25,0
+  78 0044 DC01      		movw r26,r24
+  79               	.LVL7:
+  80               	.L2:
+  54:Message.c     **** 	}
+  55:Message.c     **** 	sum += VarAction;
+  81               		.loc 1 55 0
+  82 0046 2281      		ldd r18,Z+2
+  56:Message.c     **** 
+  57:Message.c     **** 	return (byte)sum;
+  58:Message.c     **** }
+  83               		.loc 1 58 0
+  84 0048 820F      		add r24,r18
+  85               	/* epilogue start */
+  86 004a DF91      		pop r29
+  87 004c CF91      		pop r28
+  88 004e 0895      		ret
+  89               		.cfi_endproc
+  90               	.LFE11:
+  92               	.global	Message_BeginWrite
+  94               	Message_BeginWrite:
+  95               	.LFB12:
+  59:Message.c     **** 
+  60:Message.c     **** void Message_BeginWrite(void)
+  61:Message.c     **** {
+  96               		.loc 1 61 0
+  97               		.cfi_startproc
+  98               	/* prologue: function */
+  99               	/* frame size = 0 */
+ 100               	/* stack size = 0 */
+ 101               	.L__stack_usage = 0
+  62:Message.c     **** 	VarOffset = 0;
+ 102               		.loc 1 62 0
+ 103 0050 E091 0000 		lds r30,message
+ 104 0054 F091 0000 		lds r31,message+1
+ 105 0058 10A2      		std Z+32,__zero_reg__
+  63:Message.c     **** 	VarDataLength = 0;
+ 106               		.loc 1 63 0
+ 107 005a 1382      		std Z+3,__zero_reg__
+  64:Message.c     **** 	VarAction = 0;
+ 108               		.loc 1 64 0
+ 109 005c 1282      		std Z+2,__zero_reg__
+ 110 005e 0895      		ret
+ 111               		.cfi_endproc
+ 112               	.LFE12:
+ 114               	.global	Message_Init
+ 116               	Message_Init:
+ 117               	.LFB13:
+  65:Message.c     **** }
+  66:Message.c     **** 
+  67:Message.c     **** void Message_Init(void)
+  68:Message.c     **** {
+ 118               		.loc 1 68 0
+ 119               		.cfi_startproc
+ 120               	/* prologue: function */
+ 121               	/* frame size = 0 */
+ 122               	/* stack size = 0 */
+ 123               	.L__stack_usage = 0
+  69:Message.c     **** 	message = malloc(sizeof(SMessage));
+ 124               		.loc 1 69 0
+ 125 0060 83E2      		ldi r24,lo8(35)
+ 126 0062 90E0      		ldi r25,0
+ 127 0064 0E94 0000 		call malloc
+ 128               	.LVL8:
+ 129 0068 FC01      		movw r30,r24
+ 130 006a 9093 0000 		sts message+1,r25
+ 131 006e 8093 0000 		sts message,r24
+  70:Message.c     **** 
+  71:Message.c     **** 	VarBuffer[MS_StartA] = MS_CharA;
+ 132               		.loc 1 71 0
+ 133 0072 86EE      		ldi r24,lo8(-26)
+ 134 0074 8083      		st Z,r24
+  72:Message.c     **** 	VarBuffer[MS_StartB] = MS_CharB;
+ 135               		.loc 1 72 0
+ 136 0076 89EC      		ldi r24,lo8(-55)
+ 137 0078 8183      		std Z+1,r24
+  73:Message.c     **** 	VarBuffer[MS_AlwaysZero] = 0;
+ 138               		.loc 1 73 0
+ 139 007a 178E      		std Z+31,__zero_reg__
+  74:Message.c     **** 
+  75:Message.c     **** 	Message_BeginWrite();
+ 140               		.loc 1 75 0
+ 141 007c 0C94 0000 		jmp Message_BeginWrite
+ 142               	.LVL9:
+ 143               		.cfi_endproc
+ 144               	.LFE13:
+ 146               	.global	Message_GetAction
+ 148               	Message_GetAction:
+ 149               	.LFB14:
+  76:Message.c     **** }
+  77:Message.c     **** 
+  78:Message.c     **** byte Message_GetAction(void)
+  79:Message.c     **** {
+ 150               		.loc 1 79 0
+ 151               		.cfi_startproc
+ 152               	/* prologue: function */
+ 153               	/* frame size = 0 */
+ 154               	/* stack size = 0 */
+ 155               	.L__stack_usage = 0
+  80:Message.c     **** 	return message->messageBuffer[MS_Action];
+ 156               		.loc 1 80 0
+ 157 0080 E091 0000 		lds r30,message
+ 158 0084 F091 0000 		lds r31,message+1
+  81:Message.c     **** }
+ 159               		.loc 1 81 0
+ 160 0088 8281      		ldd r24,Z+2
+ 161 008a 0895      		ret
+ 162               		.cfi_endproc
+ 163               	.LFE14:
+ 165               	.global	Message_SetAction
+ 167               	Message_SetAction:
+ 168               	.LFB15:
+  82:Message.c     **** 
+  83:Message.c     **** void Message_SetAction(byte action)
+  84:Message.c     **** {
+ 169               		.loc 1 84 0
+ 170               		.cfi_startproc
+ 171               	.LVL10:
+ 172               	/* prologue: function */
+ 173               	/* frame size = 0 */
+ 174               	/* stack size = 0 */
+ 175               	.L__stack_usage = 0
+  85:Message.c     **** 	message->messageBuffer[MS_Action] = action;
+ 176               		.loc 1 85 0
+ 177 008c E091 0000 		lds r30,message
+ 178 0090 F091 0000 		lds r31,message+1
+ 179 0094 8283      		std Z+2,r24
+ 180 0096 0895      		ret
+ 181               		.cfi_endproc
+ 182               	.LFE15:
+ 184               	.global	Message_GetDataLenght
+ 186               	Message_GetDataLenght:
+ 187               	.LFB16:
+  86:Message.c     **** }
+  87:Message.c     **** 
+  88:Message.c     **** byte Message_GetDataLenght(void)
+  89:Message.c     **** {
+ 188               		.loc 1 89 0
+ 189               		.cfi_startproc
+ 190               	/* prologue: function */
+ 191               	/* frame size = 0 */
+ 192               	/* stack size = 0 */
+ 193               	.L__stack_usage = 0
+  90:Message.c     **** 	return VarDataLength;
+ 194               		.loc 1 90 0
+ 195 0098 E091 0000 		lds r30,message
+ 196 009c F091 0000 		lds r31,message+1
+  91:Message.c     **** }
+ 197               		.loc 1 91 0
+ 198 00a0 8381      		ldd r24,Z+3
+ 199 00a2 0895      		ret
+ 200               		.cfi_endproc
+ 201               	.LFE16:
+ 203               	.global	Message_Read_byte
+ 205               	Message_Read_byte:
+ 206               	.LFB17:
+  92:Message.c     **** 
+  93:Message.c     **** bool Message_Read_byte(byte* output)
+  94:Message.c     **** {
+ 207               		.loc 1 94 0
+ 208               		.cfi_startproc
+ 209               	.LVL11:
+ 210               	/* prologue: function */
+ 211               	/* frame size = 0 */
+ 212               	/* stack size = 0 */
+ 213               	.L__stack_usage = 0
+  95:Message.c     **** 	byte size = sizeof(byte);
+  96:Message.c     **** 	if (VarOffset + size > VarDataLength)
+ 214               		.loc 1 96 0
+ 215 00a4 E091 0000 		lds r30,message
+ 216 00a8 F091 0000 		lds r31,message+1
+ 217 00ac 20A1      		ldd r18,Z+32
+ 218 00ae 30E0      		ldi r19,0
+ 219 00b0 4381      		ldd r20,Z+3
+ 220 00b2 50E0      		ldi r21,0
+ 221 00b4 2417      		cp r18,r20
+ 222 00b6 3507      		cpc r19,r21
+ 223 00b8 04F4      		brge .L15
+  97:Message.c     **** 	{
+  98:Message.c     **** 		return false;
+  99:Message.c     **** 	}
+ 100:Message.c     **** 	*output = VarBuffer[MS_DataBegin + VarOffset];
+ 224               		.loc 1 100 0
+ 225 00ba E20F      		add r30,r18
+ 226 00bc F31F      		adc r31,r19
+ 227 00be 2581      		ldd r18,Z+5
+ 228 00c0 FC01      		movw r30,r24
+ 229 00c2 2083      		st Z,r18
+ 101:Message.c     **** 	VarOffset += size;
+ 230               		.loc 1 101 0
+ 231 00c4 E091 0000 		lds r30,message
+ 232 00c8 F091 0000 		lds r31,message+1
+ 233 00cc 80A1      		ldd r24,Z+32
+ 234               	.LVL12:
+ 235 00ce 8F5F      		subi r24,lo8(-(1))
+ 236 00d0 80A3      		std Z+32,r24
+ 102:Message.c     **** 	return true;
+ 237               		.loc 1 102 0
+ 238 00d2 81E0      		ldi r24,lo8(1)
+ 239 00d4 0895      		ret
+ 240               	.LVL13:
+ 241               	.L15:
+  98:Message.c     **** 	}
+ 242               		.loc 1 98 0
+ 243 00d6 80E0      		ldi r24,0
+ 244               	.LVL14:
+ 103:Message.c     **** }
+ 245               		.loc 1 103 0
+ 246 00d8 0895      		ret
+ 247               		.cfi_endproc
+ 248               	.LFE17:
+ 250               	.global	Message_Write_byte
+ 252               	Message_Write_byte:
+ 253               	.LFB18:
+ 104:Message.c     **** 
+ 105:Message.c     **** bool Message_Write_byte(byte input)
+ 106:Message.c     **** {
+ 254               		.loc 1 106 0
+ 255               		.cfi_startproc
+ 256               	.LVL15:
+ 257               	/* prologue: function */
+ 258               	/* frame size = 0 */
+ 259               	/* stack size = 0 */
+ 260               	.L__stack_usage = 0
+ 107:Message.c     **** 	byte size = sizeof(byte);
+ 108:Message.c     **** 	if (VarOffset + size > MS_MaxDataLen)
+ 261               		.loc 1 108 0
+ 262 00da E091 0000 		lds r30,message
+ 263 00de F091 0000 		lds r31,message+1
+ 264 00e2 90A1      		ldd r25,Z+32
+ 265 00e4 292F      		mov r18,r25
+ 266 00e6 30E0      		ldi r19,0
+ 267 00e8 2A31      		cpi r18,26
+ 268 00ea 3105      		cpc r19,__zero_reg__
+ 269 00ec 04F4      		brge .L18
+ 109:Message.c     **** 	{
+ 110:Message.c     **** 		return false;
+ 111:Message.c     **** 	}
+ 112:Message.c     **** 	VarBuffer[MS_DataBegin + VarOffset] = input;
+ 270               		.loc 1 112 0
+ 271 00ee DF01      		movw r26,r30
+ 272 00f0 A20F      		add r26,r18
+ 273 00f2 B31F      		adc r27,r19
+ 274 00f4 1596      		adiw r26,5
+ 275 00f6 8C93      		st X,r24
+ 113:Message.c     **** 	VarOffset += size;
+ 276               		.loc 1 113 0
+ 277 00f8 81E0      		ldi r24,lo8(1)
+ 278               	.LVL16:
+ 279 00fa 890F      		add r24,r25
+ 280 00fc 80A3      		std Z+32,r24
+ 114:Message.c     **** 	if (VarOffset > VarDataLength)
+ 281               		.loc 1 114 0
+ 282 00fe 9381      		ldd r25,Z+3
+ 283 0100 9817      		cp r25,r24
+ 284 0102 00F4      		brsh .L19
+ 115:Message.c     **** 	{
+ 116:Message.c     **** 		VarDataLength = VarOffset;
+ 285               		.loc 1 116 0
+ 286 0104 8383      		std Z+3,r24
+ 287               	.LVL17:
+ 288 0106 00C0      		rjmp .L19
+ 289               	.LVL18:
+ 290               	.L18:
+ 110:Message.c     **** 	}
+ 291               		.loc 1 110 0
+ 292 0108 80E0      		ldi r24,0
+ 293               	.LVL19:
+ 294 010a 0895      		ret
+ 295               	.L19:
+ 117:Message.c     **** 	}
+ 118:Message.c     **** 	return true;
+ 296               		.loc 1 118 0
+ 297 010c 81E0      		ldi r24,lo8(1)
+ 119:Message.c     **** }
+ 298               		.loc 1 119 0
+ 299 010e 0895      		ret
+ 300               		.cfi_endproc
+ 301               	.LFE18:
+ 303               	.global	Message_Read_Int16
+ 305               	Message_Read_Int16:
+ 306               	.LFB19:
+ 120:Message.c     **** 
+ 121:Message.c     **** bool Message_Read_Int16(int16_t* output)
+ 122:Message.c     **** {
+ 307               		.loc 1 122 0
+ 308               		.cfi_startproc
+ 309               	.LVL20:
+ 310               	/* prologue: function */
+ 311               	/* frame size = 0 */
+ 312               	/* stack size = 0 */
+ 313               	.L__stack_usage = 0
+ 123:Message.c     **** 	byte size = sizeof(int16_t);
+ 124:Message.c     **** 	if (VarOffset + size > VarDataLength)
+ 314               		.loc 1 124 0
+ 315 0110 E091 0000 		lds r30,message
+ 316 0114 F091 0000 		lds r31,message+1
+ 317 0118 A0A1      		ldd r26,Z+32
+ 318 011a B0E0      		ldi r27,0
+ 319 011c AD01      		movw r20,r26
+ 320 011e 4E5F      		subi r20,-2
+ 321 0120 5F4F      		sbci r21,-1
+ 322 0122 2381      		ldd r18,Z+3
+ 323 0124 30E0      		ldi r19,0
+ 324 0126 2417      		cp r18,r20
+ 325 0128 3507      		cpc r19,r21
+ 326 012a 04F0      		brlt .L22
+ 125:Message.c     **** 	{
+ 126:Message.c     **** 		return false;
+ 127:Message.c     **** 	}
+ 128:Message.c     **** 	//*output = *((int16_t*)& (VarBuffer[MS_DataBegin + VarOffset]));
+ 129:Message.c     **** 	*output = VarBuffer[MS_DataBegin + VarOffset] | VarBuffer[MS_DataBegin + VarOffset + 1] << 8;
+ 327               		.loc 1 129 0
+ 328 012c AE0F      		add r26,r30
+ 329 012e BF1F      		adc r27,r31
+ 330 0130 1696      		adiw r26,6
+ 331 0132 2C91      		ld r18,X
+ 332 0134 1697      		sbiw r26,6
+ 333 0136 30E0      		ldi r19,0
+ 334 0138 322F      		mov r19,r18
+ 335 013a 2227      		clr r18
+ 336 013c 1596      		adiw r26,5
+ 337 013e 4C91      		ld r20,X
+ 338 0140 242B      		or r18,r20
+ 339 0142 DC01      		movw r26,r24
+ 340 0144 2D93      		st X+,r18
+ 341 0146 3C93      		st X,r19
+ 130:Message.c     **** 	//or
+ 131:Message.c     **** 	//*output = VarBuffer[MS_DataBegin + VarOffset] << 8 | VarBuffer[MS_DataBegin + VarOffset + 1];
+ 132:Message.c     **** 	VarOffset += size;
+ 342               		.loc 1 132 0
+ 343 0148 80A1      		ldd r24,Z+32
+ 344               	.LVL21:
+ 345 014a 8E5F      		subi r24,lo8(-(2))
+ 346 014c 80A3      		std Z+32,r24
+ 133:Message.c     **** 	return true;
+ 347               		.loc 1 133 0
+ 348 014e 81E0      		ldi r24,lo8(1)
+ 349 0150 0895      		ret
+ 350               	.LVL22:
+ 351               	.L22:
+ 126:Message.c     **** 	}
+ 352               		.loc 1 126 0
+ 353 0152 80E0      		ldi r24,0
+ 354               	.LVL23:
+ 134:Message.c     **** }
+ 355               		.loc 1 134 0
+ 356 0154 0895      		ret
+ 357               		.cfi_endproc
+ 358               	.LFE19:
+ 360               	.global	Message_Write_Int16
+ 362               	Message_Write_Int16:
+ 363               	.LFB20:
+ 135:Message.c     **** 
+ 136:Message.c     **** bool Message_Write_Int16(int16_t input)
+ 137:Message.c     **** {
+ 364               		.loc 1 137 0
+ 365               		.cfi_startproc
+ 366               	.LVL24:
+ 367               	/* prologue: function */
+ 368               	/* frame size = 0 */
+ 369               	/* stack size = 0 */
+ 370               	.L__stack_usage = 0
+ 138:Message.c     **** 	byte size = sizeof(int16_t);
+ 139:Message.c     **** 	if (VarOffset + size > MS_MaxDataLen)
+ 371               		.loc 1 139 0
+ 372 0156 E091 0000 		lds r30,message
+ 373 015a F091 0000 		lds r31,message+1
+ 374 015e 90A1      		ldd r25,Z+32
+ 375 0160 292F      		mov r18,r25
+ 376 0162 30E0      		ldi r19,0
+ 377 0164 2931      		cpi r18,25
+ 378 0166 3105      		cpc r19,__zero_reg__
+ 379 0168 04F4      		brge .L25
+ 140:Message.c     **** 	{
+ 141:Message.c     **** 		return false;
+ 142:Message.c     **** 	}
+ 143:Message.c     **** 	VarBuffer[MS_DataBegin + VarOffset] = input;
+ 380               		.loc 1 143 0
+ 381 016a DF01      		movw r26,r30
+ 382 016c A20F      		add r26,r18
+ 383 016e B31F      		adc r27,r19
+ 384 0170 1596      		adiw r26,5
+ 385 0172 8C93      		st X,r24
+ 144:Message.c     **** 	VarOffset += size;
+ 386               		.loc 1 144 0
+ 387 0174 82E0      		ldi r24,lo8(2)
+ 388               	.LVL25:
+ 389 0176 890F      		add r24,r25
+ 390 0178 80A3      		std Z+32,r24
+ 145:Message.c     **** 	if (VarOffset > VarDataLength)
+ 391               		.loc 1 145 0
+ 392 017a 9381      		ldd r25,Z+3
+ 393 017c 9817      		cp r25,r24
+ 394 017e 00F4      		brsh .L26
+ 146:Message.c     **** 	{
+ 147:Message.c     **** 		VarDataLength = VarOffset;
+ 395               		.loc 1 147 0
+ 396 0180 8383      		std Z+3,r24
+ 397 0182 00C0      		rjmp .L26
+ 398               	.LVL26:
+ 399               	.L25:
+ 141:Message.c     **** 	}
+ 400               		.loc 1 141 0
+ 401 0184 80E0      		ldi r24,0
+ 402               	.LVL27:
+ 403 0186 0895      		ret
+ 404               	.L26:
+ 148:Message.c     **** 	}
+ 149:Message.c     **** 	return true;
+ 405               		.loc 1 149 0
+ 406 0188 81E0      		ldi r24,lo8(1)
+ 150:Message.c     **** }
+ 407               		.loc 1 150 0
+ 408 018a 0895      		ret
+ 409               		.cfi_endproc
+ 410               	.LFE20:
+ 412               	.global	Message_Receive
+ 414               	Message_Receive:
+ 415               	.LFB21:
+ 151:Message.c     **** 
+ 152:Message.c     **** byte Message_Receive(void)
+ 153:Message.c     **** {
+ 416               		.loc 1 153 0
+ 417               		.cfi_startproc
+ 418 018c FF92      		push r15
+ 419               	.LCFI2:
+ 420               		.cfi_def_cfa_offset 3
+ 421               		.cfi_offset 15, -2
+ 422 018e 0F93      		push r16
+ 423               	.LCFI3:
+ 424               		.cfi_def_cfa_offset 4
+ 425               		.cfi_offset 16, -3
+ 426 0190 1F93      		push r17
+ 427               	.LCFI4:
+ 428               		.cfi_def_cfa_offset 5
+ 429               		.cfi_offset 17, -4
+ 430 0192 CF93      		push r28
+ 431               	.LCFI5:
+ 432               		.cfi_def_cfa_offset 6
+ 433               		.cfi_offset 28, -5
+ 434 0194 DF93      		push r29
+ 435               	.LCFI6:
+ 436               		.cfi_def_cfa_offset 7
+ 437               		.cfi_offset 29, -6
+ 438               	/* prologue: function */
+ 439               	/* frame size = 0 */
+ 440               	/* stack size = 5 */
+ 441               	.L__stack_usage = 5
+ 154:Message.c     **** 	if (getBufferLength() < MS_DataBegin)
+ 442               		.loc 1 154 0
+ 443 0196 0E94 0000 		call getBufferLength
+ 444               	.LVL28:
+ 445 019a 8530      		cpi r24,lo8(5)
+ 446 019c 00F4      		brsh .L28
+ 447               	.L30:
+ 155:Message.c     **** 	{
+ 156:Message.c     **** 		return 0;
+ 448               		.loc 1 156 0
+ 449 019e 80E0      		ldi r24,0
+ 450 01a0 00C0      		rjmp .L29
+ 451               	.L28:
+ 157:Message.c     **** 	}
+ 158:Message.c     **** 
+ 159:Message.c     **** 	if (readChar() != MS_CharA)
+ 452               		.loc 1 159 0
+ 453 01a2 0E94 0000 		call readChar
+ 454               	.LVL29:
+ 455 01a6 863E      		cpi r24,lo8(-26)
+ 456 01a8 01F4      		brne .L30
+ 160:Message.c     **** 	{
+ 161:Message.c     **** 		return 0;
+ 162:Message.c     **** 	}
+ 163:Message.c     **** 
+ 164:Message.c     **** 	if (readChar() != MS_CharB)
+ 457               		.loc 1 164 0
+ 458 01aa 0E94 0000 		call readChar
+ 459               	.LVL30:
+ 460 01ae 893C      		cpi r24,lo8(-55)
+ 461 01b0 01F4      		brne .L30
+ 165:Message.c     **** 	{
+ 166:Message.c     **** 		return 0;
+ 167:Message.c     **** 	}
+ 168:Message.c     **** 
+ 169:Message.c     **** 	Message_BeginWrite();
+ 462               		.loc 1 169 0
+ 463 01b2 0E94 0000 		call Message_BeginWrite
+ 464               	.LVL31:
+ 170:Message.c     **** 
+ 171:Message.c     **** 	VarAction = readChar();
+ 465               		.loc 1 171 0
+ 466 01b6 C091 0000 		lds r28,message
+ 467 01ba D091 0000 		lds r29,message+1
+ 468 01be 0E94 0000 		call readChar
+ 469               	.LVL32:
+ 470 01c2 8A83      		std Y+2,r24
+ 172:Message.c     **** 	VarDataLength = readChar();
+ 471               		.loc 1 172 0
+ 472 01c4 C091 0000 		lds r28,message
+ 473 01c8 D091 0000 		lds r29,message+1
+ 474 01cc 0E94 0000 		call readChar
+ 475               	.LVL33:
+ 476 01d0 8B83      		std Y+3,r24
+ 173:Message.c     **** 
+ 174:Message.c     **** 	if (VarDataLength > MS_MaxDataLen)
+ 477               		.loc 1 174 0
+ 478 01d2 C091 0000 		lds r28,message
+ 479 01d6 D091 0000 		lds r29,message+1
+ 480 01da 8B81      		ldd r24,Y+3
+ 481 01dc 8B31      		cpi r24,lo8(27)
+ 482 01de 00F0      		brlo .L31
+ 175:Message.c     **** 	{
+ 176:Message.c     **** 		VarDataLength = MS_MaxDataLen;
+ 483               		.loc 1 176 0
+ 484 01e0 8AE1      		ldi r24,lo8(26)
+ 485 01e2 8B83      		std Y+3,r24
+ 486               	.L31:
+ 177:Message.c     **** 	}
+ 178:Message.c     **** 
+ 179:Message.c     **** 	VarCorrChk = readChar();
+ 487               		.loc 1 179 0
+ 488 01e4 0E94 0000 		call readChar
+ 489               	.LVL34:
+ 490 01e8 8C83      		std Y+4,r24
+ 180:Message.c     **** 
+ 181:Message.c     **** 	if (getBufferLength() < VarDataLength)
+ 491               		.loc 1 181 0
+ 492 01ea 0E94 0000 		call getBufferLength
+ 493               	.LVL35:
+ 494 01ee E091 0000 		lds r30,message
+ 495 01f2 F091 0000 		lds r31,message+1
+ 496 01f6 9381      		ldd r25,Z+3
+ 497 01f8 8917      		cp r24,r25
+ 498 01fa 00F0      		brlo .L32
+ 499               	.L34:
+ 153:Message.c     **** 	if (getBufferLength() < MS_DataBegin)
+ 500               		.loc 1 153 0
+ 501 01fc 00E0      		ldi r16,0
+ 502 01fe 10E0      		ldi r17,0
+ 503 0200 00C0      		rjmp .L33
+ 504               	.L32:
+ 182:Message.c     **** 	{
+ 183:Message.c     **** 		//sleep 25 ms (well or less..)
+ 184:Message.c     **** 		//delay(25);
+ 185:Message.c     **** 		mSleep(25);
+ 505               		.loc 1 185 0
+ 506 0202 89E1      		ldi r24,lo8(25)
+ 507 0204 90E0      		ldi r25,0
+ 508 0206 0E94 0000 		call mSleep
+ 509               	.LVL36:
+ 186:Message.c     **** 		if (getBufferLength() < VarDataLength)
+ 510               		.loc 1 186 0
+ 511 020a 0E94 0000 		call getBufferLength
+ 512               	.LVL37:
+ 513 020e E091 0000 		lds r30,message
+ 514 0212 F091 0000 		lds r31,message+1
+ 515 0216 9381      		ldd r25,Z+3
+ 516 0218 8917      		cp r24,r25
+ 517 021a 00F4      		brsh .L34
+ 187:Message.c     **** 		{
+ 188:Message.c     **** 			VarIsCorrupt = true;
+ 518               		.loc 1 188 0
+ 519 021c 81E0      		ldi r24,lo8(1)
+ 520 021e 82A3      		std Z+34,r24
+ 189:Message.c     **** 			return MS_DataBegin;//discart message because we are not receiving anything further
+ 521               		.loc 1 189 0
+ 522 0220 85E0      		ldi r24,lo8(5)
+ 523 0222 00C0      		rjmp .L29
+ 524               	.L33:
+ 525               	.LVL38:
+ 526               	.LBB3:
+ 190:Message.c     **** 		}
+ 191:Message.c     **** 	}
+ 192:Message.c     **** 
+ 193:Message.c     **** 	for (int i = 0; i < VarDataLength; ++i)
+ 527               		.loc 1 193 0 discriminator 1
+ 528 0224 C091 0000 		lds r28,message
+ 529 0228 D091 0000 		lds r29,message+1
+ 530 022c FB80      		ldd r15,Y+3
+ 531 022e 2F2D      		mov r18,r15
+ 532 0230 30E0      		ldi r19,0
+ 533 0232 0217      		cp r16,r18
+ 534 0234 1307      		cpc r17,r19
+ 535 0236 04F4      		brge .L37
+ 194:Message.c     **** 	{
+ 195:Message.c     **** 		VarBuffer[MS_DataBegin + i] = readChar();
+ 536               		.loc 1 195 0 discriminator 2
+ 537 0238 0E94 0000 		call readChar
+ 538               	.LVL39:
+ 539 023c C00F      		add r28,r16
+ 540 023e D11F      		adc r29,r17
+ 541 0240 8D83      		std Y+5,r24
+ 193:Message.c     **** 	{
+ 542               		.loc 1 193 0 discriminator 2
+ 543 0242 0F5F      		subi r16,-1
+ 544 0244 1F4F      		sbci r17,-1
+ 545               	.LVL40:
+ 546 0246 00C0      		rjmp .L33
+ 547               	.L37:
+ 548               	.LBE3:
+ 196:Message.c     **** 	}
+ 197:Message.c     **** 
+ 198:Message.c     **** 	CurrCorrChk = CalculateCorruptionCheck();
+ 549               		.loc 1 198 0
+ 550 0248 0E94 0000 		call CalculateCorruptionCheck
+ 551               	.LVL41:
+ 552 024c 89A3      		std Y+33,r24
+ 199:Message.c     **** 	VarIsCorrupt = VarCorrChk != CurrCorrChk;
+ 553               		.loc 1 199 0
+ 554 024e 91E0      		ldi r25,lo8(1)
+ 555 0250 2C81      		ldd r18,Y+4
+ 556 0252 2813      		cpse r18,r24
+ 557 0254 00C0      		rjmp .L36
+ 558 0256 90E0      		ldi r25,0
+ 559               	.L36:
+ 560 0258 9AA3      		std Y+34,r25
+ 200:Message.c     **** 	return MS_DataBegin + VarDataLength;
+ 561               		.loc 1 200 0
+ 562 025a 85E0      		ldi r24,lo8(5)
+ 563 025c 8F0D      		add r24,r15
+ 564               	.LVL42:
+ 565               	.L29:
+ 566               	/* epilogue start */
+ 201:Message.c     **** }
+ 567               		.loc 1 201 0
+ 568 025e DF91      		pop r29
+ 569 0260 CF91      		pop r28
+ 570 0262 1F91      		pop r17
+ 571 0264 0F91      		pop r16
+ 572 0266 FF90      		pop r15
+ 573 0268 0895      		ret
+ 574               		.cfi_endproc
+ 575               	.LFE21:
+ 577               	.global	Message_Send
+ 579               	Message_Send:
+ 580               	.LFB22:
+ 202:Message.c     **** 
+ 203:Message.c     **** byte Message_Send(void)
+ 204:Message.c     **** {
+ 581               		.loc 1 204 0
+ 582               		.cfi_startproc
+ 583 026a 0F93      		push r16
+ 584               	.LCFI7:
+ 585               		.cfi_def_cfa_offset 3
+ 586               		.cfi_offset 16, -2
+ 587 026c 1F93      		push r17
+ 588               	.LCFI8:
+ 589               		.cfi_def_cfa_offset 4
+ 590               		.cfi_offset 17, -3
+ 591 026e CF93      		push r28
+ 592               	.LCFI9:
+ 593               		.cfi_def_cfa_offset 5
+ 594               		.cfi_offset 28, -4
+ 595 0270 DF93      		push r29
+ 596               	.LCFI10:
+ 597               		.cfi_def_cfa_offset 6
+ 598               		.cfi_offset 29, -5
+ 599               	/* prologue: function */
+ 600               	/* frame size = 0 */
+ 601               	/* stack size = 4 */
+ 602               	.L__stack_usage = 4
+ 205:Message.c     **** 	int top = MS_DataBegin + VarDataLength;
+ 603               		.loc 1 205 0
+ 604 0272 C091 0000 		lds r28,message
+ 605 0276 D091 0000 		lds r29,message+1
+ 606 027a 0B81      		ldd r16,Y+3
+ 607 027c 10E0      		ldi r17,0
+ 608 027e 0B5F      		subi r16,-5
+ 609 0280 1F4F      		sbci r17,-1
+ 610               	.LVL43:
+ 206:Message.c     **** 
+ 207:Message.c     **** 	VarCorrChk = CalculateCorruptionCheck();
+ 611               		.loc 1 207 0
+ 612 0282 0E94 0000 		call CalculateCorruptionCheck
+ 613               	.LVL44:
+ 614 0286 8C83      		std Y+4,r24
+ 615               	.LVL45:
+ 616               	.LBB4:
+ 208:Message.c     **** 
+ 209:Message.c     **** 	for (int i = 0; i < top; ++i)
+ 617               		.loc 1 209 0
+ 618 0288 C0E0      		ldi r28,0
+ 619 028a D0E0      		ldi r29,0
+ 620               	.LVL46:
+ 621               	.L40:
+ 210:Message.c     **** 	{
+ 211:Message.c     **** 		writeChar(VarBuffer[i]);
+ 622               		.loc 1 211 0 discriminator 2
+ 623 028c E091 0000 		lds r30,message
+ 624 0290 F091 0000 		lds r31,message+1
+ 625 0294 EC0F      		add r30,r28
+ 626 0296 FD1F      		adc r31,r29
+ 627 0298 8081      		ld r24,Z
+ 628 029a 0E94 0000 		call writeChar
+ 629               	.LVL47:
+ 209:Message.c     **** 	{
+ 630               		.loc 1 209 0 discriminator 2
+ 631 029e 2196      		adiw r28,1
+ 632               	.LVL48:
+ 633 02a0 C017      		cp r28,r16
+ 634 02a2 D107      		cpc r29,r17
+ 635 02a4 04F0      		brlt .L40
+ 636               	.LBE4:
+ 212:Message.c     **** 	}
+ 213:Message.c     **** 	return MS_DataBegin + VarDataLength;
+ 637               		.loc 1 213 0
+ 638 02a6 E091 0000 		lds r30,message
+ 639 02aa F091 0000 		lds r31,message+1
+ 640 02ae 8381      		ldd r24,Z+3
+ 214:Message.c     **** }
+ 641               		.loc 1 214 0
+ 642 02b0 8B5F      		subi r24,lo8(-(5))
+ 643               	/* epilogue start */
+ 644 02b2 DF91      		pop r29
+ 645 02b4 CF91      		pop r28
+ 646               	.LVL49:
+ 647 02b6 1F91      		pop r17
+ 648 02b8 0F91      		pop r16
+ 649               	.LVL50:
+ 650 02ba 0895      		ret
+ 651               		.cfi_endproc
+ 652               	.LFE22:
+ 654               	.global	Message_IsCorrupt
+ 656               	Message_IsCorrupt:
+ 657               	.LFB23:
+ 215:Message.c     **** 
+ 216:Message.c     **** bool Message_IsCorrupt(void)
+ 217:Message.c     **** {
+ 658               		.loc 1 217 0
+ 659               		.cfi_startproc
+ 660               	/* prologue: function */
+ 661               	/* frame size = 0 */
+ 662               	/* stack size = 0 */
+ 663               	.L__stack_usage = 0
+ 218:Message.c     **** 	return VarIsCorrupt;
+ 664               		.loc 1 218 0
+ 665 02bc E091 0000 		lds r30,message
+ 666 02c0 F091 0000 		lds r31,message+1
+ 219:Message.c     **** }
+ 667               		.loc 1 219 0
+ 668 02c4 82A1      		ldd r24,Z+34
+ 669 02c6 0895      		ret
+ 670               		.cfi_endproc
+ 671               	.LFE23:
+ 673               		.comm	message,2,1
+ 674               		.comm	timer,2,1
+ 675               	.Letext0:
+ 676               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+ 677               		.file 3 "d:\\development\\rp6\\lib\\gcc\\avr\\4.8.2\\include\\stddef.h"
+ 678               		.file 4 "Message.h"
+ 679               		.file 5 "./RP6Lib/RP6control/RP6ControlLib.h"
+ 680               		.file 6 "./RP6Lib/RP6common/RP6uart.h"
+ 681               		.file 7 "../PressureControl/MsgStruct.cs"
+ 682               		.file 8 "d:\\development\\rp6\\avr\\include\\stdlib.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Message.c
+D:\System\TEMP\ccUwiDBg.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccUwiDBg.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccUwiDBg.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccUwiDBg.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccUwiDBg.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccUwiDBg.s:12     .text:00000000 CalculateCorruptionCheck
+                            *COM*:00000002 message
+D:\System\TEMP\ccUwiDBg.s:94     .text:00000050 Message_BeginWrite
+D:\System\TEMP\ccUwiDBg.s:116    .text:00000060 Message_Init
+D:\System\TEMP\ccUwiDBg.s:148    .text:00000080 Message_GetAction
+D:\System\TEMP\ccUwiDBg.s:167    .text:0000008c Message_SetAction
+D:\System\TEMP\ccUwiDBg.s:186    .text:00000098 Message_GetDataLenght
+D:\System\TEMP\ccUwiDBg.s:205    .text:000000a4 Message_Read_byte
+D:\System\TEMP\ccUwiDBg.s:252    .text:000000da Message_Write_byte
+D:\System\TEMP\ccUwiDBg.s:305    .text:00000110 Message_Read_Int16
+D:\System\TEMP\ccUwiDBg.s:362    .text:00000156 Message_Write_Int16
+D:\System\TEMP\ccUwiDBg.s:414    .text:0000018c Message_Receive
+D:\System\TEMP\ccUwiDBg.s:579    .text:0000026a Message_Send
+D:\System\TEMP\ccUwiDBg.s:656    .text:000002bc Message_IsCorrupt
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+malloc
+getBufferLength
+readChar
+mSleep
+writeChar
+__do_clear_bss

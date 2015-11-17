@@ -1,0 +1,18 @@
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\bin\Debug\signbluetooth.exe.config
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\bin\Debug\signbluetooth.exe
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\bin\Debug\signbluetooth.pdb
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\obj\Debug\signbluetooth.csprojResolveAssemblyReference.cache
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\obj\Debug\signbluetooth.exe
+c:\users\rafal\documents\visual studio 2015\Projects\signbluetooth\obj\Debug\signbluetooth.pdb
+D:\Development\Projects\signbluetooth\bin\Debug\signbluetooth.exe.config
+D:\Development\Projects\signbluetooth\obj\Debug\signbluetooth.exe
+D:\Development\Projects\signbluetooth\obj\Debug\signbluetooth.pdb
+D:\Development\Projects\signbluetooth\bin\Debug\signbluetooth.exe
+D:\Development\Projects\signbluetooth\bin\Debug\signbluetooth.pdb
+D:\Development\Projects\signbluetooth\obj\Debug\signbluetooth.csprojResolveAssemblyReference.cache
+D:\Development\Projects\copyfiles\bin\Debug\signbluetooth.exe.config
+D:\Development\Projects\copyfiles\obj\Debug\signbluetooth.exe
+D:\Development\Projects\copyfiles\obj\Debug\signbluetooth.pdb
+D:\Development\Projects\copyfiles\bin\Debug\signbluetooth.exe
+D:\Development\Projects\copyfiles\bin\Debug\signbluetooth.pdb
+D:\Development\Projects\copyfiles\obj\Debug\signbluetooth.csprojResolveAssemblyReference.cache

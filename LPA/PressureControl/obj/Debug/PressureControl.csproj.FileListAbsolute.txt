@@ -1,0 +1,10 @@
+D:\Desktop\LPA\PressureControl\bin\Debug\PressureControl.exe.config
+D:\Desktop\LPA\PressureControl\bin\Debug\PressureControl.exe
+D:\Desktop\LPA\PressureControl\bin\Debug\PressureControl.pdb
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.csprojResolveAssemblyReference.cache
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.MainWindow.resources
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.Properties.Resources.resources
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.Searcher.resources
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.csproj.GenerateResource.Cache
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.exe
+D:\Desktop\LPA\PressureControl\obj\Debug\PressureControl.pdb

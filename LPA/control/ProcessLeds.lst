@@ -1,0 +1,104 @@
+   1               		.file	"ProcessLeds.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	ProcessLeds
+  12               	ProcessLeds:
+  13               	.LFB11:
+  14               		.file 1 "ProcessLeds.c"
+   1:ProcessLeds.c **** #include <RP6ControlLib.h>
+   2:ProcessLeds.c **** #include <LPA_lib_decompressie.h>
+   3:ProcessLeds.c **** 
+   4:ProcessLeds.c **** #include "Config.h"
+   5:ProcessLeds.c **** 
+   6:ProcessLeds.c **** void ProcessLeds(void)
+   7:ProcessLeds.c **** {
+  15               		.loc 1 7 0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+   8:ProcessLeds.c **** 	int pressurization = DecompUnit_get_pressure() / 10;
+  21               		.loc 1 8 0
+  22 0000 0E94 0000 		call DecompUnit_get_pressure
+  23               	.LVL0:
+  24 0004 6AE0      		ldi r22,lo8(10)
+  25 0006 70E0      		ldi r23,0
+  26 0008 0E94 0000 		call __udivmodhi4
+  27               	.LVL1:
+   9:ProcessLeds.c **** 	int otherpresurization = config.globalPressureBar * 100;
+  28               		.loc 1 9 0
+  29 000c 4091 0000 		lds r20,config+1
+  30 0010 24E6      		ldi r18,lo8(100)
+  31 0012 429F      		mul r20,r18
+  32 0014 C001      		movw r24,r0
+  33 0016 1124      		clr __zero_reg__
+  34               	.LVL2:
+  10:ProcessLeds.c **** 	if (otherpresurization - 5 < pressurization && pressurization < otherpresurization + 5)
+  35               		.loc 1 10 0
+  36 0018 9C01      		movw r18,r24
+  37 001a 2450      		subi r18,4
+  38 001c 3109      		sbc r19,__zero_reg__
+  39 001e 6217      		cp r22,r18
+  40 0020 7307      		cpc r23,r19
+  41 0022 04F0      		brlt .L2
+  42               		.loc 1 10 0 is_stmt 0 discriminator 1
+  43 0024 0496      		adiw r24,4
+  44               	.LVL3:
+  45 0026 8617      		cp r24,r22
+  46 0028 9707      		cpc r25,r23
+  47 002a 04F0      		brlt .L2
+  11:ProcessLeds.c **** 	{
+  12:ProcessLeds.c **** 		setLEDs(1 << (config.globalPressureBar / 2));
+  48               		.loc 1 12 0 is_stmt 1
+  49 002c 4695      		lsr r20
+  50 002e 81E0      		ldi r24,lo8(1)
+  51               	.LVL4:
+  52 0030 00C0      		rjmp 2f
+  53               		1:
+  54 0032 880F      		lsl r24
+  55               		2:
+  56 0034 4A95      		dec r20
+  57 0036 02F4      		brpl 1b
+  58 0038 00C0      		rjmp .L3
+  59               	.L2:
+  13:ProcessLeds.c **** 	}
+  14:ProcessLeds.c **** 	else
+  15:ProcessLeds.c **** 	{
+  16:ProcessLeds.c **** 		setLEDs(0b0000);
+  60               		.loc 1 16 0
+  61 003a 80E0      		ldi r24,0
+  62               	.L3:
+  63 003c 0C94 0000 		jmp setLEDs
+  64               	.LVL5:
+  65               		.cfi_endproc
+  66               	.LFE11:
+  68               		.comm	timer,2,1
+  69               	.Letext0:
+  70               		.file 2 "d:\\development\\rp6\\avr\\include\\stdint.h"
+  71               		.file 3 "Message.h"
+  72               		.file 4 "Config.h"
+  73               		.file 5 "./RP6Lib/RP6control/RP6ControlLib.h"
+  74               		.file 6 "./LPADecompressieLib/LPA_lib_decompressie.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ProcessLeds.c
+D:\System\TEMP\ccZtfUpS.s:2      *ABS*:0000003e __SP_H__
+D:\System\TEMP\ccZtfUpS.s:3      *ABS*:0000003d __SP_L__
+D:\System\TEMP\ccZtfUpS.s:4      *ABS*:0000003f __SREG__
+D:\System\TEMP\ccZtfUpS.s:5      *ABS*:00000000 __tmp_reg__
+D:\System\TEMP\ccZtfUpS.s:6      *ABS*:00000001 __zero_reg__
+D:\System\TEMP\ccZtfUpS.s:12     .text:00000000 ProcessLeds
+                            *COM*:00000002 timer
+
+UNDEFINED SYMBOLS
+DecompUnit_get_pressure
+__udivmodhi4
+config
+setLEDs
+__do_clear_bss

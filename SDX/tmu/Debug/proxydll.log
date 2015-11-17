@@ -1,0 +1,3 @@
+﻿myIDirect3D9.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+     Creating library Debug\proxydll.lib and object Debug\proxydll.exp
+  proxydll.vcxproj -> D:\Development\GitHub\SDX\tmu\Debug\d3d9.dll

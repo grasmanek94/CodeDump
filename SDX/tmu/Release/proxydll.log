@@ -1,0 +1,8 @@
+﻿  proxydll.cpp
+  myIDirect3D9.cpp
+  myIDirect3DDevice9.cpp
+  myIDirect3DSwapChain9.cpp
+  tmufix.cpp
+  Generating Code...
+     Creating library Release\proxydll.lib and object Release\proxydll.exp
+  proxydll.vcxproj -> D:\Development\GitHub\SDX\tmu\Release\d3d9.dll

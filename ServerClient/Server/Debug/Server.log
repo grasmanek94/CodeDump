@@ -1,0 +1,4 @@
+﻿  server.cxx
+c:\users\rafal\documents\github\serverclient\server\server.cxx(12): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _itoa. See online help for details.
+          c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdlib.h(937) : see declaration of 'itoa'
+  Server.vcxproj -> C:\Users\Rafal\Documents\GitHub\ServerClient\Debug\Server.exe

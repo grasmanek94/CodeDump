@@ -1,0 +1,16 @@
+﻿  enetpp.cxx
+  KeyboardManager.cxx
+  Generating Code...
+  win32.c
+  unix.c
+  protocol.c
+  peer.c
+  packet.c
+  list.c
+  host.c
+  compress.c
+  callbacks.c
+  Generating Code...
+winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in ws2_32.lib(WS2_32.dll); second definition ignored
+winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+  commonlib.vcxproj -> C:\Users\Rafal\Documents\GitHub\ServerClient\Debug\commonlib.lib
